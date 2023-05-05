@@ -19,6 +19,7 @@
     <servlet.version>3.1.0</servlet.version>
     <jstl.version>1.2</jstl.version>
     <mysql.driver.version>8.0.31</mysql.driver.version>
+    <lombok.version>1.18.26</lombok.version>
   </properties>
 
   <dependencies>
@@ -37,10 +38,15 @@
       <artifactId>jstl-api</artifactId>
       <version>${jstl.version}</version>
 	</dependency>
+	<dependency>
+	  <groupId>org.projectlombok</groupId>
+	  <artifactId>lombok</artifactId>
+	  <version>${lombok.version}</version>
+	</dependency>
   </dependencies>
 
   <build>
-    <finalName></finalName>
+    <finalName>btl</finalName>
     <pluginManagement><!-- lock down plugins versions to avoid using Maven defaults (may be moved to parent pom) -->
       <plugins>
         <plugin>
