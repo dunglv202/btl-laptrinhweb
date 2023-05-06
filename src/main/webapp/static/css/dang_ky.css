@@ -1,0 +1,15 @@
+#khung-dang-ky {
+  margin: 0 auto;
+  max-width: 500px;
+  text-align: center;
+}
+#khung-dang-ky .mo-ta {
+  text-align: justify;
+}
+#form-dang-ky {
+  margin-bottom: 1rem;
+}
+#khung-dang-ky .phan-cach .noi-dung {
+  font-size: 1.5rem;
+  font-weight: bold;
+}

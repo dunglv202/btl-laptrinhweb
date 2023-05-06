@@ -1,0 +1,164 @@
+:root {
+  --xanh-la: #48cab2;
+  --den: #333;
+  --vien: #eaeaea;
+  --trang: #fafafa;
+  --mo-ta: #777;
+  --loi: #ff3232;
+  --nen-loi: #ff28280c;
+}
+
+html {
+  font-family: "Segoe UI", sans-serif;
+}
+
+input,
+button {
+  font-size: 1rem;
+}
+
+* {
+  line-height: 1.2;
+}
+
+/* == FORM == */
+form.tieu-chuan {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+form.tieu-chuan .truong:not(.nua),
+form.tieu-chuan .hanh-dong {
+  grid-column: 2 span;
+}
+
+form.tieu-chuan input::placeholder {
+  color: var(--mo-ta);
+}
+
+form.tieu-chuan .truong,
+form.tieu-chuan .hanh-dong {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+form.tieu-chuan .truong {
+  text-align: left;
+}
+
+form.tieu-chuan .truong.bat-buoc > label::after {
+  content: " *";
+  color: red;
+}
+
+form.tieu-chuan .truong input:not([type="checkbox"], [type="radio"]),
+.nut {
+  padding: 0.7rem 1.5rem;
+  border-radius: 0;
+  outline: none;
+  border: solid 1px var(--vien);
+  background-color: transparent;
+}
+
+form.tieu-chuan .truong input:not([type="checkbox"], [type="radio"]):focus {
+  box-shadow: 1px 1px 7px rgba(0, 0, 0, 0.1);
+  border-color: transparent;
+}
+
+/* == NUT == */
+.nut {
+  padding: calc(0.7rem + 1px) 1.5rem;
+  border: none;
+  text-transform: uppercase;
+  color: var(--trang);
+  transition: background-color 0.1s;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+a.nut {
+  text-decoration: none;
+  display: block;
+}
+
+.nut.kieu-1,
+.nut.kieu-2:hover {
+  background-color: var(--xanh-la);
+}
+
+.nut.kieu-2,
+.nut.kieu-1:hover {
+  background-color: var(--den);
+}
+
+.mo-ta {
+  color: var(--mo-ta);
+}
+
+.nut.tao-tai-khoan {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* == LIEN KET == */
+.lien-ket {
+  text-decoration: none;
+  color: inherit;
+  outline: none;
+}
+.gach-chan > span {
+  position: relative;
+}
+.gach-chan > span::after {
+  content: "";
+  display: block;
+  border-bottom: solid 2px var(--den);
+  position: absolute;
+  left: 0;
+  width: 100%;
+  transition: transform 0.1s;
+}
+.gach-chan.mo-rong > span::after {
+  transform: scaleX(0);
+}
+.gach-chan.mo-rong:hover > span::after {
+  transform: scaleX(1);
+}
+
+/* == VACH PHAN CACH == */
+.phan-cach {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin: 1rem;
+}
+.phan-cach .vach {
+  height: 1px;
+  background: var(--vien);
+  flex-grow: 1;
+}
+
+/* == LOI FORM == */
+form.tieu-chuan .truong .thong-bao-loi {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  color: var(--loi);
+}
+form.tieu-chuan .truong.loi input {
+  border-color: var(--loi) !important;
+}
+
+/* == THONG BAO FORM == */
+.thong-bao {
+  padding: 0.7rem 1.5rem;
+  margin: 1rem 0;
+  text-align: justify;
+}
+.thong-bao.loi {
+  background-color: var(--nen-loi);
+  border-left: solid 4px var(--loi);
+  color: var(--loi);
+}

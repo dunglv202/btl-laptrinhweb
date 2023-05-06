@@ -14,5 +14,5 @@ public class NguoiDung {
     private String email;
     private String soDienThoai;
     private String matKhau;
-    private LocalDateTime ngayTaoTaiKhoan;
+    private LocalDateTime thoiGianTao;
 }
