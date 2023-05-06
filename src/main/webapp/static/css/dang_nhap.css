@@ -1,0 +1,11 @@
+#khung-dang-nhap {
+  margin: 0 auto;
+  max-width: 400px;
+  text-align: center;
+}
+#khung-dang-nhap .mo-ta {
+  text-align: justify;
+}
+#form-dang-nhap {
+  margin-bottom: 1rem;
+}
