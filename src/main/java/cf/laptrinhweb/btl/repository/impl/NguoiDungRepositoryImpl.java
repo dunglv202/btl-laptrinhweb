@@ -87,7 +87,7 @@ public class NguoiDungRepositoryImpl implements NguoiDungRepository {
                     mat_khau,
                     thoi_gian_tao)
                 VALUES (?, ?, ?, ?, ?, ?)
-            """);
+            """, Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, nguoiDung.getTenHienThi());
             ps.setString(2, nguoiDung.getTenDangNhap());
             ps.setString(3, nguoiDung.getEmail());
@@ -95,6 +95,9 @@ public class NguoiDungRepositoryImpl implements NguoiDungRepository {
             ps.setString(5, nguoiDung.getMatKhau());
             ps.setTimestamp(6, Timestamp.valueOf(LocalDateTime.now()));
             ps.execute();
+            ResultSet resultSet = ps.getGeneratedKeys();
+            resultSet.next();
+            nguoiDung.setMaNguoiDung(resultSet.getLong(1));
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
