@@ -8,7 +8,6 @@ import lombok.Setter;
 
 public class DanhGia {
     private Long id;
-    private String comment;
     private Boolean like;
 
     private Boolean check;
