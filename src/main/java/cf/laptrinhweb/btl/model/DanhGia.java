@@ -10,6 +10,8 @@ public class DanhGia {
     private Long id;
     private String comment;
     private Boolean like;
+
+    private Boolean check;
     private Integer vote;
     private Long sanPham_id;
 }
