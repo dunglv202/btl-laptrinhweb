@@ -7,4 +7,5 @@ import lombok.Setter;
 @Getter
 public class BinhLuanController {
     private String comment;
+    private int vote;
 }
