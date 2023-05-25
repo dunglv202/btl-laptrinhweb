@@ -33,6 +33,6 @@ public class DangNhapController extends HttpServlet {
             req.setAttribute("thongBao", e.getMessage());
             req.getRequestDispatcher("WEB-INF/dang_nhap.jsp").forward(req, resp);
         }
-        resp.sendRedirect(req.getContextPath());
+        resp.sendRedirect(req.getContextPath() + "/");
     }
 }

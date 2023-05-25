@@ -1,6 +1,7 @@
 package cf.laptrinhweb.btl.service.impl;
 
 import cf.laptrinhweb.btl.constant.LoaiThongTinDangNhap;
+import cf.laptrinhweb.btl.constant.QuyenNguoiDung;
 import cf.laptrinhweb.btl.exception.xacthuc.ThongTinDangNhapDaTonTaiException;
 import cf.laptrinhweb.btl.exception.chung.ThongTinKhongHopLeException;
 import cf.laptrinhweb.btl.exception.xacthuc.SaiThongTinDangNhapException;
@@ -73,10 +74,10 @@ public class XacThucServiceImpl implements XacThucService {
         return nguoiDung;
     }
 
-    private void themQuyenChoNguoiDung(NguoiDung nguoiDung, Set<String> quyenDuocPhan) {
+    private void themQuyenChoNguoiDung(NguoiDung nguoiDung, Set<QuyenNguoiDung> quyenDuocPhan) {
         List<Long> danhSachQuyen = new ArrayList<>();
         quyenDuocPhan.forEach(tenQuyen -> {
-            Quyen quyen = quyenRepository.timBangTen(tenQuyen)
+            Quyen quyen = quyenRepository.timBangTen(tenQuyen.name())
                     .orElseThrow(() -> new RuntimeException("Quyen khong ton tai : " + tenQuyen));
             danhSachQuyen.add(quyen.getMaQuyen());
         });
