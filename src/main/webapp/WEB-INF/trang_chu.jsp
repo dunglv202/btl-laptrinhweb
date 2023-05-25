@@ -13,4 +13,7 @@
             </c:forEach>
         </ul>
     </c:if>
+    <form action="<%=request.getContextPath()%>/dang-xuat" method="POST">
+        <button type="submit">Đăng xuất</button>
+    </form>
 </body>
