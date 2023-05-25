@@ -1,26 +1,36 @@
 package cf.laptrinhweb.btl.service.impl;
 
 import cf.laptrinhweb.btl.constant.LoaiThongTinDangNhap;
-import cf.laptrinhweb.btl.exception.chung.ThongTinDangNhapDaTonTaiException;
+import cf.laptrinhweb.btl.constant.QuyenNguoiDung;
+import cf.laptrinhweb.btl.exception.xacthuc.ThongTinDangNhapDaTonTaiException;
 import cf.laptrinhweb.btl.exception.chung.ThongTinKhongHopLeException;
 import cf.laptrinhweb.btl.exception.xacthuc.SaiThongTinDangNhapException;
 import cf.laptrinhweb.btl.model.NguoiDung;
+import cf.laptrinhweb.btl.model.Quyen;
 import cf.laptrinhweb.btl.repository.NguoiDungRepository;
+import cf.laptrinhweb.btl.repository.PhanQuyenRepository;
+import cf.laptrinhweb.btl.repository.QuyenRepository;
 import cf.laptrinhweb.btl.repository.impl.NguoiDungRepositoryImpl;
+import cf.laptrinhweb.btl.repository.impl.PhanQuyenRepositoryImpl;
+import cf.laptrinhweb.btl.repository.impl.QuyenRepositoryImpl;
 import cf.laptrinhweb.btl.service.XacThucService;
 
 import java.util.*;
 
 import static cf.laptrinhweb.btl.constant.Patterns.*;
+import static cf.laptrinhweb.btl.constant.QuyenNguoiDung.KHACH_HANG;
 
 public class XacThucServiceImpl implements XacThucService {
     private final NguoiDungRepository nguoiDungRepository = new NguoiDungRepositoryImpl();
+    private final QuyenRepository quyenRepository = new QuyenRepositoryImpl();
+    private final PhanQuyenRepository phanQuyenRepository = new PhanQuyenRepositoryImpl();
 
     @Override
     public void dangKy(Map<String, String[]> thongTinDangKy) {
         NguoiDung nguoiDung = taoNguoiDung(thongTinDangKy);
         kiemTraThongTin(nguoiDung);
         nguoiDungRepository.taoMoiNguoiDung(nguoiDung);
+        themQuyenChoNguoiDung(nguoiDung, Set.of(KHACH_HANG));
     }
 
     private void kiemTraThongTin(NguoiDung nguoiDung) {
@@ -59,6 +69,18 @@ public class XacThucServiceImpl implements XacThucService {
             .orElseThrow(SaiThongTinDangNhapException::new);
         if (!nguoiDung.getMatKhau().equals(matKhau))
             throw new SaiThongTinDangNhapException();
+        List<Quyen> dsQuyen = phanQuyenRepository.timBangMaNguoiDung(nguoiDung.getMaNguoiDung());
+        nguoiDung.setDsQuyen(dsQuyen);
         return nguoiDung;
+    }
+
+    private void themQuyenChoNguoiDung(NguoiDung nguoiDung, Set<QuyenNguoiDung> quyenDuocPhan) {
+        List<Long> danhSachQuyen = new ArrayList<>();
+        quyenDuocPhan.forEach(tenQuyen -> {
+            Quyen quyen = quyenRepository.timBangTen(tenQuyen.name())
+                    .orElseThrow(() -> new RuntimeException("Quyen khong ton tai : " + tenQuyen));
+            danhSachQuyen.add(quyen.getMaQuyen());
+        });
+        phanQuyenRepository.themQuyenChoNguoiDung(nguoiDung.getMaNguoiDung(), danhSachQuyen);
     }
 }

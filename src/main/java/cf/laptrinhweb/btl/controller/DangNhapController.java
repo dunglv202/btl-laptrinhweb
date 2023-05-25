@@ -28,11 +28,11 @@ public class DangNhapController extends HttpServlet {
         String matKhau = req.getParameter("matKhau");
         try {
             NguoiDung nguoiDung = xacThucService.dangNhap(tenDangNhap, matKhau);
-            req.getSession().setAttribute(KhoaSession.TEN_NGUOI_DUNG, nguoiDung.getTenHienThi());
+            req.getSession().setAttribute(KhoaSession.NGUOI_DUNG, nguoiDung);
         } catch (SaiThongTinDangNhapException e) {
             req.setAttribute("thongBao", e.getMessage());
             req.getRequestDispatcher("WEB-INF/dang_nhap.jsp").forward(req, resp);
         }
-        resp.sendRedirect(req.getContextPath());
+        resp.sendRedirect(req.getContextPath() + "/");
     }
 }

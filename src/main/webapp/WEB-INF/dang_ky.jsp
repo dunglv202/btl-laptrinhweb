@@ -7,6 +7,8 @@
   <link rel="stylesheet" href="<%=request.getContextPath()%>/static/css/dang_ky.css">
 </head>
 <body>
+  <jsp:include page="components/header.jsp"/>
+
   <div id="khung-dang-ky">
     <h1>Đăng ký tài khoản</h1>
     <h2>Thông tin cá nhân</h2>
@@ -63,7 +65,7 @@
       <span class="noi-dung">Đã có tài khoản</span>
       <div class="vach"></div>
     </div>
-    <a class="nut kieu-2 tao-tai-khoan" href="dang_nhap.html">Đăng nhập</a>
+    <a class="nut kieu-2 tao-tai-khoan" href="<%=request.getContextPath()%>/dang-nhap">Đăng nhập</a>
   </div>
 
   <script type="module" src="<%=request.getContextPath()%>/static/js/form.js"></script>

@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="<%=request.getContextPath()%>/static/css/dang_nhap.css">
 </head>
 <body>
+    <jsp:include page="components/header.jsp"/>
     <div id="khung-dang-nhap">
         <h1>Đã có tài khoản</h1>
         <h2>Đăng nhập</h2>

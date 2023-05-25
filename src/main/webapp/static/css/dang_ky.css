@@ -1,5 +1,5 @@
 #khung-dang-ky {
-  margin: 0 auto;
+  margin: 4rem auto;
   max-width: 500px;
   text-align: center;
 }
@@ -12,4 +12,9 @@
 #khung-dang-ky .phan-cach .noi-dung {
   font-size: 1.5rem;
   font-weight: bold;
+}
+@media screen and (max-width: 620px) {
+  #khung-dang-ky {
+    padding: 0 1rem;
+  }
 }

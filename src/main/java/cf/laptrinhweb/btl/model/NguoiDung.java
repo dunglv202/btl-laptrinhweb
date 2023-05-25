@@ -1,6 +1,8 @@
 package cf.laptrinhweb.btl.model;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -15,4 +17,5 @@ public class NguoiDung {
     private String soDienThoai;
     private String matKhau;
     private LocalDateTime thoiGianTao;
+    private List<Quyen> dsQuyen = new ArrayList<>();
 }
