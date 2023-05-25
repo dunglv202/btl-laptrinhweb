@@ -1,5 +1,5 @@
 #khung-dang-nhap {
-  margin: 0 auto;
+  margin: 4rem auto;
   max-width: 400px;
   text-align: center;
 }
@@ -8,4 +8,9 @@
 }
 #form-dang-nhap {
   margin-bottom: 1rem;
+}
+@media screen and (max-width: 620px) {
+  #khung-dang-nhap {
+    padding: 0 1rem;
+  }
 }
