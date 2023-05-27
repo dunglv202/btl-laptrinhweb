@@ -1,4 +1,4 @@
-package cf.laptrinhweb.btl.controller;
+package cf.laptrinhweb.btl.controller.xacthuc;
 
 import cf.laptrinhweb.btl.constant.KhoaSession;
 import cf.laptrinhweb.btl.exception.xacthuc.SaiThongTinDangNhapException;

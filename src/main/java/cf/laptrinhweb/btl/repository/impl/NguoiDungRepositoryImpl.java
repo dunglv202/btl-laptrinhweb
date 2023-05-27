@@ -102,4 +102,20 @@ public class NguoiDungRepositoryImpl implements NguoiDungRepository {
             throw new RuntimeException(e);
         }
     }
+
+    @Override
+    public void doiMatKhau(NguoiDung nguoiDung, String matKhauMoi) {
+        try (Connection ketNoi = moKetNoi()) {
+            PreparedStatement ps = ketNoi.prepareStatement("""
+                UPDATE nguoi_dung
+                SET mat_khau = ?
+                WHERE ma_nguoi_dung = ?
+            """);
+            ps.setString(1, matKhauMoi);
+            ps.setLong(2, nguoiDung.getMaNguoiDung());
+            ps.executeUpdate();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
 }
