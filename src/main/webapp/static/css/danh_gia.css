@@ -1,0 +1,33 @@
+.danh-gia {
+  display: flex;
+  gap: 0.5rem;
+}
+.danh-gia-cua-toi .sao:hover {
+  cursor: pointer;
+}
+.danh-gia .sao::after {
+  content: "";
+  display: block;
+  width: 32px;
+  height: 32px;
+  background: center / contain url("../images/sao_sang.svg") no-repeat;
+}
+.danh-gia .sao.hien-tai ~ .sao::after {
+  background: center / contain url("../images/sao_trang.svg") no-repeat;
+}
+.danh-gia-cua-toi input {
+  display: none;
+}
+.danh-gia .sao.chon ~ .sao::after {
+  background: center / contain url("../images/sao.svg") no-repeat;
+}
+
+.form-danh-gia .binh-luan textarea {
+  border-radius: 0;
+  outline: none;
+  resize: vertical;
+  width: 100%;
+  box-sizing: border-box;
+  min-height: 70px;
+  padding: 1rem;
+}
