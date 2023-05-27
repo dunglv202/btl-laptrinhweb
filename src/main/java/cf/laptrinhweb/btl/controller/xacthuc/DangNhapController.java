@@ -2,7 +2,7 @@ package cf.laptrinhweb.btl.controller.xacthuc;
 
 import cf.laptrinhweb.btl.constant.KhoaSession;
 import cf.laptrinhweb.btl.exception.xacthuc.SaiThongTinDangNhapException;
-import cf.laptrinhweb.btl.model.NguoiDung;
+import cf.laptrinhweb.btl.entity.NguoiDung;
 import cf.laptrinhweb.btl.service.XacThucService;
 import cf.laptrinhweb.btl.service.impl.XacThucServiceImpl;
 

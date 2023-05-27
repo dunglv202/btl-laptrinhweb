@@ -1,6 +1,6 @@
 package cf.laptrinhweb.btl.mapper;
 
-import cf.laptrinhweb.btl.model.Quyen;
+import cf.laptrinhweb.btl.entity.Quyen;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;

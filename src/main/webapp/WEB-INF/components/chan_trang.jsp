@@ -1,7 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" %>
 
-<link rel="stylesheet" href="<%=request.getContextPath()%>/static/css/chung.css" />
 <link rel="stylesheet" href="<%=request.getContextPath()%>/static/css/chan_trang.css" />
 
 <footer>

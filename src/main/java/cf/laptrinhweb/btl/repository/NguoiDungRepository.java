@@ -1,6 +1,6 @@
 package cf.laptrinhweb.btl.repository;
 
-import cf.laptrinhweb.btl.model.NguoiDung;
+import cf.laptrinhweb.btl.entity.NguoiDung;
 
 import java.util.Optional;
 

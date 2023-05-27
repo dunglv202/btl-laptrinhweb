@@ -14,6 +14,12 @@
   }
 }
 
+header {
+  position: relative;
+  z-index: 100;
+  margin-bottom: 3rem;
+}
+
 header ul {
   list-style-type: none;
   margin: 0;
@@ -305,9 +311,10 @@ header ul {
 }
 @media screen and (max-width: 720px) {
   #dau-trang {
-    flex-direction: column-reverse;
+    grid-template-columns: auto;
+    border-bottom: solid 1px var(--vien);
   }
-  #dau-trang .lien-he {
+  #dau-trang .lien-he, #dau-trang .mang-xa-hoi {
     display: none;
   }
   .an-tren-mobile {

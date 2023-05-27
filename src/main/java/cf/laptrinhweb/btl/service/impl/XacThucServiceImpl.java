@@ -7,8 +7,8 @@ import cf.laptrinhweb.btl.exception.xacthuc.ThongTinDangNhapDaTonTaiException;
 import cf.laptrinhweb.btl.exception.chung.ThongTinKhongHopLeException;
 import cf.laptrinhweb.btl.exception.xacthuc.SaiThongTinDangNhapException;
 import cf.laptrinhweb.btl.helper.HoTroXacThuc;
-import cf.laptrinhweb.btl.model.NguoiDung;
-import cf.laptrinhweb.btl.model.Quyen;
+import cf.laptrinhweb.btl.entity.NguoiDung;
+import cf.laptrinhweb.btl.entity.Quyen;
 import cf.laptrinhweb.btl.repository.NguoiDungRepository;
 import cf.laptrinhweb.btl.repository.PhanQuyenRepository;
 import cf.laptrinhweb.btl.repository.QuyenRepository;
@@ -16,7 +16,6 @@ import cf.laptrinhweb.btl.repository.impl.NguoiDungRepositoryImpl;
 import cf.laptrinhweb.btl.repository.impl.PhanQuyenRepositoryImpl;
 import cf.laptrinhweb.btl.repository.impl.QuyenRepositoryImpl;
 import cf.laptrinhweb.btl.service.XacThucService;
-import com.mysql.cj.util.StringUtils;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.*;

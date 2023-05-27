@@ -1,6 +1,6 @@
 package cf.laptrinhweb.btl.mapper;
 
-import cf.laptrinhweb.btl.model.NguoiDung;
+import cf.laptrinhweb.btl.entity.NguoiDung;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;

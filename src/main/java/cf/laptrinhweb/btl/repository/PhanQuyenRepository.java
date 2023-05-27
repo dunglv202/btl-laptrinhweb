@@ -1,7 +1,7 @@
 package cf.laptrinhweb.btl.repository;
 
-import cf.laptrinhweb.btl.model.PhanQuyen;
-import cf.laptrinhweb.btl.model.Quyen;
+import cf.laptrinhweb.btl.entity.PhanQuyen;
+import cf.laptrinhweb.btl.entity.Quyen;
 
 import java.util.List;
 

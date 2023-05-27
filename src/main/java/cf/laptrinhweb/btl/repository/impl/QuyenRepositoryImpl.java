@@ -1,7 +1,7 @@
 package cf.laptrinhweb.btl.repository.impl;
 
 import cf.laptrinhweb.btl.mapper.QuyenMapper;
-import cf.laptrinhweb.btl.model.Quyen;
+import cf.laptrinhweb.btl.entity.Quyen;
 import cf.laptrinhweb.btl.repository.QuyenRepository;
 
 import java.sql.Connection;

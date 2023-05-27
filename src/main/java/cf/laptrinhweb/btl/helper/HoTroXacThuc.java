@@ -3,7 +3,7 @@ package cf.laptrinhweb.btl.helper;
 import cf.laptrinhweb.btl.constant.KhoaSession;
 import cf.laptrinhweb.btl.constant.QuyenNguoiDung;
 import cf.laptrinhweb.btl.exception.xacthuc.KhongCoQuyenTruyCapException;
-import cf.laptrinhweb.btl.model.NguoiDung;
+import cf.laptrinhweb.btl.entity.NguoiDung;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;

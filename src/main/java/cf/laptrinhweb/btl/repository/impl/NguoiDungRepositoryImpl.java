@@ -1,7 +1,7 @@
 package cf.laptrinhweb.btl.repository.impl;
 
 import cf.laptrinhweb.btl.mapper.NguoiDungMapper;
-import cf.laptrinhweb.btl.model.NguoiDung;
+import cf.laptrinhweb.btl.entity.NguoiDung;
 import cf.laptrinhweb.btl.repository.NguoiDungRepository;
 
 import java.sql.*;

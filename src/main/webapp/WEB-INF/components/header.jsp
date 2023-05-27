@@ -1,7 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" %>
 
-<link rel="stylesheet" href="<%=request.getContextPath()%>/static/css/chung.css" />
 <link rel="stylesheet" href="<%=request.getContextPath()%>/static/css/menu.css" />
 
 <header>
@@ -22,6 +21,16 @@
           <span>Facebook</span>
         </a>
       </li>
+      <li>
+        <a class="lien-ket gach-chan mo-rong sang-phai" href="#">
+          <span>Twitter</span>
+        </a>
+      </li>
+      <li>
+        <a class="lien-ket gach-chan mo-rong sang-phai" href="#">
+          <span>Instagram</span>
+        </a>
+      </li>
     </ul>
   </div>
   <div id="menu-chinh">
@@ -34,7 +43,7 @@
     <nav id="thanh-dieu-huong" class="co-the-dong">
       <ul>
         <li class="muc hien-tai">
-          <a class="lien-ket gach-chan mo-rong">
+          <a class="lien-ket gach-chan mo-rong" href="<%=request.getContextPath()%>/">
             <span>Trang Chủ</span>
           </a>
         </li>
@@ -173,7 +182,7 @@
         <div class="menu-con"></div>
       </div>
       <div class="chuc-nang">
-        <button id="gio-hang" class="nut chuc-nang"></button>
+        <a href="<%=request.getContextPath()%>/gio-hang" id="gio-hang" class="nut chuc-nang"></a>
         <div class="menu-con"></div>
       </div>
     </div>

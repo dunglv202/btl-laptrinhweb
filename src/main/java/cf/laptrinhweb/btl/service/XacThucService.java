@@ -1,6 +1,6 @@
 package cf.laptrinhweb.btl.service;
 
-import cf.laptrinhweb.btl.model.NguoiDung;
+import cf.laptrinhweb.btl.entity.NguoiDung;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Map;

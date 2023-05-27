@@ -3,6 +3,9 @@
   --trang-vua: #dbdbdb;
   --xam: #838383;
 }
+footer {
+  margin-top: 4rem;
+}
 #chan-trang,
 #ban-quyen-trang {
   background: var(--den-dam);
@@ -74,6 +77,9 @@
   }
   #chan-trang .phan.dang-ky-nhan-thong-bao .mo-ta {
     margin-top: 0;
+  }
+  #ban-quyen-trang {
+    text-align: center;
   }
 }
 

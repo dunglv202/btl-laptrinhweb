@@ -1,4 +1,4 @@
-package cf.laptrinhweb.btl.model;
+package cf.laptrinhweb.btl.entity;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;

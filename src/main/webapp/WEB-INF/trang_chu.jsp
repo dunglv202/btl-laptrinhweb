@@ -3,17 +3,11 @@
 <html>
 <head>
     <title>Title</title>
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/static/css/chung.css" />
 </head>
 <body>
-    <h1>Xin chào, ${nguoiDung != null ? nguoiDung.tenHienThi : "Khach"}</h1>
-    <c:if test="${nguoiDung != null}">
-        <ul>
-            <c:forEach var="quyen" items="${nguoiDung.dsQuyen}">
-                <li>${quyen.tenQuyen}</li>
-            </c:forEach>
-        </ul>
-    </c:if>
-    <form action="<%=request.getContextPath()%>/dang-xuat" method="POST">
-        <button type="submit">Đăng xuất</button>
-    </form>
+    <jsp:include page="components/header.jsp"/>
+    <jsp:include page="components/danh_sach_the_loai.jsp"/>
+    <jsp:include page="components/danh_sach_san_pham.jsp"/>
+    <jsp:include page="components/chan_trang.jsp"/>
 </body>
