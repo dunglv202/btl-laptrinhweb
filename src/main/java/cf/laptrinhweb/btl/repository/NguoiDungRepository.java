@@ -10,4 +10,5 @@ public interface NguoiDungRepository extends JdbcRepository<NguoiDung> {
     boolean tonTaiVoiEmail(String email);
     boolean tonTaiVoiSoDienThoai(String soDienThoai);
     void taoMoiNguoiDung(NguoiDung nguoiDung);
+    void doiMatKhau(NguoiDung nguoiDung, String matKhauMoi);
 }

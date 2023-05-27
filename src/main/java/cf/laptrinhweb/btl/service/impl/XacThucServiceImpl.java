@@ -2,9 +2,11 @@ package cf.laptrinhweb.btl.service.impl;
 
 import cf.laptrinhweb.btl.constant.LoaiThongTinDangNhap;
 import cf.laptrinhweb.btl.constant.QuyenNguoiDung;
+import cf.laptrinhweb.btl.exception.xacthuc.MatKhauKhongDungException;
 import cf.laptrinhweb.btl.exception.xacthuc.ThongTinDangNhapDaTonTaiException;
 import cf.laptrinhweb.btl.exception.chung.ThongTinKhongHopLeException;
 import cf.laptrinhweb.btl.exception.xacthuc.SaiThongTinDangNhapException;
+import cf.laptrinhweb.btl.helper.HoTroXacThuc;
 import cf.laptrinhweb.btl.model.NguoiDung;
 import cf.laptrinhweb.btl.model.Quyen;
 import cf.laptrinhweb.btl.repository.NguoiDungRepository;
@@ -14,7 +16,9 @@ import cf.laptrinhweb.btl.repository.impl.NguoiDungRepositoryImpl;
 import cf.laptrinhweb.btl.repository.impl.PhanQuyenRepositoryImpl;
 import cf.laptrinhweb.btl.repository.impl.QuyenRepositoryImpl;
 import cf.laptrinhweb.btl.service.XacThucService;
+import com.mysql.cj.util.StringUtils;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.*;
 
 import static cf.laptrinhweb.btl.constant.Patterns.*;
@@ -72,6 +76,23 @@ public class XacThucServiceImpl implements XacThucService {
         List<Quyen> dsQuyen = phanQuyenRepository.timBangMaNguoiDung(nguoiDung.getMaNguoiDung());
         nguoiDung.setDsQuyen(dsQuyen);
         return nguoiDung;
+    }
+
+    @Override
+    public void doiMatKhau(HttpServletRequest req) {
+        String matKhauCu = req.getParameter("matKhauCu");
+        String matKhauMoi = req.getParameter("matKhauMoi");
+        if (matKhauMoi == null || matKhauCu == null || matKhauCu.isBlank() || matKhauMoi.isBlank()) {
+            throw new ThongTinKhongHopLeException();
+        }
+
+        // kiem tra mat khau cu chinh xac hay khong
+        NguoiDung nguoiDung = HoTroXacThuc.nguoiDungHienTai(req);
+        if (!nguoiDung.getMatKhau().equals(matKhauCu)) {
+            throw new MatKhauKhongDungException();
+        }
+        // doi mat khau moi
+        nguoiDungRepository.doiMatKhau(nguoiDung, matKhauMoi);
     }
 
     private void themQuyenChoNguoiDung(NguoiDung nguoiDung, Set<QuyenNguoiDung> quyenDuocPhan) {

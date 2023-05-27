@@ -65,6 +65,9 @@ header ul {
 #menu-chinh .menu-chuc-nang > .chuc-nang {
   position: relative;
 }
+#menu-chinh .menu-chuc-nang .lien-ket {
+  display: block;
+}
 #menu-chinh .menu-chuc-nang > .chuc-nang .menu-con {
   display: none;
   position: absolute;
@@ -77,6 +80,13 @@ header ul {
   padding: 1rem;
   margin-top: 7px;
   animation: menuTruotLen 0.2s;
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+}
+#nut-dang-xuat {
+  margin: 0;
+  padding: 0;
 }
 #menu-chinh .menu-chuc-nang > .chuc-nang:hover .menu-con {
   display: block;

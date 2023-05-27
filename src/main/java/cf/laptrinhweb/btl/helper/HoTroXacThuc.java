@@ -19,4 +19,14 @@ public class HoTroXacThuc {
             throw new KhongCoQuyenTruyCapException();
         }
     }
+
+    public static void yeuCauDangNhap(HttpServletRequest req) {
+        if (req.getSession().getAttribute(KhoaSession.NGUOI_DUNG) == null) {
+            throw new KhongCoQuyenTruyCapException();
+        }
+    }
+
+    public static NguoiDung nguoiDungHienTai(HttpServletRequest req) {
+        return (NguoiDung) req.getSession().getAttribute(KhoaSession.NGUOI_DUNG);
+    }
 }

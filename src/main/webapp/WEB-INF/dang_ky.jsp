@@ -68,6 +68,8 @@
     <a class="nut kieu-2 tao-tai-khoan" href="<%=request.getContextPath()%>/dang-nhap">Đăng nhập</a>
   </div>
 
+  <jsp:include page="components/chan_trang.jsp"/>
+
   <script type="module" src="<%=request.getContextPath()%>/static/js/form.js"></script>
   <script type="module" src="<%=request.getContextPath()%>/static/js/dang_ky.js"></script>
 </body>

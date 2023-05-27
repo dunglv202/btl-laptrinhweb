@@ -1,4 +1,4 @@
-package cf.laptrinhweb.btl.controller;
+package cf.laptrinhweb.btl.controller.xacthuc;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
