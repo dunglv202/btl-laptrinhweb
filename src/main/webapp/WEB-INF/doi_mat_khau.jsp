@@ -35,6 +35,9 @@
                 </div>
             </form>
         </div>
+
+        <jsp:include page="components/chan_trang.jsp"/>
+
         <script type="module" src="<%=request.getContextPath()%>/static/js/form.js"></script>
         <script type="module" src="<%=request.getContextPath()%>/static/js/doi_mat_khau.js"></script>
     </body>

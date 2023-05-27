@@ -141,11 +141,23 @@
           <ul>
             <c:if test="${daDangNhap}">
               <li>
-                <form method="POST" action="<%=request.getContextPath()%>/dang-xuat">
-                  <button type="submit" class="chuc-nang">
-                    Đăng xuất
+                <a class="lien-ket gach-chan mo-rong sang-phai" href="<%=request.getContextPath()%>/doi-mat-khau">
+                  <span>Đổi mật khẩu</span>
+                </a>
+              </li>
+              <li>
+                <form method="POST" style="margin: 0" action="<%=request.getContextPath()%>/dang-xuat">
+                  <button id="nut-dang-xuat" type="submit" class="chuc-nang gach-chan mo-rong sang-phai">
+                    <span>Đăng xuất</span>
                   </button>
                 </form>
+              </li>
+            </c:if>
+            <c:if test="${!daDangNhap}">
+              <li>
+                <a class="lien-ket gach-chan mo-rong sang-phai" href="<%=request.getContextPath()%>/dang-nhap">
+                  <span>Đăng nhập</span>
+                </a>
               </li>
             </c:if>
           </ul>

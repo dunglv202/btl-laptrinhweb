@@ -40,5 +40,6 @@
         <p class="mo-ta">Đăng ký để nhận được những ưu đãi mới nhất dành riêng cho các khách hàng mới</p>
         <a class="nut kieu-2 tao-tai-khoan" href="<%=request.getContextPath()%>/dang-ky">Tạo tài khoản</a>
     </div>
+    <jsp:include page="components/chan_trang.jsp"/>
 </body>
 </html>
