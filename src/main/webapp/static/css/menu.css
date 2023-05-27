@@ -22,16 +22,25 @@ header ul {
 
 #dau-trang,
 #menu-chinh {
-  display: flex;
+  display: grid;
   gap: 1rem;
-  justify-content: space-between;
+  grid-template-columns: 1fr auto 1fr;
   align-items: center;
   padding: 0 var(--le-trang);
   position: relative;
   background: var(--mau-menu);
+  z-index: 100;
 }
 #dau-trang {
-  padding-block: 10px;
+  padding-block: 14px;
+}
+#dau-trang .lien-he {
+  text-align: left;
+}
+#dau-trang .mang-xa-hoi {
+  display: flex;
+  gap: 0.7rem;
+  justify-content: flex-end;
 }
 #dau-trang {
   text-align: center;
@@ -41,7 +50,11 @@ header ul {
 }
 #an-hien-menu {
   display: none;
+}
+#an-hien-menu button {
   background-image: url("../images/menu.svg");
+  background-repeat: no-repeat;
+  width: 32px;
 }
 #menu-chinh.cuon-theo {
   position: fixed;
@@ -52,11 +65,12 @@ header ul {
   box-sizing: border-box;
 }
 #menu-chinh.cuon-theo + #menu-thay-the {
-  height: 60px;
+  height: 64px;
 }
 #menu-chinh .menu-chuc-nang {
   display: flex;
   gap: 0.7rem;
+  justify-content: flex-end;
 }
 #menu-chinh .menu-chuc-nang .nut.chuc-nang {
   background-size: contain;

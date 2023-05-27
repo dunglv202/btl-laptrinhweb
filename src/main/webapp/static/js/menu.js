@@ -1,4 +1,4 @@
-const nutMoMenu = document.getElementById("an-hien-menu");
+const nutMoMenu = document.querySelector("#an-hien-menu button");
 const menuChinh = document.getElementById("menu-chinh");
 const menuDieuHuong = document.getElementById("thanh-dieu-huong");
 nutMoMenu.addEventListener("click", function () {
