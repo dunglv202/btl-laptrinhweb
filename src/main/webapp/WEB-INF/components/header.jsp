@@ -6,7 +6,10 @@
 
 <header>
   <div id="dau-trang">
-    <div class="lien-he">0333050971</div>
+    <div class="lien-he">
+      <span>SĐT: </span>
+      <strong>0123456789</strong>
+    </div>
     <div class="tin-noi-bat">
       Deal CỰC SỐC giữa tháng 5 này
       <a class="lien-ket gach-chan thu-hep" href="#">
@@ -25,7 +28,9 @@
     <div id="an-hien-menu">
       <button class="nut chuc-nang"></button>
     </div>
-    <div class="logo">LOGO</div>
+    <div class="logo">
+      <img src="<%=request.getContextPath()%>/static/images/logo.svg" height="40"/>
+    </div>
     <nav id="thanh-dieu-huong" class="co-the-dong">
       <ul>
         <li class="muc hien-tai">
