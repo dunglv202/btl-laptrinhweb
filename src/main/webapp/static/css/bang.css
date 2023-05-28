@@ -1,0 +1,66 @@
+.bang {
+  width: 100%;
+  border-collapse: collapse;
+  border: solid 1px var(--vien);
+}
+.bang th {
+  font-weight: bold;
+  background-color: var(--den);
+  padding: 0.9rem 0.5rem;
+  color: var(--trang);
+}
+.bang thead th:not(:last-child) {
+  border-right: solid 1px var(--den-vua);
+}
+.bang tbody td:not(:last-child) {
+  border-right: dashed 1px var(--vien);
+}
+.bang tbody tr {
+  border-bottom: solid 1px var(--vien);
+}
+.bang tbody td {
+  padding: 0.7rem 0.5rem;
+  font-size: 0.98rem;
+}
+.bang .anh-xem-truoc {
+  width: 80px;
+  height: 80px;
+  margin: 0 auto;
+}
+.bang .anh-xem-truoc img {
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+}
+
+.tuong-tac-bang {
+  display: flex;
+  margin: 1.5rem 0;
+  align-items: center;
+  justify-content: space-between;
+}
+.tuong-tac-bang .loc-du-lieu {
+  display: flex;
+}
+.tuong-tac-bang .phan-trang {
+  display: flex;
+  align-items: center;
+}
+.tuong-tac-bang .phan-trang .nut-phan-trang {
+  height: 2rem;
+}
+.tuong-tac-bang .phan-trang input[type="number"] {
+  border: solid 1px var(--vien);
+  padding: 0.7rem;
+  width: 3rem;
+  text-align: center;
+  outline: none;
+  margin: 0 3px;
+}
+.tuong-tac-bang .phan-trang input[type="number"]:focus {
+  border-color: transparent;
+  box-shadow: 1px 1px 7px rgba(0, 0, 0, 0.1);
+}
+.bang .hanh-dong {
+  text-align: center;
+}
