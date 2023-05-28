@@ -1,6 +1,9 @@
 package cf.laptrinhweb.btl.controller;
 
-import cf.laptrinhweb.btl.constant.KhoaSession;
+import cf.laptrinhweb.btl.service.SanPhamService;
+import cf.laptrinhweb.btl.service.TheLoaiService;
+import cf.laptrinhweb.btl.service.impl.SanPhamServiceImpl;
+import cf.laptrinhweb.btl.service.impl.TheLoaiServiceImpl;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -11,9 +14,13 @@ import java.io.IOException;
 
 @WebServlet("")
 public class TrangChuController extends HttpServlet {
+    private final SanPhamService sanPhamService = new SanPhamServiceImpl();
+    private final TheLoaiService theLoaiService = new TheLoaiServiceImpl();
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
-        req.setAttribute("ten_nguoi_dung", req.getSession().getAttribute(KhoaSession.TEN_NGUOI_DUNG));
+        req.setAttribute("danhSachSanPham", sanPhamService.timTatCa(null));
+        req.setAttribute("danhSachTheLoai", theLoaiService.layTatCa());
         req.getRequestDispatcher("/WEB-INF/trang_chu.jsp").forward(req, resp);
     }
 }
