@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app metadata-complete="false" version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
-    <servlet>
-        <servlet-name>DanhGiaController</servlet-name>
-        <servlet-class>cf.laptrinhweb.btl.controller.DanhGiaController</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>DanhGiaController</servlet-name>
-        <url-pattern>/danhgia</url-pattern>
-    </servlet-mapping>
+<web-app
+        version="3.1"
+        metadata-complete="false"
+        xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
+    <error-page>
+        <exception-type>cf.laptrinhweb.btl.exception.xacthuc.KhongCoQuyenTruyCapException</exception-type>
+        <location>/khong-co-quyen</location>
+    </error-page>
 </web-app>

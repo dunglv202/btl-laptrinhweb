@@ -35,7 +35,7 @@ function layGiaTriTruong(truong) {
   return truong.querySelector("input").value;
 }
 
-function themThongBaoLoi(truong, thongBaoLoi) {
+export function themThongBaoLoi(truong, thongBaoLoi) {
   let khungChuaLoi = truong.querySelector(".thong-bao-loi");
   truong.classList.add("loi");
   // them cac loi

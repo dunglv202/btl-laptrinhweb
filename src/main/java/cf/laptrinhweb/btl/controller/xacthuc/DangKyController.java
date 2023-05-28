@@ -1,6 +1,6 @@
-package cf.laptrinhweb.btl.controller;
+package cf.laptrinhweb.btl.controller.xacthuc;
 
-import cf.laptrinhweb.btl.exception.chung.ThongTinDangNhapDaTonTaiException;
+import cf.laptrinhweb.btl.exception.xacthuc.ThongTinDangNhapDaTonTaiException;
 import cf.laptrinhweb.btl.service.XacThucService;
 import cf.laptrinhweb.btl.service.impl.XacThucServiceImpl;
 

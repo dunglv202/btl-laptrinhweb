@@ -1,9 +1,11 @@
 package cf.laptrinhweb.btl.mapper;
 
-import cf.laptrinhweb.btl.model.NguoiDung;
+import cf.laptrinhweb.btl.entity.NguoiDung;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 
 public class NguoiDungMapper {
     public NguoiDung map(ResultSet resultSet) throws SQLException {
@@ -14,6 +16,8 @@ public class NguoiDungMapper {
         nguoiDung.setEmail(resultSet.getString("email"));
         nguoiDung.setSoDienThoai(resultSet.getString("so_dien_thoai"));
         nguoiDung.setMatKhau(resultSet.getString("mat_khau"));
+        nguoiDung.setDaKhoa(resultSet.getBoolean("da_khoa"));
+        nguoiDung.setThoiGianTao(resultSet.getTimestamp("thoi_gian_tao"));
         return nguoiDung;
     }
 }
