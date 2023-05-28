@@ -13,62 +13,6 @@ public class SanPhamServiceImpl implements SanPhamService {
     public List<SanPham> timTatCa(DieuKienSanPham dieuKien) {
         List<SanPham> dsSanPham = new ArrayList<>();
         TheLoai theLoai = new TheLoai(10L, "Ten the Loai");
-        dsSanPham.add(new SanPham(
-            1L,
-            "Ten San Pham",
-            "Mo ta san pham",
-            theLoai,
-            100.0,
-            0
-        ));
-        dsSanPham.add(new SanPham(
-            1L,
-            "Ten San Pham",
-            "Mo ta san pham",
-            theLoai,
-            100.0,
-            0
-        ));
-        dsSanPham.add(new SanPham(
-            1L,
-            "Ten San Pham",
-            "Mo ta san pham",
-            theLoai,
-            100.0,
-            100
-        ));
-        dsSanPham.add(new SanPham(
-            1L,
-            "Ten San Pham",
-            "Mo ta san pham",
-            theLoai,
-            100.0,
-            100
-        ));
-        dsSanPham.add(new SanPham(
-            1L,
-            "Ten San Pham",
-            "Mo ta san pham",
-            theLoai,
-            100.0,
-            100
-        ));
-        dsSanPham.add(new SanPham(
-            1L,
-            "Ten San Pham",
-            "Mo ta san pham",
-            theLoai,
-            100.0,
-            100
-        ));
-        dsSanPham.add(new SanPham(
-            1L,
-            "Ten San Pham",
-            "Mo ta san pham",
-            theLoai,
-            100.0,
-            0
-        ));
         return dsSanPham;
     }
 }

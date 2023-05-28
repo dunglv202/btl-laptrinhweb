@@ -18,37 +18,49 @@
         <div class="anh-san-pham">
           <div class="danh-sach-anh">
             <ul class="danh-sach toi-gian">
-              <li class="anh hien-tai">
-                <img src="https://prestashop17.joommasters.com/yanka/34-large_default/printed-dress.jpg" />
-              </li>
-              <li class="anh">
-                <img src="https://prestashop17.joommasters.com/yanka/37-large_default/printed-dress.jpg" />
-              </li>
-              <li class="anh">
-                <img src="https://prestashop17.joommasters.com/yanka/36-large_default/printed-dress.jpg" />
-              </li>
+              <c:forEach var="anh" items="${sanPham.danhSachAnh}">
+                <li class="anh">
+                  <img src="${anh.duongDan}" />
+                </li>
+              </c:forEach>
             </ul>
           </div>
           <div id="anh-hien-thi" class="anh-hien-thi">
-            <img src="https://prestashop17.joommasters.com/yanka/34-large_default/printed-dress.jpg" />
+            <img src="${sanPham.anhXemTruoc}" />
           </div>
         </div>
         <div class="chi-tiet-san-pham">
           <div class="noi-dung-co-ban">
             <h1 class="ten-san-pham">Tên sản phẩm</h1>
             <div class="gia">
-              <span class="tien-te">50,000</span>
+              <span class="tien-te">${sanPham.gia}</span>
             </div>
             <table class="cac-thuoc-tinh">
               <tr>
-                <th>Tên thuộc tính</th>
-                <td>Giá trị thuộc tính</td>
+                <th>Chất liệu</th>
+                <td>${sanPham.chatLieu.tenChatLieu}</td>
               </tr>
+              <tr>
+                <th>Thương hiệu</th>
+                <td>${sanPham.thuongHieu.tenThuongHieu}</td>
+              </tr>
+              <c:if test="${sanPham.kichThuoc != null}">
+                <tr>
+                  <th>Kích thước</th>
+                  <td>${sanPham.kichThuoc}</td>
+                </tr>
+              </c:if>
+              <c:if test="${sanPham.trongLuong != null}">
+                <tr>
+                  <th>Trọng lượng</th>
+                  <td>${sanPham.trongLuong} gr</td>
+                </tr>
+              </c:if>
             </table>
           </div>
           <div class="hanh-dong">
             <form class="them-vao-gio-hang" action="<%=request.getContextPath()%>/them-vao-gio-hang" method="POST">
-              <input type="hidden" name="maSanPham" value="1" />
+              <input type="hidden" name="maSanPham" value="${sanPham.maSanPham}" />
               <div class="thay-doi-so-luong">
                 <button type="button" class="giam">-</button>
                 <input class="so-luong" name="soLuong" value="1" />
@@ -64,8 +76,7 @@
               <h2 class="tieu-de">Mô tả sản phẩm</h2>
               <div class="noi-dung">
                 <div>
-                  Lorem, ipsum dolor sit amet consectetur adipisicing elit. Corporis eligendi cumque nisi voluptate
-                  fugiat vel laboriosam, optio eos? Magnam, quibusdam.
+                  ${sanPham.moTa}
                 </div>
               </div>
             </div>

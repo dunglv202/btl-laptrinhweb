@@ -177,10 +177,6 @@
           </ul>
         </div>
       </div>
-      <div class="chuc-nang an-tren-mobile">
-        <button id="yeu-thich" class="nut chuc-nang"></button>
-        <div class="menu-con"></div>
-      </div>
       <div class="chuc-nang">
         <a href="<%=request.getContextPath()%>/gio-hang" id="gio-hang" class="nut chuc-nang"></a>
         <div class="menu-con"></div>

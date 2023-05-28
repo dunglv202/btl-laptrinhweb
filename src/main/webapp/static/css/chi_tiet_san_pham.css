@@ -70,6 +70,8 @@
 #chi-tiet-san-pham .cac-thuoc-tinh th {
   font-weight: normal;
   padding-right: 1rem;
+  text-align: left;
+  padding-block: 0.5rem;
 }
 #chi-tiet-san-pham .cac-thuoc-tinh th::after {
   content: ":";

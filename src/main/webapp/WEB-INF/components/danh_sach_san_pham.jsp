@@ -17,7 +17,7 @@
         <div class="hanh-dong">
           <form class="form-them-gio-hang" method="POST" action="<%=request.getContextPath()%>/them-vao-gio-hang">
             <input type="hidden" name="maSanPham" value="${sanPham.maSanPham}" />
-            <button class="them-gio-hang">Thêm vào giỏ hàng</button>
+            <button class="them-gio-hang" ${sanPham.soLuong == 0 ? "disabled" : ""}>Thêm vào giỏ hàng</button>
           </form>
           <div class="gia">$${sanPham.gia}</div>
         </div>
