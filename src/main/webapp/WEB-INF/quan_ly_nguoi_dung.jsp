@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <html>
     <head>
@@ -19,21 +20,20 @@
             <div class="bang-admin">
                 <div class="tuong-tac-bang">
                     <form class="tieu-chuan loc-du-lieu">
-                        <div class="truong">
-                            <div class="tim-kiem">
-                                <input class="o-tim-kiem" placeholder="Từ khoá" />
-                                <button class="nut kieu-1">Tìm kiếm</button>
+                        <div class="bo-loc">
+                            <div class="truong">
+                                <div class="tim-kiem">
+                                    <input class="o-tim-kiem" name="tuKhoa" value="${param.get("tuKhoa")}" placeholder="Từ khoá" />
+                                    <button class="nut kieu-1">Tìm kiếm</button>
+                                </div>
                             </div>
                         </div>
-                        <div class="truong">
-                            <div class="bo-loc"></div>
+                        <div class="phan-trang">
+                            Trang
+                            <input type="number" name="trang" value="${param.get("trang") != null ? param.get("trang") : 1}" min="0" />
+                            của
+                            <span class="tong-so-trang">10</span>
                         </div>
-                    </form>
-                    <form class="phan-trang">
-                        Trang
-                        <input type="number" value="1" min="0" />
-                        của
-                        <span>10</span>
                     </form>
                 </div>
                 <table class="bang">
@@ -49,28 +49,35 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr>
-                        <td>dunglv202</td>
-                        <td>dunglv202@gmail.com</td>
-                        <td>0123456789</td>
-                        <td>
-                            ADMIN, NGUOI_DUNG, KHACH_HANG
-                        </td>
-                        <td>21/02/2012</td>
-                        <td>
-                            <label>
-                                <input type="checkbox" class="chon" checked disabled />
-                                <div class="checkbox-tu-tao"></div>
-                            </label>
-                        </td>
-                        <td class="hanh-dong">
-                            <a href="#">Xem</a>
-                        </td>
-                    </tr>
+                    <c:forEach var="nguoiDung" items="${danhSachNguoiDung}">
+                        <tr>
+                            <td>${nguoiDung.tenDangNhap}</td>
+                            <td>${nguoiDung.email}</td>
+                            <td>${nguoiDung.soDienThoai}</td>
+                            <td>
+                                <ul class="toi-gian">
+                                    <c:forEach var="quyen" items="${nguoiDung.dsQuyen}">
+                                        <li>${quyen.tenQuyen}</li>
+                                    </c:forEach>
+                                </ul>
+                            </td>
+                            <td>
+                                <fmt:formatDate value="${nguoiDung.thoiGianTao}" pattern="dd-MM-yyyy" />
+                            </td>
+                            <td>
+                                <label>
+                                    <input type="checkbox" class="chon" ${nguoiDung.daKhoa ? 'checked' : ''} disabled />
+                                    <div class="checkbox-tu-tao"></div>
+                                </label>
+                            </td>
+                            <td class="hanh-dong">
+                                <a href="#">Xem</a>
+                            </td>
+                        </tr>
+                    </c:forEach>
                     </tbody>
                 </table>
             </div>
-            <div style="height: 1000px"></div>
         </main>
     </body>
 </html>

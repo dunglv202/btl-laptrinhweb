@@ -6,6 +6,6 @@ import lombok.Setter;
 @Getter
 @Setter
 public abstract class PhanTrang {
-    protected Integer trang;
-    protected Integer kichThuoc;
+    protected Integer trang = 0;
+    protected Integer kichThuoc = 5;
 }

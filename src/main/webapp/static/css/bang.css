@@ -34,17 +34,19 @@
 }
 
 .tuong-tac-bang {
-  display: flex;
   margin: 1.5rem 0;
-  align-items: center;
-  justify-content: space-between;
 }
 .tuong-tac-bang .loc-du-lieu {
   display: flex;
 }
 .tuong-tac-bang .phan-trang {
   display: flex;
+  flex-grow: 1;
   align-items: center;
+  justify-content: flex-end;
+}
+.tuong-tac-bang .tong-so-trang {
+  margin-left: 4px;
 }
 .tuong-tac-bang .phan-trang .nut-phan-trang {
   height: 2rem;
@@ -55,7 +57,7 @@
   width: 3rem;
   text-align: center;
   outline: none;
-  margin: 0 3px;
+  margin: 0 6px;
 }
 .tuong-tac-bang .phan-trang input[type="number"]:focus {
   border-color: transparent;

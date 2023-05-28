@@ -9,6 +9,7 @@ import cf.laptrinhweb.btl.exception.xacthuc.SaiThongTinDangNhapException;
 import cf.laptrinhweb.btl.helper.HoTroXacThuc;
 import cf.laptrinhweb.btl.entity.NguoiDung;
 import cf.laptrinhweb.btl.entity.Quyen;
+import cf.laptrinhweb.btl.model.DieuKienNguoiDung;
 import cf.laptrinhweb.btl.repository.NguoiDungRepository;
 import cf.laptrinhweb.btl.repository.PhanQuyenRepository;
 import cf.laptrinhweb.btl.repository.QuyenRepository;
@@ -92,6 +93,16 @@ public class XacThucServiceImpl implements XacThucService {
         }
         // doi mat khau moi
         nguoiDungRepository.doiMatKhau(nguoiDung, matKhauMoi);
+    }
+
+    @Override
+    public List<NguoiDung> timNguoiDung(DieuKienNguoiDung dieuKien) {
+        List<NguoiDung> dsNguoiDung = nguoiDungRepository.timTatCa(dieuKien);
+        dsNguoiDung.forEach(nguoiDung -> {
+            List<Quyen> dsQuyen = phanQuyenRepository.timBangMaNguoiDung(nguoiDung.getMaNguoiDung());
+            nguoiDung.setDsQuyen(dsQuyen);
+        });
+        return dsNguoiDung;
     }
 
     private void themQuyenChoNguoiDung(NguoiDung nguoiDung, Set<QuyenNguoiDung> quyenDuocPhan) {
