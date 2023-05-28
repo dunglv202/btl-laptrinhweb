@@ -3,6 +3,7 @@ package cf.laptrinhweb.btl.service.impl;
 import cf.laptrinhweb.btl.constant.LoaiThongTinDangNhap;
 import cf.laptrinhweb.btl.constant.QuyenNguoiDung;
 import cf.laptrinhweb.btl.exception.xacthuc.MatKhauKhongDungException;
+import cf.laptrinhweb.btl.exception.xacthuc.TaiKhoanBiKhoaException;
 import cf.laptrinhweb.btl.exception.xacthuc.ThongTinDangNhapDaTonTaiException;
 import cf.laptrinhweb.btl.exception.chung.ThongTinKhongHopLeException;
 import cf.laptrinhweb.btl.exception.xacthuc.SaiThongTinDangNhapException;
@@ -73,6 +74,8 @@ public class XacThucServiceImpl implements XacThucService {
             .orElseThrow(SaiThongTinDangNhapException::new);
         if (!nguoiDung.getMatKhau().equals(matKhau))
             throw new SaiThongTinDangNhapException();
+        if (nguoiDung.isDaKhoa())
+            throw new TaiKhoanBiKhoaException();
         List<Quyen> dsQuyen = phanQuyenRepository.timBangMaNguoiDung(nguoiDung.getMaNguoiDung());
         nguoiDung.setDsQuyen(dsQuyen);
         return nguoiDung;
@@ -103,6 +106,11 @@ public class XacThucServiceImpl implements XacThucService {
             nguoiDung.setDsQuyen(dsQuyen);
         });
         return dsNguoiDung;
+    }
+
+    @Override
+    public void doiTrangThaiTaiKhoan(Long maNguoiDung, boolean khoa) {
+        nguoiDungRepository.thayDoiTrangThai(maNguoiDung, khoa);
     }
 
     private void themQuyenChoNguoiDung(NguoiDung nguoiDung, Set<QuyenNguoiDung> quyenDuocPhan) {

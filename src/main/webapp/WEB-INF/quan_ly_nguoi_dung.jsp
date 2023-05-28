@@ -71,7 +71,13 @@
                                 </label>
                             </td>
                             <td class="hanh-dong">
-                                <a href="#">Xem</a>
+                                <form method="POST" action="<%=request.getContextPath()%>/tai-khoan/doi-trang-thai">
+                                    <input type="hidden" name="maNguoiDung" value="${nguoiDung.maNguoiDung}" />
+                                    <input type="hidden" name="khoa" value="${nguoiDung.daKhoa ? false : true}" />
+                                    <button>
+                                        ${nguoiDung.daKhoa ? "Mở khoá" : "Khoá"}
+                                    </button>
+                                </form>
                             </td>
                         </tr>
                     </c:forEach>

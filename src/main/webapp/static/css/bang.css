@@ -66,3 +66,18 @@
 .bang .hanh-dong {
   text-align: center;
 }
+.bang .hanh-dong form {
+  margin: 0;
+}
+.bang .hanh-dong form button, .bang .hanh-dong a {
+  border: solid 1px var(--den);
+  background-color: transparent;
+  text-transform: uppercase;
+  padding-block: 5px 3px;
+  cursor: pointer;
+  font-size: 0.92rem;
+}
+.bang .hanh-dong form button:hover {
+  color: var(--trang);
+  background-color: var(--den);
+}

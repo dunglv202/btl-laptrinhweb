@@ -8,8 +8,7 @@
   --trang: #fafafa;
   --trang-nhat: #f5f5f5;
   --mo-ta: #777;
-  --loi: #ff3232;
-  --nen-loi: #ff28280c;
+  --loi: rgb(255, 97, 97);
   --le-trang: 5rem;
 }
 
@@ -202,16 +201,6 @@ form.tieu-chuan .truong .thong-bao-loi {
 }
 form.tieu-chuan .truong.loi input {
   border-color: var(--loi) !important;
-}
-.thong-bao {
-  padding: 0.7rem 1.5rem;
-  margin: 1rem 0;
-  text-align: justify;
-}
-.thong-bao.loi {
-  background-color: var(--nen-loi);
-  border-left: solid 4px var(--loi);
-  color: var(--loi);
 }
 
 /* == HOP THOAI == */

@@ -11,9 +11,6 @@
     <div id="khung-dang-nhap">
         <h1>Đã có tài khoản</h1>
         <h2>Đăng nhập</h2>
-        <c:if test="${thongBao != null}">
-            <div class="thong-bao loi">${thongBao}</div>
-        </c:if>
         <form id="form-dang-nhap" class="tieu-chuan" method="POST">
             <div class="truong bat-buoc">
                 <label>Tên đăng nhập</label>
@@ -40,6 +37,9 @@
         <p class="mo-ta">Đăng ký để nhận được những ưu đãi mới nhất dành riêng cho các khách hàng mới</p>
         <a class="nut kieu-2 tao-tai-khoan" href="<%=request.getContextPath()%>/dang-ky">Tạo tài khoản</a>
     </div>
-    <jsp:include page="components/chan_trang.jsp"/>
+    <jsp:include page="components/thong_bao.jsp">
+        <jsp:param name="tuDongThongBao" value="6000" />
+    </jsp:include>
+    <jsp:include page="components/chan_trang.jsp" />
 </body>
 </html>

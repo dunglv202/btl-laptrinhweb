@@ -12,4 +12,5 @@ public interface XacThucService {
     NguoiDung dangNhap(String tenDangNhap, String matKhau);
     void doiMatKhau(HttpServletRequest req);
     List<NguoiDung> timNguoiDung(DieuKienNguoiDung dieuKien);
+    void doiTrangThaiTaiKhoan(Long maNguoiDung, boolean khoa);
 }

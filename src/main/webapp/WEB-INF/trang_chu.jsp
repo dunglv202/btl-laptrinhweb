@@ -10,4 +10,5 @@
     <jsp:include page="components/danh_sach_the_loai.jsp"/>
     <jsp:include page="components/danh_sach_san_pham.jsp"/>
     <jsp:include page="components/chan_trang.jsp"/>
+    <jsp:include page="components/thong_bao.jsp"/>
 </body>
