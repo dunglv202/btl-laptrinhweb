@@ -8,7 +8,7 @@
       <div class="hien-thi">
         <a href="lien-ket" class="lien-ket">
           <div class="anh">
-            <img src="<%=request.getContextPath()%>/static/images/logo_trang.svg" />
+            <img src="<%=request.getContextPath()%>/static/images/logo_xanh.svg" />
           </div>
           <div class="ten-muc" style="display: none">
             <span>Trang chính</span>
@@ -67,7 +67,7 @@
         </li>
       </ul>
     </li>
-    <li class="muc co-menu-con">
+    <li class="muc co-menu-con ${param.get("mucHienTai").equals("danh-muc") ? "hien-tai" : ""}">
       <div class="hien-thi">
         <div class="anh">
           <img src="<%=request.getContextPath()%>/static/images/san_pham.svg" />
@@ -89,7 +89,7 @@
         </li>
       </ul>
     </li>
-    <li class="muc hien-tai">
+    <li class="muc">
       <div class="hien-thi">
         <a href="lien-ket" class="lien-ket">
           <div class="anh">
