@@ -9,4 +9,17 @@
         <exception-type>cf.laptrinhweb.btl.exception.xacthuc.KhongCoQuyenTruyCapException</exception-type>
         <location>/khong-co-quyen</location>
     </error-page>
+
+    <filter-mapping>
+        <filter-name>UngDungFilter</filter-name>
+        <url-pattern>*</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>KiemTraBiKhoaFilter</filter-name>
+        <url-pattern>*</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>ThongBaoLoiFilter</filter-name>
+        <url-pattern>*</url-pattern>
+    </filter-mapping>
 </web-app>

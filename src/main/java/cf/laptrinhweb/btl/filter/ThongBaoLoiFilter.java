@@ -8,7 +8,7 @@ import java.io.IOException;
 
 import static cf.laptrinhweb.btl.constant.LoaiLoi.TAI_KHOAN_BI_KHOA;
 
-@WebFilter("*")
+@WebFilter(filterName = "ThongBaoLoiFilter")
 public class ThongBaoLoiFilter implements Filter {
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {}
