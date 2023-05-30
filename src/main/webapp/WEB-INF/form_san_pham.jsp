@@ -8,7 +8,7 @@
         <link rel="stylesheet" href="<%=request.getContextPath()%>/static/css/chung.css">
         <link rel="stylesheet" href="<%=request.getContextPath()%>/static/css/trang_admin.css">
         <link rel="stylesheet" href="<%=request.getContextPath()%>/static/css/form_admin.css">
-<%--        <link rel="stylesheet" href="<%=request.getContextPath()%>/static/css/quan_ly_nguoi_dung.css">--%>
+        <link rel="stylesheet" href="<%=request.getContextPath()%>/static/css/form_san_pham.css">
     </head>
     <body>
         <jsp:include page="components/menu_admin.jsp">
@@ -19,7 +19,13 @@
             <h1 class="tieu-de-trang">
                 Thêm mới sản phẩm
             </h1>
-            <form id="form-admin" class="tieu-chuan" method="POST">
+            <form id="form-san-pham" class="tieu-chuan form-admin" method="POST" enctype="multipart/form-data">
+                <div class="truong">
+                    <label>Ảnh sản phẩm</label>
+                    <jsp:include page="components/khung_tai_anh_len.jsp">
+                        <jsp:param name="tenTruongAnh" value="anh" />
+                    </jsp:include>
+                </div>
                 <div class="truong bat-buoc" data-dieu-kien="batBuoc">
                     <label>Tên sản phẩm</label>
                     <input type="text" name="tenSanPham" />
@@ -31,8 +37,11 @@
                 <div class="truong">
                     <label>Phân loại</label>
                     <select name="theLoai">
-                        <option value="1">Phân loại 1</option>
-                        <option value="2">Phân loại 2</option>
+                        <c:forEach var="theLoai" items="${danhSachTheLoai}">
+                            <option value="${theLoai.maTheLoai}">
+                                ${theLoai.tenTheLoai}
+                            </option>
+                        </c:forEach>
                     </select>
                 </div>
                 <div class="truong bat-buoc" data-dieu-kien="batBuoc khongAm">
@@ -46,15 +55,21 @@
                 <div class="truong">
                     <label>Chất liệu</label>
                     <select name="chatLieu">
-                        <option value="1">Inox</option>
-                        <option value="2">Nhựa</option>
+                        <c:forEach var="chatLieu" items="${danhSachChatLieu}">
+                            <option value="${chatLieu.maChatLieu}">
+                                    ${chatLieu.tenChatLieu}
+                            </option>
+                        </c:forEach>
                     </select>
                 </div>
                 <div class="truong">
                     <label>Thương hiệu</label>
                     <select name="thuongHieu">
-                        <option value="1">Không tên</option>
-                        <option value="2">Mới nổi</option>
+                        <c:forEach var="thuongHieu" items="${danhSachThuongHieu}">
+                            <option value="${thuongHieu.maThuongHieu}">
+                                ${thuongHieu.tenThuongHieu}
+                            </option>
+                        </c:forEach>
                     </select>
                 </div>
                 <div class="truong">

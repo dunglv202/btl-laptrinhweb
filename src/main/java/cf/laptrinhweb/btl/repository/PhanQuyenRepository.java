@@ -5,7 +5,7 @@ import cf.laptrinhweb.btl.entity.Quyen;
 
 import java.util.List;
 
-public interface PhanQuyenRepository extends JdbcRepository<PhanQuyen> {
+public interface PhanQuyenRepository extends JdbcRepository {
     void themQuyenChoNguoiDung(Long maNguoiDung, List<Long> quyenDuocPhan);
     List<Quyen> timBangMaNguoiDung(Long maNguoiDung);
 }

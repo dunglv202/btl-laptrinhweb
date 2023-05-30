@@ -1,17 +1,17 @@
 package cf.laptrinhweb.btl.repository.impl;
 
-import cf.laptrinhweb.btl.mapper.QuyenMapper;
+import cf.laptrinhweb.btl.entity.SanPham;
 import cf.laptrinhweb.btl.model.ThongTinSanPham;
 import cf.laptrinhweb.btl.repository.SanPhamRepository;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.util.Optional;
+import java.sql.Statement;
 
 public class SanPhamRepositoryImpl implements SanPhamRepository {
     @Override
-    public void taoMoi(ThongTinSanPham thongTinSanPham) {
+    public SanPham taoMoi(ThongTinSanPham thongTinSanPham) {
         try (Connection ketNoi = moKetNoi()) {
             PreparedStatement ps = ketNoi.prepareStatement("""
                 INSERT INTO san_pham (
@@ -26,7 +26,7 @@ public class SanPhamRepositoryImpl implements SanPhamRepository {
                     ma_chat_lieu,
                     ma_thuong_hieu)
                 VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-            """);
+            """, Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, thongTinSanPham.getTen());
             ps.setString(2, thongTinSanPham.getAnhXemTruoc());
             ps.setString(3, thongTinSanPham.getMoTa());
@@ -38,6 +38,9 @@ public class SanPhamRepositoryImpl implements SanPhamRepository {
             ps.setLong(9, thongTinSanPham.getMaChatLieu());
             ps.setLong(10, thongTinSanPham.getMaThuongHieu());
             ps.execute();
+            ResultSet resultSet = ps.getGeneratedKeys();
+            resultSet.next();
+            return SanPham.builder().maSanPham(resultSet.getLong(1)).build();
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
