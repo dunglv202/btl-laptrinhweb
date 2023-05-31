@@ -19,12 +19,16 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import static cf.laptrinhweb.btl.helper.HoTroXacThuc.yeuCauQuyen;
+
 @WebServlet("/quan-ly/nguoi-dung/phan-quyen")
 public class PhanQuyenController extends HttpServlet {
     private final XacThucService xacThucService = new XacThucServiceImpl();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        yeuCauQuyen(req, List.of(QuyenNguoiDung.ADMIN));
+
         Long maNguoiDung = Long.parseLong(req.getParameter("maNguoiDung"));
         NguoiDung nguoiDung = xacThucService.timNguoiDung(DieuKienNguoiDung.builder().maNguoiDung(maNguoiDung).build())
                 .get(0);
@@ -35,6 +39,8 @@ public class PhanQuyenController extends HttpServlet {
     @Override
     @SuppressWarnings("unchecked")
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        yeuCauQuyen(req, List.of(QuyenNguoiDung.ADMIN));
+
         Set<QuyenNguoiDung> quyenDuocChon = layDanhSachQuyen(req);
         NguoiDung nguoiDung = xacThucService.timNguoiDung(
             DieuKienNguoiDung.builder()

@@ -1,6 +1,7 @@
 package cf.laptrinhweb.btl.controller.xacthuc;
 
 import cf.laptrinhweb.btl.constant.KhoaSession;
+import cf.laptrinhweb.btl.constant.QuyenNguoiDung;
 import cf.laptrinhweb.btl.exception.xacthuc.SaiThongTinDangNhapException;
 import cf.laptrinhweb.btl.entity.NguoiDung;
 import cf.laptrinhweb.btl.exception.xacthuc.TaiKhoanBiKhoaException;
@@ -16,6 +17,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.net.URL;
 import java.util.Set;
 
 @WebServlet("/dang-nhap")
@@ -36,7 +38,8 @@ public class DangNhapController extends HttpServlet {
             NguoiDung nguoiDung = xacThucService.dangNhap(tenDangNhap, matKhau);
             req.getSession().setAttribute(KhoaSession.NGUOI_DUNG, nguoiDung);
             ((Set<Long>) req.getServletContext().getAttribute(KhoaSession.BUOC_DANG_XUAT)).remove(nguoiDung.getMaNguoiDung());
-            resp.sendRedirect(req.getContextPath() + "/");
+            String diaChiDieuHuong = layDiaChiDieuHuong(req, nguoiDung);
+            resp.sendRedirect(diaChiDieuHuong);
         } catch (SaiThongTinDangNhapException e) {
             req.setAttribute("thongBao", new ThongBaoSaiThongTinDangNhap());
             req.getRequestDispatcher("WEB-INF/dang_nhap.jsp").forward(req, resp);
@@ -44,5 +47,22 @@ public class DangNhapController extends HttpServlet {
             req.setAttribute("thongBao", new ThongBaoTkBiKhoa());
             req.getRequestDispatcher("WEB-INF/dang_nhap.jsp").forward(req, resp);
         }
+    }
+
+    private String layDiaChiDieuHuong(HttpServletRequest request, NguoiDung nguoiDung) {
+        String diaChiDieuHuong = request.getParameter("dieuHuong");
+        if (diaChiDieuHuong != null
+            && diaChiDieuHuong.startsWith(request.getContextPath())
+            && diaChiDieuHuong.equals(request.getContextPath() + "/dang-nhap")
+        ) {
+            return diaChiDieuHuong;
+        } else if (nguoiDung.coQuyen(QuyenNguoiDung.ADMIN)) {
+            diaChiDieuHuong = "/quan-ly/nguoi-dung";
+        } else if (nguoiDung.coQuyen(QuyenNguoiDung.QUAN_LY)) {
+            diaChiDieuHuong = "/quan-ly/san-pham/tao-moi";
+        } else {
+            diaChiDieuHuong = "/";
+        }
+        return request.getContextPath() + diaChiDieuHuong;
     }
 }

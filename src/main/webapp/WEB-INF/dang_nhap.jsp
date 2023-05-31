@@ -12,6 +12,7 @@
         <h1>Đã có tài khoản</h1>
         <h2>Đăng nhập</h2>
         <form id="form-dang-nhap" class="tieu-chuan" method="POST">
+            <input type="hidden" name="dieuHuong" value="<%=request.getHeader("Referer")%>"/>
             <div class="truong bat-buoc">
                 <label>Tên đăng nhập</label>
                 <input
