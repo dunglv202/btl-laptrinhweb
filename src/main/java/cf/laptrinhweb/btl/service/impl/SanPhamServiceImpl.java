@@ -2,6 +2,7 @@ package cf.laptrinhweb.btl.service.impl;
 
 import cf.laptrinhweb.btl.entity.SanPham;
 import cf.laptrinhweb.btl.entity.TheLoai;
+import cf.laptrinhweb.btl.exception.sanpham.SanPhamKhongTonTai;
 import cf.laptrinhweb.btl.helper.HoTroLuuTru;
 import cf.laptrinhweb.btl.model.DieuKienSanPham;
 import cf.laptrinhweb.btl.model.ThongTinSanPham;
@@ -34,5 +35,13 @@ public class SanPhamServiceImpl implements SanPhamService {
         if (!dsAnh.isEmpty()) thongTinSanPham.setAnhXemTruoc(dsDuongDan.get(0));
         SanPham sanPham = sanPhamRepository.taoMoi(thongTinSanPham);
         anhSanPhamRepository.themTatCaAnh(sanPham, dsDuongDan);
+    }
+
+    @Override
+    public SanPham timTheoMa(Long maSanPham) {
+        SanPham sanPham = sanPhamRepository.timTheoMa(maSanPham)
+            .orElseThrow(SanPhamKhongTonTai::new);
+        sanPham.setDanhSachAnh(anhSanPhamRepository.timTheoMaSanPham(maSanPham));
+        return sanPham;
     }
 }

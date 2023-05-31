@@ -11,6 +11,13 @@ import java.io.IOException;
 public class KhongCoQuyenController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        resp.setStatus(403);
+        req.getRequestDispatcher("/WEB-INF/khong_tim_thay.jsp").forward(req, resp);
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        resp.setStatus(403);
         req.getRequestDispatcher("/WEB-INF/khong_tim_thay.jsp").forward(req, resp);
     }
 }

@@ -1,5 +1,6 @@
 package cf.laptrinhweb.btl.controller.sanpham;
 
+import cf.laptrinhweb.btl.constant.QuyenNguoiDung;
 import cf.laptrinhweb.btl.model.ThongTinSanPham;
 import cf.laptrinhweb.btl.repository.ChatLieuRepository;
 import cf.laptrinhweb.btl.repository.TheLoaiRepository;
@@ -22,6 +23,7 @@ import java.util.List;
 import java.util.Objects;
 
 import static cf.laptrinhweb.btl.helper.HoTroRequest.layThamSo;
+import static cf.laptrinhweb.btl.helper.HoTroXacThuc.yeuCauQuyen;
 
 @WebServlet("/quan-ly/san-pham/tao-moi")
 @MultipartConfig
@@ -33,6 +35,7 @@ public class TaoMoiSanPhamController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        yeuCauQuyen(req, List.of(QuyenNguoiDung.QUAN_LY));
         req.setAttribute("danhSachTheLoai", theLoaiRepository.layTatCa());
         req.setAttribute("danhSachThuongHieu", thuongHieuRepository.layTatCa());
         req.setAttribute("danhSachChatLieu", chatLieuRepository.layTatCa());
@@ -41,10 +44,11 @@ public class TaoMoiSanPhamController extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        yeuCauQuyen(req, List.of(QuyenNguoiDung.QUAN_LY));
         ThongTinSanPham sanPhamMoi = taoThongTinSanPham(req);
         List<Part> fileParts = req.getParts()
             .stream()
-            .filter(part -> "anh".equalsIgnoreCase(part.getName()))
+            .filter(part -> "anh".equalsIgnoreCase(part.getName()) && part.getSize() > 0)
             .toList();
         sanPhamService.taoSanPham(sanPhamMoi, fileParts);
         resp.sendRedirect(req.getContextPath() + "/quan-ly/san-pham/tao-moi");

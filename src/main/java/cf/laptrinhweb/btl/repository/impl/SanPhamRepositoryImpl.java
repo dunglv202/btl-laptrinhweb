@@ -1,6 +1,7 @@
 package cf.laptrinhweb.btl.repository.impl;
 
 import cf.laptrinhweb.btl.entity.SanPham;
+import cf.laptrinhweb.btl.mapper.SanPhamMapper;
 import cf.laptrinhweb.btl.model.ThongTinSanPham;
 import cf.laptrinhweb.btl.repository.SanPhamRepository;
 
@@ -8,6 +9,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.Optional;
 
 public class SanPhamRepositoryImpl implements SanPhamRepository {
     @Override
@@ -43,6 +45,28 @@ public class SanPhamRepositoryImpl implements SanPhamRepository {
             return SanPham.builder().maSanPham(resultSet.getLong(1)).build();
         } catch (Exception e) {
             throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public Optional<SanPham> timTheoMa(Long maSanPham) {
+        try (Connection ketNoi = moKetNoi()) {
+            PreparedStatement ps = ketNoi.prepareStatement("""
+                SELECT *
+                FROM san_pham
+                LEFT JOIN the_loai tl
+                    ON san_pham.ma_the_loai = tl.ma_the_loai
+                LEFT JOIN thuong_hieu th
+                    ON san_pham.ma_thuong_hieu = th.ma_thuong_hieu
+                LEFT JOIN chat_lieu cl
+                    ON san_pham.ma_chat_lieu = cl.ma_chat_lieu
+                WHERE ma_san_pham = ?
+            """);
+            ps.setLong(1, maSanPham);
+            ResultSet resultSet = ps.executeQuery();
+            return resultSet.next() ? Optional.of(new SanPhamMapper().map(resultSet)) : Optional.empty();
+        } catch (Exception e) {
+            throw new RuntimeException("Khong the tim san pham theo ma", e);
         }
     }
 }
