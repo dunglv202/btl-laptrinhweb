@@ -113,13 +113,39 @@ public class XacThucServiceImpl implements XacThucService {
         nguoiDungRepository.thayDoiTrangThai(maNguoiDung, khoa);
     }
 
-    private void themQuyenChoNguoiDung(NguoiDung nguoiDung, Set<QuyenNguoiDung> quyenDuocPhan) {
-        List<Long> danhSachQuyen = new ArrayList<>();
-        quyenDuocPhan.forEach(tenQuyen -> {
-            Quyen quyen = quyenRepository.timBangTen(tenQuyen.name())
-                    .orElseThrow(() -> new RuntimeException("Quyen khong ton tai : " + tenQuyen));
-            danhSachQuyen.add(quyen.getMaQuyen());
+    @Override
+    public void phanQuyen(NguoiDung nguoiDung, Set<QuyenNguoiDung> quyenDuocChon) {
+        Set<QuyenNguoiDung> quyenDeThem = new HashSet<>();
+        quyenDuocChon.forEach(quyen -> {
+            if (!nguoiDung.coQuyen(quyen)) quyenDeThem.add(quyen);
         });
-        phanQuyenRepository.themQuyenChoNguoiDung(nguoiDung.getMaNguoiDung(), danhSachQuyen);
+        themQuyenChoNguoiDung(nguoiDung, quyenDeThem);
+
+        Set<QuyenNguoiDung> quyenDeHuy = new HashSet<>();
+        for (Quyen quyen : nguoiDung.getDsQuyen()) {
+            QuyenNguoiDung quyenSanCo = QuyenNguoiDung.valueOf(quyen.getTenQuyen());
+            if (!quyenDuocChon.contains(quyenSanCo)) { // quyen duoc chon khong chua quyen hien dang co
+                quyenDeHuy.add(quyenSanCo);
+            }
+        }
+        huyQuyenNguoiDung(nguoiDung, quyenDeHuy);
+    }
+
+    private void themQuyenChoNguoiDung(NguoiDung nguoiDung, Set<QuyenNguoiDung> quyenDuocPhan) {
+        if (quyenDuocPhan.isEmpty()) return;
+        phanQuyenRepository.themQuyenChoNguoiDung(nguoiDung.getMaNguoiDung(), layDanhSachMaQuyen(quyenDuocPhan));
+    }
+
+    private void huyQuyenNguoiDung(NguoiDung nguoiDung, Set<QuyenNguoiDung> quyenDeHuy) {
+        if (quyenDeHuy.isEmpty()) return;
+        phanQuyenRepository.huyQuyenNguoiDung(nguoiDung.getMaNguoiDung(), layDanhSachMaQuyen(quyenDeHuy));
+    }
+
+    private List<Long> layDanhSachMaQuyen(Set<QuyenNguoiDung> dsQuyen) {
+        return dsQuyen.stream().map(tenQuyen -> {
+            Quyen quyen = quyenRepository.timBangTen(tenQuyen.name())
+                .orElseThrow(() -> new RuntimeException("Quyen khong ton tai : " + tenQuyen));
+            return quyen.getMaQuyen();
+        }).toList();
     }
 }

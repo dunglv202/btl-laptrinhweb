@@ -11,7 +11,9 @@
         <link rel="stylesheet" href="<%=request.getContextPath()%>/static/css/quan_ly_nguoi_dung.css">
     </head>
     <body>
-        <jsp:include page="components/menu_admin.jsp" />
+        <jsp:include page="components/menu_admin.jsp">
+            <jsp:param name="mucHienTai" value="nguoi-dung"/>
+        </jsp:include>
 
         <main>
             <h1 class="tieu-de-trang">
@@ -78,6 +80,9 @@
                                         ${nguoiDung.daKhoa ? "Mở khoá" : "Khoá"}
                                     </button>
                                 </form>
+                                <a href="<%=request.getContextPath()%>/quan-ly/nguoi-dung/phan-quyen?maNguoiDung=${nguoiDung.maNguoiDung}">
+                                    <span>Phân quyền</span>
+                                </a>
                             </td>
                         </tr>
                     </c:forEach>

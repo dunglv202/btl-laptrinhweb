@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Set;
 
 @WebServlet("/dang-nhap")
 public class DangNhapController extends HttpServlet {
@@ -27,12 +28,14 @@ public class DangNhapController extends HttpServlet {
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String tenDangNhap = req.getParameter("tenDangNhap");
         String matKhau = req.getParameter("matKhau");
         try {
             NguoiDung nguoiDung = xacThucService.dangNhap(tenDangNhap, matKhau);
             req.getSession().setAttribute(KhoaSession.NGUOI_DUNG, nguoiDung);
+            ((Set<Long>) req.getServletContext().getAttribute(KhoaSession.BUOC_DANG_XUAT)).remove(nguoiDung.getMaNguoiDung());
             resp.sendRedirect(req.getContextPath() + "/");
         } catch (SaiThongTinDangNhapException e) {
             req.setAttribute("thongBao", new ThongBaoSaiThongTinDangNhap());
