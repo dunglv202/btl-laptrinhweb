@@ -22,4 +22,5 @@ public class SanPham {
     private ThuongHieu thuongHieu;
     private String kichThuoc;
     private Double trongLuong;
+    private boolean daAn;
 }

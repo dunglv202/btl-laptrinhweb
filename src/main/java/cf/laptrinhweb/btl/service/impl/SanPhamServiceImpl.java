@@ -22,9 +22,7 @@ public class SanPhamServiceImpl implements SanPhamService {
 
     @Override
     public List<SanPham> timTatCa(DieuKienSanPham dieuKien) {
-        List<SanPham> dsSanPham = new ArrayList<>();
-        TheLoai theLoai = new TheLoai(10L, "Ten the Loai");
-        return dsSanPham;
+        return sanPhamRepository.timTatCa(dieuKien);
     }
 
     @Override

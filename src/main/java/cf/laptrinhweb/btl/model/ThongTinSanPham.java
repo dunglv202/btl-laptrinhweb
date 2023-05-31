@@ -18,4 +18,5 @@ public class ThongTinSanPham {
     private Long maThuongHieu;
     private String kichThuoc;
     private Double trongLuong;
+    private boolean daAn;
 }

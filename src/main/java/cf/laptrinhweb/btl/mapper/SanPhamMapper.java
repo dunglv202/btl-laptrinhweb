@@ -20,6 +20,7 @@ public class SanPhamMapper {
             .theLoai(new TheLoaiMapper().map(resultSet))
             .thuongHieu(new ThuongHieuMapper().map(resultSet))
             .chatLieu(new ChatLieuMapper().map(resultSet))
+            .daAn(resultSet.getBoolean("da_an"))
             .build();
     }
 }

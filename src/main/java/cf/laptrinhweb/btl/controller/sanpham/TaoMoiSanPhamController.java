@@ -71,6 +71,7 @@ public class TaoMoiSanPhamController extends HttpServlet {
             .maThuongHieu(Long.parseLong(layThamSoKhongNull(request, "thuongHieu")))
             .kichThuoc(kichThuoc)
             .trongLuong(trongLuong)
+            .daAn(Boolean.parseBoolean(layThamSo(request, "daAn")))
             .build();
     }
 

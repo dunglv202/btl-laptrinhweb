@@ -26,7 +26,7 @@
             </ul>
           </div>
           <div id="anh-hien-thi" class="anh-hien-thi">
-            <img src="${(sanPham.anhXemTruoc == null) ? "/public/anh-trong.svg" : sanPham.anhXemTruoc}" />
+            <img src="${(sanPham.anhXemTruoc == null) ? "/public/anh-trong.jpg" : sanPham.anhXemTruoc}" />
           </div>
         </div>
         <div class="chi-tiet-san-pham">

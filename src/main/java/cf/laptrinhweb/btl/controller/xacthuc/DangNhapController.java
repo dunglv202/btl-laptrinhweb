@@ -53,7 +53,7 @@ public class DangNhapController extends HttpServlet {
         String diaChiDieuHuong = request.getParameter("dieuHuong");
         if (diaChiDieuHuong != null
             && diaChiDieuHuong.startsWith(request.getContextPath())
-            && diaChiDieuHuong.equals(request.getContextPath() + "/dang-nhap")
+            && !diaChiDieuHuong.equals(request.getContextPath() + "/dang-nhap")
         ) {
             return diaChiDieuHuong;
         } else if (nguoiDung.coQuyen(QuyenNguoiDung.ADMIN)) {
