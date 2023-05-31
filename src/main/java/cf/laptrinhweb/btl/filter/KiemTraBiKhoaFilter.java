@@ -13,7 +13,7 @@ import java.io.IOException;
 import java.util.HashSet;
 import java.util.Set;
 
-@WebFilter("*")
+@WebFilter(filterName = "KiemTraBiKhoaFilter")
 public class KiemTraBiKhoaFilter implements Filter {
     private ServletContext servletContext;
 

@@ -4,6 +4,6 @@ import cf.laptrinhweb.btl.entity.Quyen;
 
 import java.util.Optional;
 
-public interface QuyenRepository extends JdbcRepository<Quyen> {
+public interface QuyenRepository extends JdbcRepository {
     Optional<Quyen> timBangTen(String tenQuyen);
 }

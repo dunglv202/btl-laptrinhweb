@@ -3,7 +3,7 @@ package cf.laptrinhweb.btl.repository;
 import java.sql.Connection;
 import java.sql.DriverManager;
 
-public interface JdbcRepository<T> {
+public interface JdbcRepository {
     default Connection moKetNoi() {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");

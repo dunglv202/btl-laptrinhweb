@@ -26,12 +26,12 @@
             </ul>
           </div>
           <div id="anh-hien-thi" class="anh-hien-thi">
-            <img src="${sanPham.anhXemTruoc}" />
+            <img src="${(sanPham.anhXemTruoc == null) ? "/public/anh-trong.svg" : sanPham.anhXemTruoc}" />
           </div>
         </div>
         <div class="chi-tiet-san-pham">
           <div class="noi-dung-co-ban">
-            <h1 class="ten-san-pham">Tên sản phẩm</h1>
+            <h1 class="ten-san-pham">${sanPham.tenSanPham}</h1>
             <div class="gia">
               <span class="tien-te">${sanPham.gia}</span>
             </div>

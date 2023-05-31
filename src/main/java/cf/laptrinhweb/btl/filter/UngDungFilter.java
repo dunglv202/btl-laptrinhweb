@@ -1,25 +1,22 @@
 package cf.laptrinhweb.btl.filter;
 
-import cf.laptrinhweb.btl.model.thongbao.ThongBaoTkBiKhoa;
+import cf.laptrinhweb.btl.constant.KhoaSession;
 
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
+import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 
-import static cf.laptrinhweb.btl.constant.LoaiLoi.TAI_KHOAN_BI_KHOA;
-
-@WebFilter(filterName = "ThongBaoLoiFilter")
-public class ThongBaoLoiFilter implements Filter {
+@WebFilter(filterName = "UngDungFilter")
+public class UngDungFilter implements Filter {
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {}
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-        String loi = request.getParameter("loi");
-        if (loi != null) {
-            switch (loi) {
-                case TAI_KHOAN_BI_KHOA -> request.setAttribute("thongBao", new ThongBaoTkBiKhoa());
-            }
+        request.setCharacterEncoding("UTF-8");
+        if (request instanceof HttpServletRequest) {
+            request.setAttribute("daDangNhap", ((HttpServletRequest) request).getSession().getAttribute(KhoaSession.NGUOI_DUNG) != null);
         }
         chain.doFilter(request, response);
     }

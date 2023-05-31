@@ -29,6 +29,12 @@ const kiemTra = {
       return giaTri.match(/^(\+\d{1,3})(\d{9})$/);
     },
   },
+  khongAm: {
+    thongBaoLoi: "Không thể nhận giá trị âm",
+    hopLe: function (giaTri) {
+        return !giaTri || Number(giaTri) >= 0;
+    }
+  }
 };
 
 function layGiaTriTruong(truong) {
