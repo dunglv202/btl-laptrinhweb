@@ -1,11 +1,14 @@
 package cf.laptrinhweb.btl.repository.impl;
 
+import cf.laptrinhweb.btl.entity.NguoiDung;
 import cf.laptrinhweb.btl.mapper.NguoiDungMapper;
-import cf.laptrinhweb.btl.model.NguoiDung;
+import cf.laptrinhweb.btl.model.DieuKienNguoiDung;
 import cf.laptrinhweb.btl.repository.NguoiDungRepository;
 
 import java.sql.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 public class NguoiDungRepositoryImpl implements NguoiDungRepository {
@@ -87,7 +90,7 @@ public class NguoiDungRepositoryImpl implements NguoiDungRepository {
                     mat_khau,
                     thoi_gian_tao)
                 VALUES (?, ?, ?, ?, ?, ?)
-            """);
+            """, Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, nguoiDung.getTenHienThi());
             ps.setString(2, nguoiDung.getTenDangNhap());
             ps.setString(3, nguoiDung.getEmail());
@@ -95,6 +98,72 @@ public class NguoiDungRepositoryImpl implements NguoiDungRepository {
             ps.setString(5, nguoiDung.getMatKhau());
             ps.setTimestamp(6, Timestamp.valueOf(LocalDateTime.now()));
             ps.execute();
+            ResultSet resultSet = ps.getGeneratedKeys();
+            resultSet.next();
+            nguoiDung.setMaNguoiDung(resultSet.getLong(1));
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public void doiMatKhau(NguoiDung nguoiDung, String matKhauMoi) {
+        try (Connection ketNoi = moKetNoi()) {
+            PreparedStatement ps = ketNoi.prepareStatement("""
+                UPDATE nguoi_dung
+                SET mat_khau = ?
+                WHERE ma_nguoi_dung = ?
+            """);
+            ps.setString(1, matKhauMoi);
+            ps.setLong(2, nguoiDung.getMaNguoiDung());
+            ps.executeUpdate();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public List<NguoiDung> timTatCa(DieuKienNguoiDung dieuKien) {
+        try (Connection ketNoi = moKetNoi()) {
+            PreparedStatement ps = ketNoi.prepareStatement("""
+                SELECT *
+                FROM nguoi_dung
+                WHERE
+                    ten_dang_nhap LIKE ?
+                    OR email LIKE ?
+                    OR so_dien_thoai LIKE ?
+                LIMIT ?, ?
+            """);
+            String tuKhoa = dieuKien.getTuKhoa()!=null ? dieuKien.getTuKhoa() + "%" : "%";
+            ps.setString(1, tuKhoa);
+            ps.setString(2, tuKhoa);
+            ps.setString(3, tuKhoa);
+            ps.setInt(4, dieuKien.getTrang() * dieuKien.getKichThuoc());
+            ps.setInt(5, dieuKien.getKichThuoc());
+
+            ResultSet resultSet = ps.executeQuery();
+            NguoiDungMapper mapper = new NguoiDungMapper();
+            List<NguoiDung> dsNguoiDung = new ArrayList<>();
+            while (resultSet.next()) {
+                dsNguoiDung.add(mapper.map(resultSet));
+            }
+            return dsNguoiDung;
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public void thayDoiTrangThai(Long maNguoiDung, boolean khoa) {
+        try (Connection ketNoi = moKetNoi()) {
+            PreparedStatement ps = ketNoi.prepareStatement("""
+                UPDATE nguoi_dung
+                SET da_khoa = ?
+                WHERE ma_nguoi_dung = ?
+            """);
+            ps.setBoolean(1, khoa);
+            ps.setLong(2, maNguoiDung);
+            ps.executeUpdate();
         } catch (Exception e) {
             throw new RuntimeException(e);
         }

@@ -1,4 +1,4 @@
-package cf.laptrinhweb.btl.exception.chung;
+package cf.laptrinhweb.btl.exception.xacthuc;
 
 import cf.laptrinhweb.btl.constant.LoaiThongTinDangNhap;
 import lombok.Getter;
