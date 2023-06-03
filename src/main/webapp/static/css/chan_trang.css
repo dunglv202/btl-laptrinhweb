@@ -81,6 +81,9 @@ footer {
   #ban-quyen-trang {
     text-align: center;
   }
+  #chan-trang .tieu-de {
+    font-size: 1.3rem;
+  }
 }
 
 @media screen and (max-width: 1024px) and (min-width: 501px) {
@@ -104,6 +107,9 @@ footer {
   #chan-trang > .phan .tieu-de {
     text-align: center;
     margin: 0;
+  }
+  #chan-trang > .phan .mo-ta {
+    text-align: center;
   }
   #chan-trang > .phan.co-the-mo-rong .tieu-de::after {
     content: " +";

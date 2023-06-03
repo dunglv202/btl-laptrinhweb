@@ -28,13 +28,6 @@ public class DangNhapController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String trangTruoc = req.getHeader("Referer");
-        if (trangTruoc!=null
-            && !trangTruoc.matches("^.*://.*/dang-nhap(\\?.*)?")
-            && !trangTruoc.matches("^.*://.*/(\\?.*)?")) {
-            // trang truoc khong phai trang dang nhap hoac trang chu -> dieu huong sau dang nhap
-            req.setAttribute("trangTruoc", trangTruoc);
-        }
         req.getRequestDispatcher("WEB-INF/dang_nhap.jsp").forward(req, resp);
     }
 
@@ -64,15 +57,11 @@ public class DangNhapController extends HttpServlet {
     }
 
     private String layDiaChiDieuHuong(HttpServletRequest request, NguoiDung nguoiDung) {
-        String diaChiDieuHuong = request.getParameter("dieuHuong");
-        if (diaChiDieuHuong != null) {
-            return diaChiDieuHuong;
-        } else if (nguoiDung.coQuyen(QuyenNguoiDung.ADMIN)) {
+        String diaChiDieuHuong = "/";
+        if (nguoiDung.coQuyen(QuyenNguoiDung.ADMIN)) {
             diaChiDieuHuong = "/quan-ly/nguoi-dung";
         } else if (nguoiDung.coQuyen(QuyenNguoiDung.QUAN_LY)) {
             diaChiDieuHuong = "/quan-ly/san-pham/tao-moi";
-        } else {
-            diaChiDieuHuong = "/";
         }
         return request.getContextPath() + diaChiDieuHuong;
     }

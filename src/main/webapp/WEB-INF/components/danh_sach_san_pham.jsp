@@ -15,8 +15,9 @@
         <a class="ten-danh-muc" href="<%=request.getContextPath()%>/the-loai?maTheLoai=${sanPham.theLoai.maTheLoai}">${sanPham.theLoai.tenTheLoai}</a>
         <a class="ten-san-pham" href="<%=request.getContextPath()%>/san-pham?maSanPham=${sanPham.maSanPham}">${sanPham.tenSanPham}</a>
         <div class="hanh-dong">
-          <form class="form-them-gio-hang" method="POST" action="<%=request.getContextPath()%>/them-vao-gio-hang">
+          <form class="form-them-gio-hang" method="POST" action="<%=request.getContextPath()%>/gio-hang/them">
             <input type="hidden" name="maSanPham" value="${sanPham.maSanPham}" />
+            <input type="hidden" name="soLuong" value="1" />
             <button class="them-gio-hang" ${sanPham.soLuong == 0 ? "disabled" : ""}>Thêm vào giỏ hàng</button>
           </form>
           <div class="gia">$${sanPham.gia}</div>

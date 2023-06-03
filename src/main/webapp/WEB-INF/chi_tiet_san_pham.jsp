@@ -59,7 +59,7 @@
             </table>
           </div>
           <div class="hanh-dong">
-            <form class="them-vao-gio-hang" action="<%=request.getContextPath()%>/them-vao-gio-hang" method="POST">
+            <form class="them-vao-gio-hang" action="<%=request.getContextPath()%>/gio-hang/them" method="POST">
               <input type="hidden" name="maSanPham" value="${sanPham.maSanPham}" />
               <div class="thay-doi-so-luong">
                 <button type="button" class="giam">-</button>

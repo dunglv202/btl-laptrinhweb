@@ -178,7 +178,7 @@
         </div>
       </div>
       <div class="chuc-nang">
-        <a href="<%=request.getContextPath()%>/gio-hang" id="gio-hang" class="nut chuc-nang"></a>
+        <a href="<%=request.getContextPath()%>/gio-hang" id="nut-gio-hang" class="nut chuc-nang"></a>
         <div class="menu-con"></div>
       </div>
     </div>
