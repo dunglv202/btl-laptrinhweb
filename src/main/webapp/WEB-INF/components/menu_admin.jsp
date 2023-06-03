@@ -16,7 +16,7 @@
         </a>
       </div>
     </li>
-    <li class="muc">
+    <li class="muc ${"dashboard".equals(param.get("mucHienTai")) ? "hien-tai" : ""}">
       <div class="hien-thi">
         <a href="lien-ket" class="lien-ket">
           <div class="anh">
