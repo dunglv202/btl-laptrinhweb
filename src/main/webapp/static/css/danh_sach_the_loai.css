@@ -4,7 +4,7 @@
 .danh-sach-the-loai > ul {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 1.5rem;
+  gap: 2rem;
   justify-content: center;
 }
 .danh-sach-the-loai .the-loai {

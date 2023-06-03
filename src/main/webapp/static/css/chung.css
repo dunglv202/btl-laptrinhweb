@@ -1,6 +1,7 @@
 :root {
   --xanh-la: #48cab2;
   --xanh-la-trong-suot: #48cab2bb;
+  --xanh-lat-trong-suot-nhat: #48cab216;
   --den: #333;
   --den-vua: #555;
   --den-nhat: #777;
@@ -93,13 +94,24 @@ form.tieu-chuan .hanh-dong {
   color: red;
 }
 
+input, textarea, button, select {
+  font-size: 1rem;
+}
+
 .truong input:not([type="checkbox"], [type="radio"]),
+.truong textarea,
 .nut {
   padding: 0.7rem 1.5rem;
   border-radius: 0;
   outline: none;
   border: solid 1px var(--vien);
   background-color: transparent;
+}
+
+.truong textarea {
+  resize: vertical;
+  min-height: 120px;
+  font-family: inherit;
 }
 
 .truong input:not([type="checkbox"], [type="radio"]):focus {

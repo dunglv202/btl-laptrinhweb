@@ -1,5 +1,6 @@
 package cf.laptrinhweb.btl.controller;
 
+import cf.laptrinhweb.btl.model.DieuKienSanPham;
 import cf.laptrinhweb.btl.service.SanPhamService;
 import cf.laptrinhweb.btl.service.TheLoaiService;
 import cf.laptrinhweb.btl.service.impl.SanPhamServiceImpl;
@@ -19,7 +20,7 @@ public class TrangChuController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
-        req.setAttribute("danhSachSanPham", sanPhamService.timTatCa(null));
+        req.setAttribute("danhSachSanPham", sanPhamService.timTatCa(DieuKienSanPham.builder().daAn(false).build()));
         req.setAttribute("danhSachTheLoai", theLoaiService.layTatCa());
         req.getRequestDispatcher("/WEB-INF/trang_chu.jsp").forward(req, resp);
     }
