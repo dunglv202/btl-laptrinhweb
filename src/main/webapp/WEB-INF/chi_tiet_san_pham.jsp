@@ -16,15 +16,17 @@
     <main>
       <div id="chi-tiet-san-pham">
         <div class="anh-san-pham">
-          <div class="danh-sach-anh">
-            <ul class="danh-sach toi-gian">
-              <c:forEach var="anh" items="${sanPham.danhSachAnh}">
-                <li class="anh">
-                  <img src="${anh.duongDan}" />
-                </li>
-              </c:forEach>
-            </ul>
-          </div>
+          <c:if test="${!sanPham.danhSachAnh.isEmpty()}">
+            <div class="danh-sach-anh">
+              <ul class="danh-sach toi-gian">
+                <c:forEach var="anh" items="${sanPham.danhSachAnh}">
+                  <li class="anh">
+                    <img src="${anh.duongDan}" />
+                  </li>
+                </c:forEach>
+              </ul>
+            </div>
+          </c:if>
           <div id="anh-hien-thi" class="anh-hien-thi">
             <img src="${(sanPham.anhXemTruoc == null) ? "/public/anh-trong.jpg" : sanPham.anhXemTruoc}" />
           </div>

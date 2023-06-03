@@ -13,6 +13,13 @@
             main {
                 padding: 0 var(--le-trang);
             }
+            #gio-hang .ten-san-pham a {
+                text-decoration: none;
+                color: initial;
+            }
+            #gio-hang .ten-san-pham a:hover {
+                text-decoration: underline;
+            }
         </style>
     </head>
     <body>
@@ -20,29 +27,35 @@
         <main>
             <div id="gio-hang">
                 <ul class="toi-gian danh-sach-mat-hang">
-                    <li class="mat-hang">
-                        <div class="hanh-dong">
-                            <form method="POST" action="<%=request.getContextPath()%>/gio-hang/xoa">
-                                <input type="hidden" name="maSanPham" value="1"/>
-                                <button type="submit" class="chuc-nang">
-                                    <span>Xoá</span>
-                                </button>
-                            </form>
-                        </div>
-                        <div class="anh-san-pham">
-                            <img src="https://prestashop17.joommasters.com/yanka/45-home_default/trainers-with-broguing-slogan.jpg" />
-                        </div>
-                        <div class="chi-tiet">
-                            <h2 class="ten-san-pham">Trainers with broguing slogan</h2>
-                            <div class="tien-te don-gia">100.000</div>
-                            <div class="so-luong">
-                                <button class="chuc-nang giam" tabindex="-1">-</button>
-                                <input type="number" class="o-nhap-so-luong" value="1" />
-                                <button class="chuc-nang tang" tabindex="-1">+</button>
+                    <c:forEach var="item" items="${danhSachSanPham}">
+                        <li class="mat-hang">
+                            <div class="hanh-dong">
+                                <form method="POST" action="<%=request.getContextPath()%>/gio-hang/xoa">
+                                    <input type="hidden" name="maSanPham" value="${item.sanPham.maSanPham}"/>
+                                    <button type="submit" class="chuc-nang">
+                                        <span>Xoá</span>
+                                    </button>
+                                </form>
                             </div>
-                            <div class="tien-te tong-tien">100.000</div>
-                        </div>
-                    </li>
+                            <div class="anh-san-pham">
+                                <img src="${(item.sanPham.anhXemTruoc == null) ? "/public/anh-trong.jpg" : item.sanPham.anhXemTruoc}" />
+                            </div>
+                            <div class="chi-tiet">
+                                <h2 class="ten-san-pham">
+                                    <a href="<%=request.getContextPath()%>/san-pham?maSanPham=${item.sanPham.maSanPham}">
+                                        ${item.sanPham.tenSanPham}
+                                    </a>
+                                </h2>
+                                <div class="tien-te don-gia">${item.sanPham.gia}</div>
+                                <div class="so-luong">
+                                    <button class="chuc-nang giam" tabindex="-1">-</button>
+                                    <input type="number" class="o-nhap-so-luong" value="${item.soLuong}" />
+                                    <button class="chuc-nang tang" tabindex="-1">+</button>
+                                </div>
+                                <div class="tien-te tong-tien">${item.sanPham.gia * item.soLuong}</div>
+                            </div>
+                        </li>
+                    </c:forEach>
                 </ul>
                 <div>
                     <a href="#" class="lien-ket gach-chan mo-rong mua-sam-them">

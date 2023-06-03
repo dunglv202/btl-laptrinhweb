@@ -1,10 +1,14 @@
 package cf.laptrinhweb.btl.repository.impl;
 
+import cf.laptrinhweb.btl.entity.SanPhamTrongGio;
+import cf.laptrinhweb.btl.mapper.SanPhamTrongGioMapper;
 import cf.laptrinhweb.btl.repository.GioHangRepository;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
 
 public class GioHangRepositoryImpl implements GioHangRepository {
     @Override
@@ -58,6 +62,29 @@ public class GioHangRepositoryImpl implements GioHangRepository {
             ps.setLong(1, soLuongMoi);
             ps.setLong(2, maMucGioHang);
             ps.executeUpdate();
+        } catch (Exception e) {
+            throw new RuntimeException("Khong the truy van gio hang", e);
+        }
+    }
+
+    @Override
+    public List<SanPhamTrongGio> timTatCaBangMaNguoiDung(Long maNguoiDung) {
+        try (Connection ketNoi = moKetNoi()) {
+            PreparedStatement ps = ketNoi.prepareStatement("""
+                SELECT *
+                FROM gio_hang
+                JOIN san_pham
+                    ON gio_hang.ma_san_pham = san_pham.ma_san_pham
+                WHERE ma_nguoi_dung = ?
+            """);
+            ps.setLong(1, maNguoiDung);
+            ResultSet resultSet = ps.executeQuery();
+            List<SanPhamTrongGio> dsSanPham = new ArrayList<>();
+            SanPhamTrongGioMapper mapper = new SanPhamTrongGioMapper();
+            while (resultSet.next()) {
+                dsSanPham.add(mapper.map(resultSet));
+            }
+            return dsSanPham;
         } catch (Exception e) {
             throw new RuntimeException("Khong the truy van gio hang", e);
         }

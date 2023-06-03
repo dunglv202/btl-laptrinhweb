@@ -1,9 +1,12 @@
 package cf.laptrinhweb.btl.service.impl;
 
 import cf.laptrinhweb.btl.entity.NguoiDung;
+import cf.laptrinhweb.btl.entity.SanPhamTrongGio;
 import cf.laptrinhweb.btl.repository.GioHangRepository;
 import cf.laptrinhweb.btl.repository.impl.GioHangRepositoryImpl;
 import cf.laptrinhweb.btl.service.GioHangService;
+
+import java.util.List;
 
 public class GioHangServiceImpl implements GioHangService {
     private final GioHangRepository gioHangRepository = new GioHangRepositoryImpl();
@@ -17,5 +20,10 @@ public class GioHangServiceImpl implements GioHangService {
         } else {
             gioHangRepository.themVaoGioHang(nguoiDung.getMaNguoiDung(), maSanPham, soLuong);
         }
+    }
+
+    @Override
+    public List<SanPhamTrongGio> layTatCaCuaNguoiDung(NguoiDung nguoiDung) {
+        return gioHangRepository.timTatCaBangMaNguoiDung(nguoiDung.getMaNguoiDung());
     }
 }
