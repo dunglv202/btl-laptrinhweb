@@ -58,13 +58,13 @@ public class XacThucServiceImpl implements XacThucService {
     }
 
     private NguoiDung taoNguoiDung(Map<String, String[]> thongTinDangKy) {
-        NguoiDung nguoiDung = new NguoiDung();
-        nguoiDung.setTenDangNhap(thongTinDangKy.get("tenDangNhap")[0]);
-        nguoiDung.setMatKhau(thongTinDangKy.get("matKhau")[0]);
-        nguoiDung.setEmail(thongTinDangKy.get("email")[0]);
-        nguoiDung.setSoDienThoai(thongTinDangKy.get("soDienThoai")[0]);
-        nguoiDung.setTenHienThi(thongTinDangKy.get("ten")[0]);
-        return nguoiDung;
+        return NguoiDung.builder()
+            .tenDangNhap(thongTinDangKy.get("tenDangNhap")[0])
+            .matKhau(thongTinDangKy.get("matKhau")[0])
+            .email(thongTinDangKy.get("email")[0])
+            .soDienThoai(thongTinDangKy.get("soDienThoai")[0])
+            .tenHienThi(thongTinDangKy.get("ten")[0])
+            .build();
     }
 
     @Override
@@ -73,9 +73,9 @@ public class XacThucServiceImpl implements XacThucService {
     	NguoiDung nguoiDung = nguoiDungRepository.timBangThongTinDangNhap(tenDangNhap)
             .orElseThrow(SaiThongTinDangNhapException::new);
         if (!nguoiDung.getMatKhau().equals(matKhau))
-            throw new SaiThongTinDangNhapException();
+            throw new SaiThongTinDangNhapException(nguoiDung.getMaNguoiDung());
         if (nguoiDung.isDaKhoa())
-            throw new TaiKhoanBiKhoaException();
+            throw new TaiKhoanBiKhoaException(nguoiDung.getMaNguoiDung());
         List<Quyen> dsQuyen = phanQuyenRepository.timBangMaNguoiDung(nguoiDung.getMaNguoiDung());
         nguoiDung.setDsQuyen(dsQuyen);
         return nguoiDung;

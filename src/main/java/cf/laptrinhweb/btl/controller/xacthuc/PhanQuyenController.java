@@ -49,7 +49,7 @@ public class PhanQuyenController extends HttpServlet {
         ).get(0);
         xacThucService.phanQuyen(nguoiDung, quyenDuocChon);
         ((Set<Long>) req.getServletContext().getAttribute(KhoaSession.BUOC_DANG_XUAT)).add(nguoiDung.getMaNguoiDung());
-        resp.sendRedirect(req.getContextPath() + "/quan-ly/nguoi-dung");
+        resp.sendRedirect(req.getContextPath() + "/quan-ly/nguoi-dung?maNguoiDung=" + nguoiDung.getMaNguoiDung());
     }
 
     private Set<QuyenNguoiDung> layDanhSachQuyen(HttpServletRequest req) {

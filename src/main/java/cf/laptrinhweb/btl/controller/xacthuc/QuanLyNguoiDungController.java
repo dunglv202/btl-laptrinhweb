@@ -31,6 +31,10 @@ public class QuanLyNguoiDungController extends HttpServlet {
 
     private DieuKienNguoiDung taoDieuKien(HttpServletRequest request) {
         DieuKienNguoiDung dieuKienNguoiDung = DieuKienNguoiDung.builder().tuKhoa(request.getParameter("tuKhoa")).build();
+        String maNguoiDungStr = request.getParameter("maNguoiDung");
+        if (maNguoiDungStr != null && !maNguoiDungStr.isBlank()) {
+            dieuKienNguoiDung.setMaNguoiDung(Long.parseLong(maNguoiDungStr));
+        }
         String trang = request.getParameter("trang");
         if (trang != null && !trang.isBlank() && Integer.parseInt(trang) > 0)
             dieuKienNguoiDung.setTrang(Integer.parseInt(trang) - 1);

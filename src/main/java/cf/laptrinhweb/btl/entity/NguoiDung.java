@@ -6,11 +6,13 @@ import java.util.Date;
 import java.util.List;
 
 import cf.laptrinhweb.btl.constant.QuyenNguoiDung;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
+@Builder
 public class NguoiDung {
     private Long maNguoiDung;
     private String tenHienThi;
