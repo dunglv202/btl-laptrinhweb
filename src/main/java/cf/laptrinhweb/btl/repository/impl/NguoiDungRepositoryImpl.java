@@ -125,21 +125,12 @@ public class NguoiDungRepositoryImpl implements NguoiDungRepository {
     @Override
     public List<NguoiDung> timTatCa(DieuKienNguoiDung dieuKien) {
         try (Connection ketNoi = moKetNoi()) {
-            PreparedStatement ps = ketNoi.prepareStatement("""
-                SELECT *
-                FROM nguoi_dung
-                WHERE
-                    ten_dang_nhap LIKE ?
-                    OR email LIKE ?
-                    OR so_dien_thoai LIKE ?
-                LIMIT ?, ?
-            """);
-            String tuKhoa = dieuKien.getTuKhoa()!=null ? dieuKien.getTuKhoa() + "%" : "%";
-            ps.setString(1, tuKhoa);
-            ps.setString(2, tuKhoa);
-            ps.setString(3, tuKhoa);
-            ps.setInt(4, dieuKien.getTrang() * dieuKien.getKichThuoc());
-            ps.setInt(5, dieuKien.getKichThuoc());
+            PreparedStatement ps;
+            if (dieuKien.getMaNguoiDung() == null) {
+                ps = timTheoTuKhoa(ketNoi, dieuKien);
+            } else {
+                ps = timTheoMa(ketNoi, dieuKien.getMaNguoiDung());
+            }
 
             ResultSet resultSet = ps.executeQuery();
             NguoiDungMapper mapper = new NguoiDungMapper();
@@ -151,6 +142,33 @@ public class NguoiDungRepositoryImpl implements NguoiDungRepository {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
+    }
+
+    private PreparedStatement timTheoTuKhoa(Connection ketNoi, DieuKienNguoiDung dieuKien) throws SQLException {
+        PreparedStatement ps = ketNoi.prepareStatement("""
+                SELECT *
+                FROM nguoi_dung
+                WHERE
+                    ten_dang_nhap LIKE ?
+                    OR email LIKE ?
+                    OR so_dien_thoai LIKE ?
+                LIMIT ?, ?
+            """);
+        String tuKhoa = dieuKien.getTuKhoa()!=null ? dieuKien.getTuKhoa() + "%" : "%";
+        ps.setString(1, tuKhoa);
+        ps.setString(2, tuKhoa);
+        ps.setString(3, tuKhoa);
+        ps.setInt(4, dieuKien.getTrang() * dieuKien.getKichThuoc());
+        ps.setInt(5, dieuKien.getKichThuoc());
+        return ps;
+    }
+
+    private PreparedStatement timTheoMa(Connection ketNoi, Long maNguoiDung) throws SQLException {
+        PreparedStatement ps = ketNoi.prepareStatement("""
+            SELECT * FROM nguoi_dung WHERE ma_nguoi_dung = ?
+        """);
+        ps.setLong(1, maNguoiDung);
+        return ps;
     }
 
     @Override

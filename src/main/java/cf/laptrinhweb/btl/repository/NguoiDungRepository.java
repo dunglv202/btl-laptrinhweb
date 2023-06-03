@@ -6,7 +6,7 @@ import cf.laptrinhweb.btl.model.DieuKienNguoiDung;
 import java.util.List;
 import java.util.Optional;
 
-public interface NguoiDungRepository extends JdbcRepository<NguoiDung> {
+public interface NguoiDungRepository extends JdbcRepository {
     Optional<NguoiDung> timBangThongTinDangNhap(String thongTinDangNhap);
     boolean tonTaiVoiTenDangNhap(String tenDangNhap);
     boolean tonTaiVoiEmail(String email);

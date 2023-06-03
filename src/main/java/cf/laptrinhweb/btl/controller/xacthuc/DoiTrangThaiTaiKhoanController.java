@@ -29,9 +29,7 @@ public class DoiTrangThaiTaiKhoanController extends HttpServlet {
         Long maNguoiDung = Long.parseLong(req.getParameter("maNguoiDung"));
         xacThucService.doiTrangThaiTaiKhoan(maNguoiDung, khoa);
         if (khoa) {
-            ((Set<Long>) req.getServletContext().getAttribute(KhoaSession.BI_KHOA)).add(maNguoiDung);
-        } else {
-            ((Set<Long>) req.getServletContext().getAttribute(KhoaSession.BI_KHOA)).remove(maNguoiDung);
+            ((Set<Long>) req.getServletContext().getAttribute(KhoaSession.BUOC_DANG_XUAT)).add(maNguoiDung);
         }
         resp.sendRedirect(req.getContextPath() + "/quan-ly/nguoi-dung");
     }
