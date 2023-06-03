@@ -1,14 +1,15 @@
 package cf.laptrinhweb.btl.filter;
 
 import cf.laptrinhweb.btl.model.thongbao.ThongBaoTkBiKhoa;
+import cf.laptrinhweb.btl.model.thongbao.YeuCauDangNhapLai;
 
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
 import java.io.IOException;
 
-import static cf.laptrinhweb.btl.constant.LoaiLoi.TAI_KHOAN_BI_KHOA;
+import static cf.laptrinhweb.btl.constant.LoaiLoi.YEU_CAU_DANG_NHAP_LAI;
 
-@WebFilter("*")
+@WebFilter(filterName = "ThongBaoLoiFilter")
 public class ThongBaoLoiFilter implements Filter {
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {}
@@ -18,7 +19,7 @@ public class ThongBaoLoiFilter implements Filter {
         String loi = request.getParameter("loi");
         if (loi != null) {
             switch (loi) {
-                case TAI_KHOAN_BI_KHOA -> request.setAttribute("thongBao", new ThongBaoTkBiKhoa());
+                case YEU_CAU_DANG_NHAP_LAI -> request.setAttribute("thongBao", new YeuCauDangNhapLai());
             }
         }
         chain.doFilter(request, response);

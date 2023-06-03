@@ -16,22 +16,24 @@
     <main>
       <div id="chi-tiet-san-pham">
         <div class="anh-san-pham">
-          <div class="danh-sach-anh">
-            <ul class="danh-sach toi-gian">
-              <c:forEach var="anh" items="${sanPham.danhSachAnh}">
-                <li class="anh">
-                  <img src="${anh.duongDan}" />
-                </li>
-              </c:forEach>
-            </ul>
-          </div>
+          <c:if test="${!sanPham.danhSachAnh.isEmpty()}">
+            <div class="danh-sach-anh">
+              <ul class="danh-sach toi-gian">
+                <c:forEach var="anh" items="${sanPham.danhSachAnh}">
+                  <li class="anh">
+                    <img src="${anh.duongDan}" />
+                  </li>
+                </c:forEach>
+              </ul>
+            </div>
+          </c:if>
           <div id="anh-hien-thi" class="anh-hien-thi">
-            <img src="${sanPham.anhXemTruoc}" />
+            <img src="${(sanPham.anhXemTruoc == null) ? "/public/anh-trong.jpg" : sanPham.anhXemTruoc}" />
           </div>
         </div>
         <div class="chi-tiet-san-pham">
           <div class="noi-dung-co-ban">
-            <h1 class="ten-san-pham">Tên sản phẩm</h1>
+            <h1 class="ten-san-pham">${sanPham.tenSanPham}</h1>
             <div class="gia">
               <span class="tien-te">${sanPham.gia}</span>
             </div>
@@ -59,7 +61,7 @@
             </table>
           </div>
           <div class="hanh-dong">
-            <form class="them-vao-gio-hang" action="<%=request.getContextPath()%>/them-vao-gio-hang" method="POST">
+            <form class="them-vao-gio-hang" action="<%=request.getContextPath()%>/gio-hang/them" method="POST">
               <input type="hidden" name="maSanPham" value="${sanPham.maSanPham}" />
               <div class="thay-doi-so-luong">
                 <button type="button" class="giam">-</button>

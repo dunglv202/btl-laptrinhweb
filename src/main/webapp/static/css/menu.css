@@ -120,7 +120,7 @@ header ul {
 #yeu-thich {
   background-image: url("../images/wishlist.svg");
 }
-#gio-hang {
+#nut-gio-hang {
   background-image: url("../images/cart.svg");
 }
 #thanh-dieu-huong > ul {
@@ -153,6 +153,15 @@ header ul {
 }
 #thanh-dieu-huong .menu-con {
   background: var(--mau-menu);
+}
+#thanh-dieu-huong .menu-con > ul {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+#thanh-dieu-huong .menu-con a {
+  display: block;
+  padding-block: 2px;
 }
 #thanh-dieu-huong .menu-con.danh-muc {
   grid-template-columns: 7fr 4fr;

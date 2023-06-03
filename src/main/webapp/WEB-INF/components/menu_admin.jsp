@@ -8,7 +8,7 @@
       <div class="hien-thi">
         <a href="lien-ket" class="lien-ket">
           <div class="anh">
-            <img src="<%=request.getContextPath()%>/static/images/logo_trang.svg" />
+            <img src="<%=request.getContextPath()%>/static/images/logo_xanh.svg" />
           </div>
           <div class="ten-muc" style="display: none">
             <span>Trang chính</span>
@@ -30,7 +30,7 @@
     </li>
     <li class="muc">
       <div class="hien-thi">
-        <a href="lien-ket" class="lien-ket">
+        <a href="lien-ket" class="lien-ket ${param.get("mucHienTai").equals("don-hang") ? "hien-tai" : ""}">
           <div class="anh">
             <img src="<%=request.getContextPath()%>/static/images/gio-hang-trang.svg" />
           </div>
@@ -40,34 +40,7 @@
         </a>
       </div>
     </li>
-    <li class="muc co-menu-con">
-      <div class="hien-thi">
-        <div class="anh">
-          <img src="<%=request.getContextPath()%>/static/images/khach_hang.svg" />
-        </div>
-        <div class="ten-muc">
-          <span>Khách hàng</span>
-        </div>
-      </div>
-      <ul class="menu-con">
-        <li>
-          <a href="#" class="lien-ket gach-chan mo-rong sang-phai">
-            <span>Quản lý thông tin</span>
-          </a>
-        </li>
-        <li>
-          <a href="#" class="lien-ket gach-chan mo-rong sang-phai">
-            <span>Đang hoạt động</span>
-          </a>
-        </li>
-        <li>
-          <a href="#" class="lien-ket gach-chan mo-rong sang-phai">
-            <span>Đăng nhập với vai trò khách hàng</span>
-          </a>
-        </li>
-      </ul>
-    </li>
-    <li class="muc co-menu-con">
+    <li class="muc co-menu-con ${param.get("mucHienTai").equals("danh-muc") ? "hien-tai" : ""}">
       <div class="hien-thi">
         <div class="anh">
           <img src="<%=request.getContextPath()%>/static/images/san_pham.svg" />
@@ -78,7 +51,7 @@
       </div>
       <ul class="menu-con">
         <li>
-          <a href="#" class="lien-ket gach-chan mo-rong sang-phai">
+          <a href="<%=request.getContextPath()%>/quan-ly/san-pham/tao-moi" class="lien-ket gach-chan mo-rong sang-phai">
             <span>Quản lý sản phẩm</span>
           </a>
         </li>
@@ -89,11 +62,11 @@
         </li>
       </ul>
     </li>
-    <li class="muc hien-tai">
+    <li class="muc ${param.get("mucHienTai").equals("nguoi-dung") ? "hien-tai" : ""}">
       <div class="hien-thi">
-        <a href="lien-ket" class="lien-ket">
+        <a href="<%=request.getContextPath()%>/quan-ly/nguoi-dung" class="lien-ket">
           <div class="anh">
-            <img src="<%=request.getContextPath()%>/static/images/quan_ly_nguoi_dung.svg" />
+            <img src="<%=request.getContextPath()%>/static/images/khach_hang.svg" />
           </div>
           <div class="ten-muc">
             <span>Quản lý người dùng</span>

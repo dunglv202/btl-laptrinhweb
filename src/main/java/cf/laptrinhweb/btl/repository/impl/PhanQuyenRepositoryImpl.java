@@ -8,7 +8,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.StringJoiner;
 
 public class PhanQuyenRepositoryImpl implements PhanQuyenRepository {
     private final QuyenMapper quyenMapper = new QuyenMapper();
@@ -25,7 +27,7 @@ public class PhanQuyenRepositoryImpl implements PhanQuyenRepository {
                 ps.setLong(2, maQuyen);
                 ps.addBatch();
             }
-            ps.execute();
+            ps.executeBatch();
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -47,6 +49,27 @@ public class PhanQuyenRepositoryImpl implements PhanQuyenRepository {
                 dsQuyen.add(quyenMapper.map(dsKetQua));
             }
             return dsQuyen;
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public void huyQuyenNguoiDung(Long maNguoiDung, List<Long> quyenDeHuy) {
+        try (Connection ketNoi = moKetNoi()) {
+            String query = """
+                DELETE FROM phan_quyen
+                WHERE ma_nguoi_dung = ?
+                AND ma_quyen IN
+            """;
+            StringJoiner stringJoiner = new StringJoiner(",", "(", ")");
+            quyenDeHuy.forEach(q -> {
+                stringJoiner.add(q.toString());
+            });
+            query += stringJoiner;
+            PreparedStatement ps = ketNoi.prepareStatement(query);
+            ps.setLong(1, maNguoiDung);
+            ps.execute();
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
