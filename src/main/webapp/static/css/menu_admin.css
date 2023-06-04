@@ -46,9 +46,9 @@ nav ul {
   cursor: pointer;
 }
 #menu .muc.logo .anh {
-  height: 32px;
-  width: 32px;
-  padding: calc(1.5rem - 4px);
+  height: 36px;
+  width: 36px;
+  padding: calc(1.5rem - 6px);
 }
 #menu .muc:not(.logo):hover .anh,
 #menu .muc.hien-tai .anh,

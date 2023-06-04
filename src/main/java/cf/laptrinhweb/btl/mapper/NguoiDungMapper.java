@@ -9,7 +9,7 @@ import java.time.ZoneId;
 
 public class NguoiDungMapper {
     public NguoiDung map(ResultSet resultSet) throws SQLException {
-        NguoiDung nguoiDung = new NguoiDung();
+        NguoiDung nguoiDung = NguoiDung.builder().build();
         nguoiDung.setMaNguoiDung(resultSet.getLong("ma_nguoi_dung"));
         nguoiDung.setTenHienThi(resultSet.getString("ten_hien_thi"));
         nguoiDung.setTenDangNhap(resultSet.getString("ten_dang_nhap"));
