@@ -107,6 +107,9 @@ input, textarea, button, select {
   border: solid 1px var(--vien);
   background-color: transparent;
 }
+.nut:disabled {
+  cursor: not-allowed;
+}
 
 .truong textarea {
   resize: vertical;
@@ -165,6 +168,9 @@ a.nut {
   color: inherit;
   outline: none;
   cursor: pointer;
+}
+.lien-ket:not(.gach-chan):hover {
+  text-decoration: underline;
 }
 .gach-chan > span {
   position: relative;

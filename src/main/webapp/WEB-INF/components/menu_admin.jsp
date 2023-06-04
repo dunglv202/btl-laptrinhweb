@@ -6,7 +6,7 @@
   <ul id="menu">
     <li class="muc logo">
       <div class="hien-thi">
-        <a href="lien-ket" class="lien-ket">
+        <a href="<%=request.getContextPath()%>/" class="lien-ket">
           <div class="anh">
             <img src="<%=request.getContextPath()%>/static/images/logo_xanh.svg" />
           </div>
@@ -16,9 +16,9 @@
         </a>
       </div>
     </li>
-    <li class="muc">
+    <li class="muc ${"dashboard".equals(param.get("mucHienTai")) ? "hien-tai" : ""}">
       <div class="hien-thi">
-        <a href="lien-ket" class="lien-ket">
+        <a href="<%=request.getContextPath()%>/quan-ly/dashboard" class="lien-ket">
           <div class="anh">
             <img src="<%=request.getContextPath()%>/static/images/thong_ke.svg" />
           </div>
