@@ -19,9 +19,11 @@ public class DashboardController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.setAttribute("doanhThuThang", DanhSachDuLieu.builder()
-            .tenDanhSach("Thống kê doanh thu tháng")
+            .tenDanhSach("Biểu đồ doanh thu")
             .danhSachDuLieu(layDuLieuDoanhThu())
             .build());
+        req.setAttribute("topXemNhieu", List.of());
+        req.setAttribute("topBanChay", List.of());
         req.getRequestDispatcher("/WEB-INF/dashboard.jsp").forward(req, resp);
     }
 

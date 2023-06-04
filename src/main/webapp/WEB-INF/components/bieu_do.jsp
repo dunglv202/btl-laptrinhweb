@@ -3,8 +3,10 @@
 
 <link rel="stylesheet" href="<%=request.getContextPath()%>/static/css/bieu_do.css"/>
 
-<div class="bieu-do">
-  <canvas id="${param.get('idBieuDo')}" style="width: 100%;"></canvas>
+<div class="bieu-do" style="overflow: auto">
+  <div class="khung-chua-bieu-do" style="position: relative;">
+    <canvas id="${param.get('idBieuDo')}"></canvas>
+  </div>
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.js"></script>
@@ -31,6 +33,8 @@
       ],
     },
     options: {
+      responsive: true,
+      maintainAspectRatio: false,
       plugins: {
         title: {
           display: true,
