@@ -33,7 +33,7 @@
                         <li class="mat-hang">
                             <div class="hanh-dong">
                                 <form method="POST" action="<%=request.getContextPath()%>/gio-hang/xoa">
-                                    <input type="hidden" name="maSanPham" value="${item.sanPham.maSanPham}"/>
+                                    <input type="hidden" name="maGio" value="${item.maMucGioHang}"/>
                                     <button type="submit" class="chuc-nang">
                                         <span>Xoá</span>
                                     </button>

@@ -8,4 +8,5 @@ import java.util.List;
 public interface GioHangService {
     void themSanPham(NguoiDung nguoiDung, Long maSanPham, Integer soLuong);
     List<SanPhamTrongGio> layTatCaCuaNguoiDung(NguoiDung nguoiDung);
+    void xoaSanPham(Long maGio);
 }

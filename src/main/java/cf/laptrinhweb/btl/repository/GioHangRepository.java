@@ -9,4 +9,5 @@ public interface GioHangRepository extends JdbcRepository {
     Long timBangNguoiDungVaSanPham(Long maNguoiDung, Long maSanPham);
     void capNhatSoLuong(Long maMucGioHang, Integer soLuongMoi);
     List<SanPhamTrongGio> timTatCaBangMaNguoiDung(Long maNguoiDung);
+    void xoaGioHang(Long maSanPhamTrongGio);
 }

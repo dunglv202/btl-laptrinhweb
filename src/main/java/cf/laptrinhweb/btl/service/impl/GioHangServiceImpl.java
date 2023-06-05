@@ -26,4 +26,9 @@ public class GioHangServiceImpl implements GioHangService {
     public List<SanPhamTrongGio> layTatCaCuaNguoiDung(NguoiDung nguoiDung) {
         return gioHangRepository.timTatCaBangMaNguoiDung(nguoiDung.getMaNguoiDung());
     }
+
+	@Override
+	public void xoaSanPham(Long maGio) {
+		gioHangRepository.xoaGioHang(maGio);
+	}
 }
