@@ -19,7 +19,9 @@ public class DatHang {
     private int phuongThucVanChuyen;
     private int tinhTrang;
 
-    private Long maKhachHang; // TODO: co the dung lop NguoiDung hoac KhachHang o day thay vi dung Long maKhacHang
+    private NguoiDung nguoiDung; // TODO: co the dung lop NguoiDung hoac KhachHang o day thay vi dung Long maKhacHang
     private String diaChiGiao; // TODO: can nhac luu dang string cho don gian, khong can luu thanh bang rieng => neu vay can them truong ten va sdt nguoi nhan
     private Date ngayTaoDon;
+    private String tenNguoiNhan;
+    private String sdtNhan;
 }
