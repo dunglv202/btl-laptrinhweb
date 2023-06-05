@@ -14,7 +14,8 @@
      <link rel="stylesheet" href="<%=request.getContextPath()%>/static/css/dat-hang.css">
   </head>
   <body>
-    <form id="thong-tin-dat-hang">
+  	<jsp:include page="components/header.jsp"/>
+    <form id="thong-tin-dat-hang" action = "<%=request.getContextPath()%>/dat-hang" method = "POST">
       <div class="nhieu-buoc thiet-lap-don-hang">
         <div class="buoc hien-tai thong-tin-nguoi-nhan">
           <h2 class="tieu-de-buoc">Thông tin người nhận</h2>
@@ -136,7 +137,8 @@
         <button type="submit" class="nut kieu-1">Đặt hàng</button>
       </div>
     </form>
-
-    <script src="nhieu-buoc.js"></script>
+	<jsp:include page="components/chan_trang.jsp"/>
+    <jsp:include page="components/thong_bao.jsp"/>
+    <script src="<%=request.getContextPath()%>/static/js/nhieu-buoc.js"></script>
   </body>
 </html>
