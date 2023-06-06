@@ -1,5 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@page import="java.util.List" %>
+<%@page import="cf.laptrinhweb.btl.entity.SanPhamTrongGio" %>
 
 <html>
     <head>
@@ -31,7 +33,7 @@
                         <li class="mat-hang">
                             <div class="hanh-dong">
                                 <form method="POST" action="<%=request.getContextPath()%>/gio-hang/xoa">
-                                    <input type="hidden" name="maSanPham" value="${item.sanPham.maSanPham}"/>
+                                    <input type="hidden" name="maGio" value="${item.maMucGioHang}"/>
                                     <button type="submit" class="chuc-nang">
                                         <span>Xoá</span>
                                     </button>
@@ -65,17 +67,24 @@
                         <span>Tiếp tục mua sắm </span>
                     </a>
                 </div>
+                <% 
+		            List<SanPhamTrongGio> ls = (List<SanPhamTrongGio>)request.getAttribute("danhSachSanPham");
+		        	int tong = 0;
+		        	for(SanPhamTrongGio i : ls) {
+		        		tong += i.getSoLuong() * i.getSanPham().getGia();
+		        	}       	
+		        %>
                 <div class="tong-quan">
                     <div class="muc">
-                        <span>2 mặt hàng</span>
-                        <span>200.000</span>
+                        <span><%=ls.size()%> mặt hàng</span>
+                        <span><%=tong%></span>
                     </div>
                     <div class="muc">
                         <span>Phí vận chuyển</span>
                         <span>Miễn phí</span>
                     </div>
                     <hr />
-                    <a href="/dat-hang" class="nut kieu-1"> Đặt hàng </a>
+                    <a href="<%=request.getContextPath()%>/dat-hang" class="nut kieu-1"> Đặt hàng </a>
                 </div>
             </div>
         </main>
