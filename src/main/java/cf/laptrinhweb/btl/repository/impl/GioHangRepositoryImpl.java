@@ -89,19 +89,4 @@ public class GioHangRepositoryImpl implements GioHangRepository {
             throw new RuntimeException("Khong the truy van gio hang", e);
         }
     }
-
-	@Override
-	public void xoaGioHang(Long maMucGio) {
-		try (Connection ketNoi = moKetNoi()) {
-            PreparedStatement ps = ketNoi.prepareStatement("""
-                DELETE 
-                FROM gio_hang
-                WHERE ma_muc_gio_hang = ?
-            """);
-            ps.setLong(1, maMucGio);
-            ps.executeUpdate();
-        } catch (Exception e) {
-            throw new RuntimeException("Khong the them sp vao gio hang", e);
-        }
-	}
 }

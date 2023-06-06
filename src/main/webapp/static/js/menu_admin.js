@@ -6,7 +6,7 @@ danhSachMuc
   .forEach((muc) => {
     muc.addEventListener("click", function () {
       if (!muc.classList.contains("duoc-chon")) {
-		  // huy chon muc khac
+        // huy chon muc khac
         danhSachMuc.find((m) => m.classList.contains("duoc-chon"))?.classList.remove("duoc-chon");
         // chon muc
         mucHienTai.classList.remove("hien-tai");
