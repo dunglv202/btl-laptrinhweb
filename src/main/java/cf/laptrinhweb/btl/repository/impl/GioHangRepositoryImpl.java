@@ -1,5 +1,6 @@
 package cf.laptrinhweb.btl.repository.impl;
 
+import cf.laptrinhweb.btl.entity.NguoiDung;
 import cf.laptrinhweb.btl.entity.SanPhamTrongGio;
 import cf.laptrinhweb.btl.mapper.SanPhamTrongGioMapper;
 import cf.laptrinhweb.btl.repository.GioHangRepository;
@@ -91,17 +92,22 @@ public class GioHangRepositoryImpl implements GioHangRepository {
     }
 
 	@Override
-	public void xoaGioHang(Long maMucGio) {
+	public void xoaGioHang(Long maSanPhamTrongGio, Long nguoidung) {
+		// TODO Auto-generated method stub
 		try (Connection ketNoi = moKetNoi()) {
             PreparedStatement ps = ketNoi.prepareStatement("""
                 DELETE 
                 FROM gio_hang
-                WHERE ma_muc_gio_hang = ?
+                WHERE ma_muc_gio_hang = ? AND ma_nguoi_dung = ?
             """);
-            ps.setLong(1, maMucGio);
+            ps.setLong(1, maSanPhamTrongGio);
+            ps.setLong(2,  nguoidung);     
             ps.executeUpdate();
         } catch (Exception e) {
-            throw new RuntimeException("Khong the them sp vao gio hang", e);
+            throw new RuntimeException("Khong the xoa san pham khoi gio hang", e);
         }
+		
 	}
+
+
 }

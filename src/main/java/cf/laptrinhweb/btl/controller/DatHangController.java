@@ -26,6 +26,7 @@ public class DatHangController extends HttpServlet {
 	
 	 private final DatHangService datHangService = new DatHangServiceImpl();
 	 private final GioHangService gioHangService = new GioHangServiceImpl();
+	 private final SanPhamService sanPhamService = new SanPhamServiceImpl();
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         // tra ve giao dien trang dat hang la file dat_hang.jsp trong thu muc WEB-INF
@@ -54,6 +55,8 @@ public class DatHangController extends HttpServlet {
         	tmp.setSanPham_id(i.getSanPham().getMaSanPham());
         	dsDat.add(tmp);
         }
+        
+
         dathang.setDiaChiGiao(req.getParameter("diaChi"));
         dathang.setNguoiDung(nguoiDung);
         dathang.setTenNguoiNhan(req.getParameter("tenNguoiNhan"));
@@ -61,13 +64,23 @@ public class DatHangController extends HttpServlet {
         dathang.setTinhTrang(1);
         long milis = System.currentTimeMillis();
         dathang.setNgayTaoDon(new Date(milis));
-        dathang.setHinhThucThanhToan(req.getParameter("hinhThucThanhToan") == "COD"? HinhThucThanhToan.THANH_TOAN_KHI_NHAN : HinhThucThanhToan.THE_NGAN_HANG);
-        dathang.setPhuongThucVanChuyen(req.getParameter("phuongThucVanChuyen") == "VN_POST" ? 1 : 2);
+        dathang.setHinhThucThanhToan(req.getParameter("hinhThucThanhToan").equals("COD")? HinhThucThanhToan.THANH_TOAN_KHI_NHAN : HinhThucThanhToan.THE_NGAN_HANG);
+        dathang.setPhuongThucVanChuyen(req.getParameter("phuongThucVanChuyen").equals("VN_POST") ? 1 : 2);
+        
         for(SanPhamDat sp : dsDat) {
         	sp.setDatHang(dathang);
+        	sanPhamService.giamSoLuong(sp.getSanPham_id(), sp.getSoLuong());
         }
+        
+        
+        for(SanPhamTrongGio sp : listSP) {
+        	gioHangService.xoaSanPham(sp.getMaMucGioHang(), nguoiDung.getMaNguoiDung());
+        }
+        
         datHangService.themDatHang(dathang, dsDat);
         System.out.print("thanh Cong");
+        
+        
         
         // dieu huong lai ve trang lich su don hang sau khi dat hang
         //resp.sendRedirect(req.getContextPath() + "/lich-su-mua-hang");

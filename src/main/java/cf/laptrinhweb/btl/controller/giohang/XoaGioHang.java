@@ -1,6 +1,7 @@
 package cf.laptrinhweb.btl.controller.giohang;
 
 import static cf.laptrinhweb.btl.helper.HoTroXacThuc.yeuCauQuyen;
+import  cf.laptrinhweb.btl.service.impl.GioHangServiceImpl;
 
 import java.io.IOException;
 import java.util.List;
@@ -16,6 +17,7 @@ import cf.laptrinhweb.btl.entity.NguoiDung;
 import cf.laptrinhweb.btl.helper.HoTroXacThuc;
 import cf.laptrinhweb.btl.repository.GioHangRepository;
 import cf.laptrinhweb.btl.repository.impl.GioHangRepositoryImpl;
+import cf.laptrinhweb.btl.service.GioHangService;
 
 /**
  * Servlet implementation class XoaGioHang
@@ -23,25 +25,14 @@ import cf.laptrinhweb.btl.repository.impl.GioHangRepositoryImpl;
 @WebServlet("/gio-hang/xoa")
 public class XoaGioHang extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private final GioHangRepository gioHangRepository = new GioHangRepositoryImpl();
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public XoaGioHang() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
+	private final GioHangService gioHangService = new GioHangServiceImpl();
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		yeuCauQuyen(request, List.of(QuyenNguoiDung.KHACH_HANG));
 
         NguoiDung nguoiDung = HoTroXacThuc.nguoiDungHienTai(request);
-        gioHangRepository.xoaGioHang(Long.valueOf(request.getParameter("maGio")));
+        gioHangService.xoaSanPham(Long.valueOf(request.getParameter("maGio")), nguoiDung.getMaNguoiDung());
         response.sendRedirect(request.getHeader("Referer"));
 	}
 

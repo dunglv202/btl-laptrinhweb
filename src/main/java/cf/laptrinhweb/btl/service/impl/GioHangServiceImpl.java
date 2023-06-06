@@ -28,7 +28,7 @@ public class GioHangServiceImpl implements GioHangService {
     }
 
 	@Override
-	public void xoaSanPham(Long maGio) {
-		gioHangRepository.xoaGioHang(maGio);
+	public void xoaSanPham(Long maGio, Long nguoiDung) {
+		gioHangRepository.xoaGioHang(maGio, nguoiDung);
 	}
 }
