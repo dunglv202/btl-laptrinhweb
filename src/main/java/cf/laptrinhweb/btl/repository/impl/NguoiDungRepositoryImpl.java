@@ -1,6 +1,7 @@
 package cf.laptrinhweb.btl.repository.impl;
 
 import cf.laptrinhweb.btl.entity.NguoiDung;
+import cf.laptrinhweb.btl.entity.SanPhamDat;
 import cf.laptrinhweb.btl.mapper.NguoiDungMapper;
 import cf.laptrinhweb.btl.model.DieuKienNguoiDung;
 import cf.laptrinhweb.btl.repository.NguoiDungRepository;
@@ -186,4 +187,31 @@ public class NguoiDungRepositoryImpl implements NguoiDungRepository {
             throw new RuntimeException(e);
         }
     }
+
+	@Override
+	public NguoiDung timNguoiDung(Long ma_nguoi_dung) {
+		// TODO Auto-generated method stub
+		NguoiDung customer = new NguoiDung();
+		try (Connection ketNoi = moKetNoi()) {
+            PreparedStatement ps = ketNoi.prepareStatement("""
+                select * from nguoi_dung
+                WHERE ma_nguoi_dung = ?
+            """);
+            ps.setLong(1, ma_nguoi_dung);
+            ResultSet rs = ps.executeQuery();
+            if(rs.next()) {
+            	customer.setMaNguoiDung(rs.getLong("ma_nguoi_dung"));
+            	customer.setTenHienThi(rs.getString("ten_hien_thi"));
+            	customer.setTenDangNhap(rs.getString("ten_dang_nhap"));
+            	customer.setEmail(rs.getString("email"));
+            	customer.setSoDienThoai(rs.getString("so_dien_thoai"));
+            	customer.setMatKhau(rs.getString("mat_khau"));
+            	customer.setDaKhoa(rs.getBoolean("da_khoa"));
+            	customer.setThoiGianTao(rs.getDate("thoi_gian_tao"));
+            }
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+		return customer;
+	}
 }

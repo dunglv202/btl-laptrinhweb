@@ -7,4 +7,5 @@ import java.util.List;
 
 public interface ChatLieuRepository extends JdbcRepository {
     List<ChatLieu> layTatCa();
+    ChatLieu timChatLieu(Long ma_chat_lieu);
 }
