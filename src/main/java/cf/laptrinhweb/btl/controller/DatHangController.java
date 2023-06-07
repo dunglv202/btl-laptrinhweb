@@ -59,7 +59,7 @@ public class DatHangController extends HttpServlet {
         	SanPhamDat tmp = new SanPhamDat();
         	tmp.setGia(i.getSanPham().getGia());
         	tmp.setSoLuong(i.getSoLuong());
-        	tmp.setSanPham_id(i.getSanPham().getMaSanPham());
+        	tmp.setSanPham(i.getSanPham());
         	dsDat.add(tmp);
         }
 
@@ -75,7 +75,7 @@ public class DatHangController extends HttpServlet {
         
         for(SanPhamDat sp : dsDat) {
         	sp.setDatHang(dathang);
-        	sanPhamService.giamSoLuong(sp.getSanPham_id(), sp.getSoLuong());
+        	sanPhamService.giamSoLuong(sp.getSanPham().getMaSanPham(), sp.getSoLuong());
         }
         
         
@@ -89,7 +89,7 @@ public class DatHangController extends HttpServlet {
         
         
         // dieu huong lai ve trang lich su don hang sau khi dat hang
-        //resp.sendRedirect(req.getContextPath() + "/lich-su-mua-hang");
+        resp.sendRedirect(req.getContextPath() + "/lich-su-mua-hang");
     }
 }
 /*

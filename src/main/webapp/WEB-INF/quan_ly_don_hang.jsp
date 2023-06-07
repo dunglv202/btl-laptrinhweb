@@ -1,0 +1,103 @@
+<%@ page import="cf.laptrinhweb.btl.helper.HoTroRequest" %>
+<%@ page contentType="text/html;charset=UTF-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
+<%HoTroRequest.khongCachePage(response);%>
+
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Title</title>
+        <link rel="stylesheet" href="<%=request.getContextPath()%>/static/css/chung.css">
+        <link rel="stylesheet" href="<%=request.getContextPath()%>/static/css/trang_admin.css">
+        <link rel="stylesheet" href="<%=request.getContextPath()%>/static/css/bang.css">
+        <link rel="stylesheet" href="<%=request.getContextPath()%>/static/css/quan_ly_don_hang.css">
+    </head>
+    <body>
+        <jsp:include page="components/menu_admin.jsp">
+            <jsp:param name="mucHienTai" value="nguoi-dung"/>
+        </jsp:include>
+
+        <main>
+            <h1 class="tieu-de-trang">
+                Lịch sử mua hàng
+            </h1>
+            <div class="bang-admin">
+                <div class="tuong-tac-bang">
+                    <form class="tieu-chuan loc-du-lieu">
+                        <div class="bo-loc">
+                            <div class="truong">
+                                <div class="tim-kiem">
+                                    <input class="o-tim-kiem" name="tuKhoa" value="${param.get("tuKhoa")}" placeholder="Từ khoá" />
+                                    <button class="nut kieu-1">Tìm kiếm</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="phan-trang">
+                            Trang
+                            <input type="number" name="trang" value="${param.get("trang") != null ? param.get("trang") : 1}" min="0" />
+                            của
+                            <span class="tong-so-trang">10</span>
+                        </div>
+                    </form>
+                </div>
+                <table class="bang">
+                    <thead>
+                    <tr>
+                        <th>Mã đơn hàng</th>
+                        <th>Tên sản phẩm</th>
+                        <th>Ảnh sản phẩm</th>
+                        <th>Số lượng</th>
+                        <th>Đơn giá</th>
+                        <th>Ngày tạo đơn</th>
+                        <th>Chi tiết</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <c:forEach var="sanpham" items="${danhSachSanPham}">
+                        <tr>
+                            <td>${sanpham.datHang.maDatHang}</td>
+                            <td>${sanpham.sanPham.tenSanPham}</td>
+                            <td>
+                            	<img src="${(sanpham.sanPham.anhXemTruoc == null) ? "/public/anh-trong.jpg" : sanpham.sanPham.anhXemTruoc}" />
+                            </td>
+                            <td>${sanpham.soLuong}</td>
+                            <td>${sanpham.gia}
+                            <td>
+                                <fmt:formatDate value="${sanpham.datHang.ngayTaoDon}" pattern="dd-MM-yyyy" />
+                            </td>
+                            <td class="hanh-dong">
+                                <span class="chon-hanh-dong">Chọn</span>
+                                <div class="danh-sach" style="height: 0">
+                                    <form method="POST" action="<%=request.getContextPath()%>/don-hang/chi-tiet">
+                                        <input type="hidden" name="maDatHang" value="${sanpham.datHang.maDatHang}" />
+                                        <input type="hidden" name="nguoiDung" value="${nguoiDung.maNguoiDung}" />
+                                        <span>Chi tiết</span>
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>
+                    </c:forEach>
+                    </tbody>
+                </table>
+            </div>
+        </main>
+
+        <script>
+            let nutChonHanhDong = document.querySelectorAll(".bang-admin .hanh-dong .chon-hanh-dong");
+            Array.from(nutChonHanhDong).forEach(nut => {
+                nut.addEventListener("click", function() {
+                    nut.classList.toggle("da-click");
+                    if (nut.classList.contains("da-click")) {
+                        nut.nextElementSibling.style.height = nut.nextElementSibling.scrollHeight + "px";
+                    } else {
+                        nut.nextElementSibling.style.height = "0px";
+                    }
+                });
+            })
+        </script>
+    </body>
+</html>
