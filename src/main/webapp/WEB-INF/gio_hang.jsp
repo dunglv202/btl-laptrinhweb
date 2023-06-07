@@ -47,13 +47,16 @@
                                     <a href="<%=request.getContextPath()%>/san-pham?maSanPham=${item.sanPham.maSanPham}">
                                         ${item.sanPham.tenSanPham}
                                     </a>
+                                    <span>(Còn lại: ${item.sanPham.soLuong})</span>
                                 </h2>
                                 <div class="tien-te don-gia">${item.sanPham.gia}</div>
-                                <div class="so-luong">
+                               	<form style = "margin:0" class = "so-luong" method="POST" action="<%=request.getContextPath()%>/gio-hang/cap-nhat">
+                               		<input type="hidden" name="maGio" value="${item.maMucGioHang}"/>
                                     <button class="chuc-nang giam" tabindex="-1">-</button>
-                                    <input type="number" class="o-nhap-so-luong" value="${item.soLuong}" />
+                                    <input type="number" name = "soLuongMoi" class="o-nhap-so-luong" value="${item.soLuong}" />
                                     <button class="chuc-nang tang" tabindex="-1">+</button>
-                                </div>
+                                    <button type = "submit" class = "chuc-nang"><span>Cập nhật</span></button>
+                                </form>
                                 <div class="tien-te tong-tien">${item.sanPham.gia * item.soLuong}</div>
                             </div>
                         </li>
@@ -85,6 +88,12 @@
                     </div>
                     <hr />
                     <a href="<%=request.getContextPath()%>/dat-hang" class="nut kieu-1"> Đặt hàng </a>
+                    <% 
+                    	String loi = "";
+                    	if (request.getAttribute("Loi") != null)
+                    		loi = "Lượng mua nhiều hơn số lượng còn lại trong kho";        		
+                    %>
+                    <span><%=loi%></span>
                 </div>
             </div>
         </main>

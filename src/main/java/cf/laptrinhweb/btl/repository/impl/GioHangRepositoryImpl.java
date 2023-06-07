@@ -19,7 +19,7 @@ public class GioHangRepositoryImpl implements GioHangRepository {
                 INSERT INTO gio_hang (
                     ma_nguoi_dung,
                     ma_san_pham,
-                    so_luong
+                    so_luong_mua
                 ) VALUES (?, ?, ?)
             """);
             ps.setLong(1, maNguoiDung);
@@ -57,7 +57,7 @@ public class GioHangRepositoryImpl implements GioHangRepository {
         try (Connection ketNoi = moKetNoi()) {
             PreparedStatement ps = ketNoi.prepareStatement("""
                 UPDATE gio_hang
-                SET so_luong = ?
+                SET so_luong_mua = ?
                 WHERE ma_muc_gio_hang = ?
             """);
             ps.setLong(1, soLuongMoi);
