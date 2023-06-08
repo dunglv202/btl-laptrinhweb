@@ -42,44 +42,6 @@ public class SanPhamDatRepositoryImpl implements SanPhamDatRepository{
 	}
 
 	@Override
-	public List<SanPhamDat> layTatCaNguoiDung(NguoiDung nguoiDung) {
-		try (Connection ketNoi = moKetNoi()) {
-            PreparedStatement ps = ketNoi.prepareStatement("""
-                SELECT *
-                FROM san_pham_dat, dat_hang
-                WHERE ma_nguoi_dat = ?
-            		    AND san_pham_dat.ma_dat_hang = dat_hang.ma_dat_hang
-            """);
-            ps.setLong(1, nguoiDung.getMaNguoiDung());
-            ResultSet resultSet = ps.executeQuery();
-            List<SanPhamDat> res = new ArrayList<>();
-            while( resultSet.next() ) {
-            	SanPhamDat tmp = new SanPhamDat();
-            	tmp.setGia(resultSet.getDouble("don_gia"));
-            	tmp.setId(resultSet.getLong("ma_san_pham_dat"));
-            	tmp.setSoLuong(resultSet.getInt("so_luong"));
-            	tmp.setSanPham(new SanPhamRepositoryImpl().timTheoMa(resultSet.getLong("ma_san_pham")).get());
-            	DatHang dh = new DatHang();
-            	dh.setDiaChiGiao(resultSet.getString("dia_chi_giao"));
-            	dh.setMaDatHang(resultSet.getLong("ma_dat_hang"));
-            	dh.setHinhThucThanhToan(resultSet.getInt("hinh_thuc_thanh_toan") == 1 ? HinhThucThanhToan.THANH_TOAN_KHI_NHAN : HinhThucThanhToan.THE_NGAN_HANG);
-            	dh.setNote(resultSet.getString("ghi_chu"));
-            	dh.setPhuongThucVanChuyen(resultSet.getInt("phuong_thuc_van_chuyen"));
-            	dh.setSdtNhan(resultSet.getString("sdt_nhan"));
-            	dh.setNguoiDung(nguoiDung);
-            	dh.setTenNguoiNhan(resultSet.getString("ten_nguoi_nhan"));
-            	dh.setTinhTrang(resultSet.getInt("trang_thai"));
-            	dh.setNgayTaoDon(Date.from(resultSet.getTimestamp("ngay_dat_hang").toInstant()));
-            	tmp.setDatHang(dh);
-            	res.add(tmp);
-            }
-            return res;
-        } catch (Exception e) {
-            throw new RuntimeException("Khong the tim san pham theo ma", e);
-        }
-	}
-
-	@Override
 	public List<SanPhamDat> layTatCaTheoMaDat(Long maDatHang, NguoiDung nguoidung) {
 		try (Connection ketNoi = moKetNoi()) {
             PreparedStatement ps = ketNoi.prepareStatement("""

@@ -45,7 +45,7 @@
                 </div>
               </label>
               <label class="lua-chon">
-                <input type="radio" name="phuongThucVanChuyen" value="VIETTEL_POST" />
+                <input type="radio" name="phuongThucVanChuyen" value="VIETTEL_POST"/>
                 <div class="noi-dung-lua-chon">
                   <img src="https://upload.wikimedia.org/wikipedia/commons/8/80/Viettel_Post_logo.svg" />
                 </div>

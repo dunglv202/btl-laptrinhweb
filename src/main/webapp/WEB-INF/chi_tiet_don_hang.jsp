@@ -36,7 +36,13 @@
         <div class="truong">
           <label>Phương thức vận chuyển</label>
           <%
-          String ptvc = ((DatHang)request.getAttribute("datHang")).getPhuongThucVanChuyen() == 1 ? "VietNam Post" : "Giao hàng nhanh";
+          String ptvc = "";
+          if (((DatHang)request.getAttribute("datHang")).getPhuongThucVanChuyen() == 1)
+        	  ptvc = "VIETNAM_POST";
+          else if(((DatHang)request.getAttribute("datHang")).getPhuongThucVanChuyen() == 2)
+        	  ptvc = "VIETTEL_POST";
+          else
+        	  ptvc = "GIAO_HANG_NHANH";
           %>
           <span><%=ptvc %></span>
         </div>
@@ -55,7 +61,7 @@
             </div>
             <div class="chi-tiet">
               <div class="ten-san-pham">
-                <a href="#" class="lien-ket">${sanpham.sanPham.tenSanPham }</a>
+                <a href="<%=request.getContextPath()%>/san-pham?maSanPham=${sanpham.sanPham.maSanPham}" class="lien-ket">${sanpham.sanPham.tenSanPham }</a>
               </div>
               <div class="so-luong">${sanpham.soLuong}</div>
               <div class="thanh-tien tien-te">${sanpham.gia}</div>
@@ -89,7 +95,7 @@
             </div>
             <div class="hanh-dong">
               <button type="submit" class="nut kieu-1 nut-danh-gia" disabled>Xác nhận</button>
-            </div>S
+            </div>
           </form>
         </li>
         </c:forEach>

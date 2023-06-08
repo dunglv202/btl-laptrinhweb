@@ -49,31 +49,31 @@
                     <thead>
                     <tr>
                         <th>Mã đơn hàng</th>
-                        <th>Tên sản phẩm</th>
-                        <th>Ảnh sản phẩm</th>
-                        <th>Số lượng</th>
-                        <th>Đơn giá</th>
+                        <th>Sản phẩm</th>
+                        <th>Tổng tiền</th>
                         <th>Ngày tạo đơn</th>
                         <th>Chi tiết</th>
                     </tr>
                     </thead>
                     <tbody>
-                    <c:forEach var="sanpham" items="${danhSachSanPham}">
+                    <c:forEach var="donhang" items="${danhSachDonHang}">
                         <tr>
-                            <td>${sanpham.datHang.maDatHang}</td>
-                            <td>${sanpham.sanPham.tenSanPham}</td>
+                            <td>${donhang.maDatHang}</td>
                             <td>
-                            	<img src="${(sanpham.sanPham.anhXemTruoc == null) ? "/public/anh-trong.jpg" : sanpham.sanPham.anhXemTruoc}" />
+                                <ul class="toi-gian">
+                                    <c:forEach var="sanpham" items="${donhang.danhSachSanPham}">
+                                        <li>${sanpham.sanPham.tenSanPham} x ${sanpham.soLuong}</li>
+                                    </c:forEach>
+                                </ul>
                             </td>
-                            <td>${sanpham.soLuong}</td>
-                            <td>${sanpham.gia}
+                            <td>${donhang.tongTien}</td>
                             <td>
-                                <fmt:formatDate value="${sanpham.datHang.ngayTaoDon}" pattern="dd-MM-yyyy" />
+                                <fmt:formatDate value="${donhang.ngayTaoDon}" pattern="dd-MM-yyyy" />
                             </td>
                             <td class="hanh-dong">
                                 <div class="danh-sach" style="height: 0 ;margin : 0">
                                     <form method="GET" action="<%=request.getContextPath()%>/don-hang/chi-tiet">
-                                        <input type="hidden" name="maDatHang" value="${sanpham.datHang.maDatHang}" />
+                                        <input type="hidden" name="maDatHang" value="${donhang.maDatHang}" />
                                         <input type="hidden" name="nguoiDung" value="${nguoiDung.maNguoiDung}" />
                                         <input type = "submit" value = "Chi Tiết"/>
                                     </form>

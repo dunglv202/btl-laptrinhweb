@@ -14,7 +14,7 @@ public class SanPhamDatServiceImpl implements SanPhamDatService{
 	@Override
 	public List<SanPhamDat> layTatCaTheoNguoiDung(NguoiDung nguoiDung) {
 		// TODO Auto-generated method stub
-		return sanPhamDatRepository.layTatCaNguoiDung(nguoiDung);
+		return null;
 	}
 
 }

@@ -7,7 +7,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import cf.laptrinhweb.btl.constant.HinhThucThanhToan;
+import cf.laptrinhweb.btl.constant.PhuongThucVanChuyen;
 import cf.laptrinhweb.btl.constant.QuyenNguoiDung;
+import cf.laptrinhweb.btl.constant.TinhTrangDon;
 import cf.laptrinhweb.btl.entity.*;
 import cf.laptrinhweb.btl.entity.SanPhamTrongGio;
 import cf.laptrinhweb.btl.helper.HoTroXacThuc;
@@ -67,23 +69,21 @@ public class DatHangController extends HttpServlet {
         dathang.setNguoiDung(nguoiDung);
         dathang.setTenNguoiNhan(req.getParameter("tenNguoiNhan"));
         dathang.setSdtNhan(req.getParameter("dienThoai"));
-        dathang.setTinhTrang(1);
+        dathang.setTinhTrang(TinhTrangDon.CHO_DUYET);
         long milis = System.currentTimeMillis();
         dathang.setNgayTaoDon(new Date(milis));
         dathang.setHinhThucThanhToan(req.getParameter("hinhThucThanhToan").equals("COD")? HinhThucThanhToan.THANH_TOAN_KHI_NHAN : HinhThucThanhToan.THE_NGAN_HANG);
-        dathang.setPhuongThucVanChuyen(req.getParameter("phuongThucVanChuyen").equals("VN_POST") ? 1 : 2);
-        
-        for(SanPhamDat sp : dsDat) {
-        	sp.setDatHang(dathang);
-        	sanPhamService.giamSoLuong(sp.getSanPham().getMaSanPham(), sp.getSoLuong());
+        if(req.getParameter("phuongThucVanChuyen").equals("VIETTEL_POST")){
+        	dathang.setPhuongThucVanChuyen(PhuongThucVanChuyen.VIETTEL_POST);
         }
-        
-        
-        for(SanPhamTrongGio sp : listSP) {
-        	gioHangService.xoaSanPham(sp.getMaMucGioHang(), nguoiDung.getMaNguoiDung());
+        else if(req.getParameter("phuongThucVanChuyen").equals("VN_POST")){
+        	dathang.setPhuongThucVanChuyen(PhuongThucVanChuyen.VIETNAM_POST);
         }
-        
-        datHangService.themDatHang(dathang, dsDat);
+        else {
+        	dathang.setPhuongThucVanChuyen(PhuongThucVanChuyen.GIAO_HANG_NHANH);
+        }
+              
+        datHangService.themDatHang(dathang, dsDat, listSP, nguoiDung);
         System.out.print("thanh Cong");
         
         
