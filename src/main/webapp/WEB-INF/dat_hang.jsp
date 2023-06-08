@@ -113,6 +113,7 @@
 	              <img src="${(item.sanPham.anhXemTruoc == null) ? "/public/anh-trong.jpg" : item.sanPham.anhXemTruoc}"/>
 	            </div>
 	            <div class="chi-tiet-hang">${item.sanPham.tenSanPham}</div>
+	            <span>x${item.soLuong}</span>
 	          </li>
 	        </ul>
         </c:forEach>

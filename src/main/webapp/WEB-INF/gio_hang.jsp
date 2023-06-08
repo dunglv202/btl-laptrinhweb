@@ -63,7 +63,7 @@
                     </c:forEach>
                 </ul>
                 <div>
-                    <a href="#" class="lien-ket gach-chan mo-rong mua-sam-them">
+                    <a href="<%=request.getContextPath()%>" class="lien-ket gach-chan mo-rong mua-sam-them">
                         <div class="hinh">
                             <img src="<%=request.getContextPath()%>/static/images/mui_ten.svg" />
                         </div>
