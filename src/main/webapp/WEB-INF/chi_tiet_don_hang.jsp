@@ -9,7 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
     <link rel="stylesheet" href="<%=request.getContextPath()%>/static/css/chung.css">
-    <link rel="stylesheet" href="<%=request.getContextPath()%>/static/css/danh_gia.css">
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/static/css/sao.css">
     <link rel="stylesheet" href="<%=request.getContextPath()%>/static/css/chi_tiet_don_hang.css">
   </head>
   <body>
@@ -59,24 +59,7 @@
             <input type="hidden" name="maSanPhamMua" value="1" />
             <div class="diem-danh-gia">
               <span>Đánh giá: </span>
-              <div class="danh-gia danh-gia-cua-toi">
-                <span class="sao chon" style="display: none"></span>
-                <label class="sao">
-                  <input type="radio" name="danhGia" value="1" />
-                </label>
-                <label class="sao">
-                  <input type="radio" name="danhGia" value="2" />
-                </label>
-                <label class="sao">
-                  <input type="radio" name="danhGia" value="3" />
-                </label>
-                <label class="sao">
-                  <input type="radio" name="danhGia" value="4" />
-                </label>
-                <label class="sao">
-                  <input type="radio" name="danhGia" value="5" />
-                </label>
-              </div>
+              <div class="danh-gia-sao danh-gia-cua-toi chua-danh-gia"></div>
             </div>
             <div class="binh-luan">
               <textarea name="binhLuan" placeholder="Bạn nghĩ sao về sản phẩm này?"></textarea>
@@ -92,5 +75,6 @@
     <jsp:include page="components/chan_trang.jsp"/>
 
     <script src="<%=request.getContextPath()%>/static/js/danh_gia.js"></script>
+    <script src="<%=request.getContextPath()%>/static/js/sao.js"></script>
   </body>
 </html>
