@@ -69,6 +69,12 @@
                         </div>
                         <span>Tiếp tục mua sắm </span>
                     </a>
+                    <a href="<%=request.getContextPath()%>/lich-su-mua-hang" class="lien-ket gach-chan mo-rong mua-sam-them">
+                        <div class="hinh">
+                            <img src="<%=request.getContextPath()%>/static/images/mui_ten.svg" />
+                        </div>
+                        <span>Lịch sử mua hàng </span>
+                    </a>
                 </div>
                 <% 
 		            List<SanPhamTrongGio> ls = (List<SanPhamTrongGio>)request.getAttribute("danhSachSanPham");

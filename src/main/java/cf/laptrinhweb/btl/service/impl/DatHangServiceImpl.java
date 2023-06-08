@@ -3,6 +3,7 @@ package cf.laptrinhweb.btl.service.impl;
 import java.util.List;
 
 import cf.laptrinhweb.btl.entity.DatHang;
+import cf.laptrinhweb.btl.entity.NguoiDung;
 import cf.laptrinhweb.btl.entity.SanPhamDat;
 import cf.laptrinhweb.btl.repository.GioHangRepository;
 import cf.laptrinhweb.btl.service.DatHangService;
@@ -22,6 +23,13 @@ public class DatHangServiceImpl implements DatHangService{
 			sanPhamDatRepository.themSanPhamDat(sp);
 		}
 		// TODO Auto-generated method stub
+	}
+
+	@Override
+	public List<SanPhamDat> layDonTheoMa(Long maDatHang, NguoiDung nguoiDung) {
+		// TODO Auto-generated method stub
+		
+		return sanPhamDatRepository.layTatCaTheoMaDat(maDatHang, nguoiDung);
 	}
 
 }

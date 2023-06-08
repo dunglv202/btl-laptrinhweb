@@ -1,5 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@page import="java.util.List" %>
+<%@page import="cf.laptrinhweb.btl.entity.DatHang" %>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -21,38 +23,42 @@
       <div id="thong-tin-don-hang">
         <div class="truong">
           <label>Tên người nhận</label>
-          <span>Lưu Văn Dũng</span>
+          <span>${datHang.tenNguoiNhan}</span>
         </div>
         <div class="truong">
           <label>Số điện thoại</label>
-          <span>+84 123 45 6789</span>
+          <span>${datHang.sdtNhan}</span>
         </div>
         <div class="truong">
           <label>Địa chỉ</label>
-          <span>Địa chỉ</span>
+          <span>${datHang.diaChiGiao }</span>
         </div>
         <div class="truong">
           <label>Phương thức vận chuyển</label>
-          <span>Vietnam Post</span>
+          <%
+          String ptvc = ((DatHang)request.getAttribute("datHang")).getPhuongThucVanChuyen() == 1 ? "VietNam Post" : "Giao hàng nhanh";
+          %>
+          <span><%=ptvc %></span>
         </div>
         <div class="truong">
           <label>Hình thức thanh toán</label>
-          <span>Thanh toán khi nhận hàng</span>
+          <span>${datHang.hinhThucThanhToan}</span>
         </div>
       </div>
 
       <ul id="danh-sach-hang-dat" class="toi-gian">
+      	<c:forEach var = "sanpham" items = "${danhSachSanPham}">
         <li class="hang-dat">
           <div class="chi-tiet-hang-dat">
             <div class="anh">
-              <img src="https://cdn.shopify.com/s/files/1/0062/5642/7093/files/demo03_02_800x.jpg" />
+              <img src="${(sanpham.sanPham.anhXemTruoc == null) ? "/public/anh-trong.jpg" : sanpham.sanPham.anhXemTruoc}" />
             </div>
             <div class="chi-tiet">
               <div class="ten-san-pham">
-                <a href="#" class="lien-ket">Sản phẩm mới</a>
+                <a href="#" class="lien-ket">${sanpham.sanPham.tenSanPham }</a>
               </div>
-              <div class="so-luong">2</div>
-              <div class="thanh-tien tien-te">100000</div>
+              <div class="so-luong">${sanpham.soLuong}</div>
+              <div class="thanh-tien tien-te">${sanpham.gia}</div>
             </div>
           </div>
           <form class="form-danh-gia" method="post" action="/danh-gia">
@@ -83,9 +89,10 @@
             </div>
             <div class="hanh-dong">
               <button type="submit" class="nut kieu-1 nut-danh-gia" disabled>Xác nhận</button>
-            </div>
+            </div>S
           </form>
         </li>
+        </c:forEach>
       </ul>
     </main>
 
