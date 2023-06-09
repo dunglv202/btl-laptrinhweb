@@ -6,6 +6,6 @@ import cf.laptrinhweb.btl.entity.DanhGia;
 
 public interface DanhGiaRepository extends JdbcRepository{
 	public void themDanhGia(DanhGia danhGia);
-	public void xoaDanhGia(DanhGia danhGia);
-	public List<DanhGia> layTatCaDanhGia();
+	public void xoaDanhGia(Long ma_danh_gia);
+	public List<DanhGia> layTatCaDanhGia(Long ma_san_pham);
 }

@@ -146,10 +146,24 @@
                         Lorem ipsum dolor, sit amet consectetur adipisicing elit. Blanditiis earum mollitia facere qui
                         velit ullam rem voluptas quas officiis excepturi.
                       </p>
+                      
                     </li>
                   </ul>
                 </div>
               </div>
+            </div>
+            <div style = "width : 100%">
+            	 <div style = "width:50%">
+            	 	<a href =" <%=request.getContextPath()%>/binhluan?ma_san_pham=${sanPham.maSanPham}">xem tất cả bình luận</a>
+            	 </div>
+            	 <div style = "width:50%">
+            	 	<a href =" <%=request.getContextPath()%>/themBinhluan?ma_san_pham=${sanPham.maSanPham}"> Bình luận</a>
+            	 </div>
+            	 <form action = "<%=request.getContextPath()%>/themBinhluan" method = "GET">
+            	 	<input type = "text" name = "noi_dung_binh_luan"  value = "a"/>
+            	 	<input name = "ma_san_pham" type="hidden" value = "${sanPham.maSanPham}"/> 
+            	 	<button type = "submit">BTTT</button>
+            	 </form>
             </div>
           </div>
         </div>
@@ -163,5 +177,6 @@
     <jsp:include page="components/chan_trang.jsp"/>
 
     <script src="<%=request.getContextPath()%>/static/js/chi_tiet_san_pham.js"></script>
+    
   </body>
 </html>

@@ -35,12 +35,12 @@ public class DanhGiaRepositoryImpl implements DanhGiaRepository{
 	}
 
 	@Override
-	public void xoaDanhGia(DanhGia danhGia) {
+	public void xoaDanhGia(Long ma_danh_gia) {
 		// TODO Auto-generated method stub
 		try (Connection ketNoi = moKetNoi()) {
             PreparedStatement ps = ketNoi.prepareStatement("""
                 delete from danh_gia where ma_danh_gia = ?""");
-            ps.setLong(1, danhGia.getId());
+            ps.setLong(1, ma_danh_gia);
             ps.executeUpdate();
         } catch (Exception e) {
             throw new RuntimeException("Khong the xoa danh gia", e);
@@ -50,18 +50,20 @@ public class DanhGiaRepositoryImpl implements DanhGiaRepository{
 	}
 
 	@Override
-	public List<DanhGia> layTatCaDanhGia() {
+	public List<DanhGia> layTatCaDanhGia(Long ma_san_pham) {
 		List<DanhGia> ldg = new ArrayList<>();
 		// TODO Auto-generated method stub
 		try (Connection ketNoi = moKetNoi()) {
             PreparedStatement ps = ketNoi.prepareStatement("""
-                select * from danh_gia""");
+                select * 
+                from danh_gia 
+                where ma_nguoi_danh_gia = ?""");
+            ps.setLong(1, ma_san_pham);
             ResultSet rs = ps.executeQuery();
             while(rs.next()) {
             	DanhGia a = new DanhGia();
             	a.setId(rs.getLong("ma_danh_gia"));
             	a.setKhachHangDanhGia(new NguoiDungRepositoryImpl().timNguoiDung(rs.getLong("ma_nguoi_dung")));
-        
             }
         } catch (Exception e) {
             throw new RuntimeException("Khong the xoa danh gia", e);
