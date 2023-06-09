@@ -38,6 +38,11 @@ public class DatHangController extends HttpServlet {
         NguoiDung nguoiDung = HoTroXacThuc.nguoiDungHienTai(req);
         List<SanPhamTrongGio> listSP = gioHangService.layTatCaCuaNguoiDung(nguoiDung);
         req.setAttribute("danhSachSanPham", listSP);
+        if(listSP.size()==0) {
+        	req.setAttribute("Loi", "Gio hang trong, hay mua sam them");
+    		req.getRequestDispatcher("WEB-INF/gio_hang.jsp").forward(req, resp);
+    		return;
+        }
         for(SanPhamTrongGio i : listSP) {
 	        if( i.getSoLuong() > i.getSanPham().getSoLuong()) {
 	    		req.setAttribute("Loi", "Luong mua nhieu hon so luong con lai");

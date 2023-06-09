@@ -97,7 +97,13 @@
                     <% 
                     	String loi = "";
                     	if (request.getAttribute("Loi") != null)
-                    		loi = "Lượng mua nhiều hơn số lượng còn lại trong kho";        		
+                    	{
+                    		if (request.getAttribute("Loi").equals("Luong mua nhieu hon so luong con lai")){
+                    			loi = "Lượng mua nhiều hơn số lượng còn lại";
+                    		}
+                    		else
+                    			loi = "Giỏ hàng trống, hãy thêm sản phẩm trước khi đặt";
+                    	}
                     %>
                     <span><%=loi%></span>
                 </div>
