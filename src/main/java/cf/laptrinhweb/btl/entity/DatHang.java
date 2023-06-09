@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.util.Date;
+import java.util.List;
 
 import static cf.laptrinhweb.btl.constant.HinhThucThanhToan.THANH_TOAN_KHI_NHAN;
 
@@ -19,7 +20,19 @@ public class DatHang {
     private int phuongThucVanChuyen;
     private int tinhTrang;
 
-    private Long maKhachHang; // TODO: co the dung lop NguoiDung hoac KhachHang o day thay vi dung Long maKhacHang
+    private NguoiDung nguoiDung; // TODO: co the dung lop NguoiDung hoac KhachHang o day thay vi dung Long maKhacHang
     private String diaChiGiao; // TODO: can nhac luu dang string cho don gian, khong can luu thanh bang rieng => neu vay can them truong ten va sdt nguoi nhan
     private Date ngayTaoDon;
+    private String tenNguoiNhan;
+    private String sdtNhan;
+    private List<SanPhamDat> danhSachSanPham;
+    private double tongTien;
+    
+    public void capNhatTongTien() {
+    	double res = 0;
+    	for(SanPhamDat i : danhSachSanPham) {
+    		res += i.getGia() * i.getSoLuong();
+    	}
+    	this.tongTien = res;
+    }
 }

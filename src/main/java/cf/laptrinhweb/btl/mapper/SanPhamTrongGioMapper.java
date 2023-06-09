@@ -13,7 +13,7 @@ public class SanPhamTrongGioMapper {
         return SanPhamTrongGio.builder()
             .maMucGioHang(resultSet.getLong("ma_muc_gio_hang"))
             .sanPham(sanPham)
-            .soLuong(resultSet.getInt("so_luong"))
+            .soLuong(resultSet.getInt("so_luong_mua"))
             .build();
     }
 }
