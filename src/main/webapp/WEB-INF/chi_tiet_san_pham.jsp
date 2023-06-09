@@ -154,16 +154,22 @@
             </div>
             <div style = "width : 100%">
             	 <div style = "width:50%">
-            	 	<a href =" <%=request.getContextPath()%>/binhluan?ma_san_pham=${sanPham.maSanPham}">xem tất cả bình luận</a>
+            	 	<a href =" <%=request.getContextPath()%>/xem-tat-ca-danh-gia?ma_san_pham="${sanPham.maSanPham}">xem tất cả dannh gia</a>
             	 </div>
-            	 <div style = "width:50%">
-            	 	<a href =" <%=request.getContextPath()%>/themBinhluan?ma_san_pham=${sanPham.maSanPham}"> Bình luận</a>
-            	 </div>
-            	 <form action = "<%=request.getContextPath()%>/themBinhluan" method = "GET">
-            	 	<input type = "text" name = "noi_dung_binh_luan"  value = "a"/>
-            	 	<input name = "ma_san_pham" type="hidden" value = "${sanPham.maSanPham}"/> 
-            	 	<button type = "submit">BTTT</button>
-            	 </form>
+
+            	 <form action = "<%=request.getContextPath()%>/them-danh-gia" method = "GET">
+            	 	<p>noi dung</p>
+          			<input type = "text" name = "noi_dung_danh_gia"  value = "a"/>
+          			<p>ma sp</p>
+          			<input name = "ma_san_pham" value = "${sanPham.maSanPham}"/>
+          			<p>so diem </p>
+          			<input name = "so_diem_danh_gia" value = "3">
+          			<p>ma khach hang</p>
+          			<input name = "ma_khach_hang" value = "1"> 
+          			<p>ma san pham dat</p>
+          			<input name = "ma_san_pham_dat" value = "1">
+          			<button type = "submit">BTTT</button>
+				 </form>
             </div>
           </div>
         </div>

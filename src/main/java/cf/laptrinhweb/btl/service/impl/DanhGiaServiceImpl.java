@@ -10,9 +10,9 @@ import cf.laptrinhweb.btl.service.DanhGiaService;
 public class DanhGiaServiceImpl implements DanhGiaService{
 	public final DanhGiaRepository danhGiaRepo = new DanhGiaRepositoryImpl();
 	@Override
-	public void themDanhGia(DanhGia danhGia) {
+	public void themDanhGia(DanhGia danhGia,Long ma_san_pham_dat) {
 		// TODO Auto-generated method stub
-		danhGiaRepo.themDanhGia(danhGia);
+		danhGiaRepo.themDanhGia(danhGia,ma_san_pham_dat);
 	}
 
 	@Override

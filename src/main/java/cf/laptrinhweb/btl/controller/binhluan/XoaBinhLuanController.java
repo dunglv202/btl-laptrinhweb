@@ -25,12 +25,8 @@ public class XoaBinhLuanController extends HttpServlet{
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         NguoiDung nguoiDung = HoTroXacThuc.nguoiDungHienTai(req);
         yeuCauQuyen(req, List.of(QuyenNguoiDung.KHACH_HANG));
-		System.out.print(0);
 		Long ma_binh_luan = Long.parseLong(req.getParameter("ma_binh_luan"));
-		System.out.print("1");
 		binhLuanService.xoaBinhLuan(ma_binh_luan,nguoiDung.getMaNguoiDung());
-		System.out.print("2");
 		resp.sendRedirect(req.getContextPath() + "/binhluan?ma_san_pham=" + req.getParameter("ma_san_pham"));
-		System.out.print("3");
     }
 }
