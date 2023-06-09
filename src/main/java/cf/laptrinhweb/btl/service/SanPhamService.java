@@ -11,4 +11,5 @@ public interface SanPhamService {
     List<SanPham> timTatCa(DieuKienSanPham dieuKien);
     void taoSanPham(ThongTinSanPham thongTinSanPham, List<Part> dsAnh);
     SanPham timTheoMa(Long maSanPham);
+    void giamSoLuong(Long maSanPham, int soLuongGiam);
 }

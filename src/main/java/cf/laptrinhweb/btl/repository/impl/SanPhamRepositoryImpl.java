@@ -102,4 +102,22 @@ public class SanPhamRepositoryImpl implements SanPhamRepository {
             throw new RuntimeException("Khong the tim san pham theo ma", e);
         }
     }
+
+	@Override
+	public void giamSoLuong(Long maSanPham, int soLuongGiam) {
+		try (Connection ketNoi = moKetNoi()) {
+			PreparedStatement ps = ketNoi.prepareStatement("""
+	                UPDATE san_pham
+	                SET so_luong = ?
+	                WHERE ma_san_pham = ?
+	            """);
+			ps.setInt(1, this.timTheoMa(maSanPham).get().getSoLuong() - soLuongGiam);
+			ps.setLong(2, maSanPham);
+			ps.executeUpdate();
+		}
+		catch(Exception e) {
+			throw new RuntimeException("Khong the giam so luong san pham", e);
+		}
+		
+	}
 }
