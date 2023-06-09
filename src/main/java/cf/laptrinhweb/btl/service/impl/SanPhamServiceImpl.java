@@ -42,4 +42,10 @@ public class SanPhamServiceImpl implements SanPhamService {
         sanPham.setDanhSachAnh(anhSanPhamRepository.timTheoMaSanPham(maSanPham));
         return sanPham;
     }
+
+	@Override
+	public void giamSoLuong(Long maSanPham, int soLuongGiam) {
+		sanPhamRepository.giamSoLuong(maSanPham, soLuongGiam);
+		
+	}
 }

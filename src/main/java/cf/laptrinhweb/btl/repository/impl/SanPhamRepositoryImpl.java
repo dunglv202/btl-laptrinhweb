@@ -105,9 +105,8 @@ public class SanPhamRepositoryImpl implements SanPhamRepository {
 
 	@Override
 	public SanPham timSanPham(Long ma_san_pham) {
-		// TODO Auto-generated method stub
-		SanPham sp = new SanPham();
-		try (Connection ketNoi = moKetNoi()) {
+        SanPham sp = new SanPham();
+        try (Connection ketNoi = moKetNoi()) {
             PreparedStatement ps = ketNoi.prepareStatement("""
                 select * from san_pham
                 WHERE ma_san_pham = ?
@@ -132,5 +131,20 @@ public class SanPhamRepositoryImpl implements SanPhamRepository {
             throw new RuntimeException(e);
         }
 		return sp;
+    }
+	public void giamSoLuong(Long maSanPham, int soLuongGiam) {
+		try (Connection ketNoi = moKetNoi()) {
+			PreparedStatement ps = ketNoi.prepareStatement("""
+                UPDATE san_pham
+                SET so_luong = ?
+                WHERE ma_san_pham = ?
+            """);
+			ps.setInt(1, this.timTheoMa(maSanPham).get().getSoLuong() - soLuongGiam);
+			ps.setLong(2, maSanPham);
+			ps.executeUpdate();
+		}
+		catch(Exception e) {
+			throw new RuntimeException("Khong the giam so luong san pham", e);
+		}
 	}
 }

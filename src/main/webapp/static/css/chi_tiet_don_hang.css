@@ -55,24 +55,24 @@ main {
   gap: 1rem;
   align-items: center;
 }
-#danh-sach-hang-dat .danh-gia {
-  gap: 0;
-}
-#danh-sach-hang-dat .danh-gia .sao::after {
-  width: 26px;
-  height: 26px;
-  padding-inline: 3px;
-  cursor: default;
-}
 #danh-sach-hang-dat .form-danh-gia .binh-luan {
   margin-block: 0.5rem;
+}
+#danh-sach-hang-dat .form-danh-gia .sao {
+  width: 26px;
+  height: 26px;
+  padding: 0 4px;
 }
 #danh-sach-hang-dat .form-danh-gia textarea {
   border-color: var(--vien);
   font-family: inherit;
   font-size: 1rem;
-  height: 80px;
+  height: 90px;
+  padding: 1rem;
+  width: 100%;
+  box-sizing: border-box;
   resize: none;
+  outline: none;
 }
 #danh-sach-hang-dat .form-danh-gia textarea:focus {
   border-color: transparent;
