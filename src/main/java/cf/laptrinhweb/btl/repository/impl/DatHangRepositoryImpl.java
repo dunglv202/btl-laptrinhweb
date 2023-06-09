@@ -30,8 +30,9 @@ public class DatHangRepositoryImpl implements DatHangRepository{
                     ngay_dat_hang,
                     ma_nguoi_dat,
                     ten_nguoi_nhan,
-                    sdt_nhan
-                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+                    sdt_nhan,
+                    tong_tien
+                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
             """, Statement.RETURN_GENERATED_KEYS);
             ps.setInt(1, datHang.getHinhThucThanhToan() == HinhThucThanhToan.THANH_TOAN_KHI_NHAN ? 1 : 2);
             ps.setInt(2, datHang.getPhuongThucVanChuyen());
@@ -42,6 +43,7 @@ public class DatHangRepositoryImpl implements DatHangRepository{
             ps.setLong(7, datHang.getNguoiDung().getMaNguoiDung());
             ps.setString(8,datHang.getTenNguoiNhan());
             ps.setString(9, datHang.getSdtNhan());
+            ps.setDouble(10, datHang.getTongTien());
             ps.executeUpdate();
             ResultSet resultSet = ps.getGeneratedKeys();
             resultSet.next();
@@ -76,7 +78,7 @@ public class DatHangRepositoryImpl implements DatHangRepository{
             	dh.setTenNguoiNhan(resultSet.getString("ten_nguoi_nhan"));
             	dh.setTinhTrang(resultSet.getInt("trang_thai"));
             	dh.setNgayTaoDon(Date.from(resultSet.getTimestamp("ngay_dat_hang").toInstant()));
-            	
+            	dh.setTongTien(resultSet.getDouble("tong_tien"));
             	res.add(dh);
             }
             return res;

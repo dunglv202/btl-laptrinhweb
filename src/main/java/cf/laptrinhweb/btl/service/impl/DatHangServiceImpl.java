@@ -45,7 +45,8 @@ public class DatHangServiceImpl implements DatHangService{
         for(SanPhamTrongGio sp : listGio) {
         	gioHangRepository.xoaGioHang(sp.getMaMucGioHang(), nguoidung.getMaNguoiDung());
         }
-        
+        dathang.setDanhSachSanPham(danhSachSanPham);
+        dathang.capNhatTongTien();
 		datHangRepository.themDatHang(dathang);
 		for(SanPhamDat sp : danhSachSanPham) {
 			sanPhamDatRepository.themSanPhamDat(sp);
