@@ -207,7 +207,7 @@ public class NguoiDungRepositoryImpl implements NguoiDungRepository {
             	customer.setSoDienThoai(rs.getString("so_dien_thoai"));
             	customer.setMatKhau(rs.getString("mat_khau"));
             	customer.setDaKhoa(rs.getBoolean("da_khoa"));
-            	customer.setThoiGianTao(rs.getDate("thoi_gian_tao"));
+            	customer.setThoiGianTao(Date.from(rs.getTimestamp("thoi_gian_tao").toInstant()));
             }
         } catch (Exception e) {
             throw new RuntimeException(e);

@@ -6,6 +6,6 @@ import cf.laptrinhweb.btl.entity.BinhLuan;
 
 public interface BinhLuanService{
 	public void themBinhLuan(BinhLuan binh_luan);
-	public void xoaBinhLuan(BinhLuan binh_luan);
-	public List<BinhLuan> layTatCaBinhLuan();
+	public void xoaBinhLuan(Long ma_binh_luan,Long ma_nguoi_dung);
+	public List<BinhLuan> layTatCaBinhLuan(Long ma_san_pham);
 }

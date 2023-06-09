@@ -87,26 +87,89 @@
               <div class="noi-dung">
                 <div>
                   <ul class="toi-gian cac-danh-gia">
-                    <jsp:include page="components/danh_gia.jsp">
-                      <jsp:param name="tenNguoiDanhGia" value="Lưu Văn Dũng"/>
-                      <jsp:param name="thoiGian" value="2023/05/06"/>
-                      <jsp:param name="noiDung" value="Không có gì cả nhé"/>
-                      <jsp:param name="diemSoDanhGia" value="5"/>
-                    </jsp:include>
-                    <jsp:include page="components/danh_gia.jsp">
-                      <jsp:param name="tenNguoiDanhGia" value="Lưu Văn Dũng"/>
-                      <jsp:param name="thoiGian" value="2023/05/06"/>
-                      <jsp:param name="noiDung" value="Lorem ipsum dolor sit amet consectetur, adipisicing elit. Adipisci omnis velit itaque minus quas debitis. Soluta exercitationem iusto illo sint ratione quam excepturi laborum odio doloribus. Eligendi magnam sequi velit!"/>
-                      <jsp:param name="diemSoDanhGia" value="3"/>
-                    </jsp:include>
-                    <jsp:include page="components/danh_gia.jsp">
-                      <jsp:param name="tenNguoiDanhGia" value="Lưu Văn Dũng"/>
-                      <jsp:param name="thoiGian" value="2023/05/06"/>
-                      <jsp:param name="diemSoDanhGia" value="4"/>
-                    </jsp:include>
+                    <li class="muc-danh-gia">
+                      <div class="diem-danh-gia">
+                        <jsp:include page="components/danh_gia_sao.jsp">
+                          <jsp:param name="saoDanhGia" value="5"/>
+                        </jsp:include>
+                      </div>
+                      <div class="thong-tin-danh-gia">
+                        <span class="ten-nguoi-danh-gia"> DungLV </span>
+                        <span> vào </span>
+                        <span class="thoi-gian-danh-gia"> 11 Tháng 3, 2022 </span>
+                      </div>
+                      <p class="noi-dung">
+                        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Blanditiis earum mollitia facere qui
+                        velit ullam rem voluptas quas officiis excepturi.
+                      </p>
+                    </li>
+                    <li class="muc-danh-gia">
+                      <div class="diem-danh-gia">
+                        <jsp:include page="components/danh_gia_sao.jsp">
+                          <jsp:param name="saoDanhGia" value="2"/>
+                        </jsp:include>
+                      </div>
+                      <div class="thong-tin-danh-gia">
+                        <span class="ten-nguoi-danh-gia"> DungLV </span>
+                        <span> vào </span>
+                        <span class="thoi-gian-danh-gia"> 11 Tháng 3, 2022 </span>
+                      </div>
+                      <p class="noi-dung">
+                      </p>
+                    </li>
+                    <li class="muc-danh-gia">
+                      <div class="diem-danh-gia">
+                        <jsp:include page="components/danh_gia_sao.jsp">
+                          <jsp:param name="saoDanhGia" value="3"/>
+                        </jsp:include>
+                      </div>
+                      <div class="thong-tin-danh-gia">
+                        <span class="ten-nguoi-danh-gia"> DungLV </span>
+                        <span> vào </span>
+                        <span class="thoi-gian-danh-gia"> 11 Tháng 3, 2022 </span>
+                      </div>
+                      <p class="noi-dung">
+                      </p>
+                    </li>
+                    <li class="muc-danh-gia">
+                      <div class="diem-danh-gia">
+                        <jsp:include page="components/danh_gia_sao.jsp">
+                          <jsp:param name="saoDanhGia" value="4"/>
+                        </jsp:include>
+                      </div>
+                      <div class="thong-tin-danh-gia">
+                        <span class="ten-nguoi-danh-gia"> DungLV </span>
+                        <span> vào </span>
+                        <span class="thoi-gian-danh-gia"> 11 Tháng 3, 2022 </span>
+                      </div>
+                      <p class="noi-dung">
+                        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Blanditiis earum mollitia facere qui
+                        velit ullam rem voluptas quas officiis excepturi.
+                      </p>
+                      
+                    </li>
                   </ul>
                 </div>
               </div>
+            </div>
+            <div style = "width : 100%">
+            	 <div style = "width:50%">
+            	 	<a href =" <%=request.getContextPath()%>/xem-tat-ca-danh-gia?ma_san_pham="${sanPham.maSanPham}">xem tất cả dannh gia</a>
+            	 </div>
+
+            	 <form action = "<%=request.getContextPath()%>/them-danh-gia" method = "GET">
+            	 	<p>noi dung</p>
+          			<input type = "text" name = "noi_dung_danh_gia"  value = "a"/>
+          			<p>ma sp</p>
+          			<input name = "ma_san_pham" value = "${sanPham.maSanPham}"/>
+          			<p>so diem </p>
+          			<input name = "so_diem_danh_gia" value = "3">
+          			<p>ma khach hang</p>
+          			<input name = "ma_khach_hang" value = "1"> 
+          			<p>ma san pham dat</p>
+          			<input name = "ma_san_pham_dat" value = "1">
+          			<button type = "submit">BTTT</button>
+				 </form>
             </div>
           </div>
         </div>
@@ -120,5 +183,6 @@
     <jsp:include page="components/chan_trang.jsp"/>
 
     <script src="<%=request.getContextPath()%>/static/js/chi_tiet_san_pham.js"></script>
+    
   </body>
 </html>

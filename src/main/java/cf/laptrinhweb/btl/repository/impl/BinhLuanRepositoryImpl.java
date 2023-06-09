@@ -1,8 +1,10 @@
 package cf.laptrinhweb.btl.repository.impl;
 
 import java.sql.Connection;
+import java.util.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Statement;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
@@ -24,12 +26,15 @@ public class BinhLuanRepositoryImpl implements BinhLuanRepository{
 	                    ma_san_pham,
 	                    ngay_binh_luan
 	                ) VALUES (?, ?, ?,?)
-	            """);
+	            """, Statement.RETURN_GENERATED_KEYS);
 	            ps.setString(1, binhLuan.getNoi_dung_binh_luan());
 	            ps.setLong(2, binhLuan.getNguoi_binh_luan().getMaNguoiDung());
 	            ps.setLong(3, binhLuan.getSan_pham().getMaSanPham());
-	            ps.setTimestamp(4,Timestamp.valueOf(binhLuan.getNgay_binh_luan().toString()));
+	            ps.setTimestamp(4,Timestamp.from(binhLuan.getNgay_binh_luan().toInstant()));
 	            ps.executeUpdate();
+	            ResultSet rs = ps.getGeneratedKeys();
+	            rs.next();
+	            binhLuan.setId(rs.getLong(1));
 	        } catch (Exception e) {
 	            throw new RuntimeException("Khong the them binh luan", e);
 	        }
@@ -37,13 +42,17 @@ public class BinhLuanRepositoryImpl implements BinhLuanRepository{
 	}
 
 	@Override
-	public void xoaBinhLuan(BinhLuan binhLuan) {
+	public void xoaBinhLuan(Long ma_binh_luan,Long ma_nguoi_dung) {
 		// TODO Auto-generated method stub
 		try (Connection ketNoi = moKetNoi()) {
             PreparedStatement ps = ketNoi.prepareStatement("""
-                delete from binh_luan where ma_binh_luan = ?
+                delete 
+                from binh_luan 
+                where ma_binh_luan = ?
+                and ma_nguoi_dung = ?
             """);
-            ps.setLong(1, binhLuan.getId());
+            ps.setLong(1,ma_binh_luan);
+            ps.setLong(2,ma_nguoi_dung);
             ps.executeUpdate();
         } catch (Exception e) {
             throw new RuntimeException("Khong the xoa", e);
@@ -52,21 +61,25 @@ public class BinhLuanRepositoryImpl implements BinhLuanRepository{
 	}
 
 	@Override
-	public List<BinhLuan> layTatCaBinhLuan() {
+	public List<BinhLuan> layTatCaBinhLuan(Long ma_san_pham) {
 		// TODO Auto-generated method stub
 		List<BinhLuan> lbl = new ArrayList<>();
 		try (Connection ketNoi = moKetNoi()) {
             PreparedStatement ps = ketNoi.prepareStatement("""
-                select * from binh_luan
+                select * 
+                from binh_luan 
+                where ma_san_pham = ?
+                ORDER BY ngay_binh_luan DESC 
             """);
+            ps.setLong(1, ma_san_pham);
             ResultSet rs = ps.executeQuery();
             while(rs.next()) {
             	BinhLuan bl = new BinhLuan();
             	bl.setId(rs.getLong("ma_binh_luan"));
-            	bl.setNgay_binh_luan(rs.getDate("ngay_binh_luan"));
+            	bl.setNoi_dung_binh_luan(rs.getString("noi_dung_binh_luan"));
             	bl.setNguoi_binh_luan(new NguoiDungRepositoryImpl().timNguoiDung(rs.getLong("ma_nguoi_dung")));
-            	bl.setSan_pham(new SanPhamRepositoryImpl().timSanPham(rs.getLong("ma_san_pham")));
-            	bl.setNgay_binh_luan(Timestamp.valueOf(rs.getDate("ngay_binh_luan").toString()));
+            	bl.setSan_pham(new SanPhamRepositoryImpl().timTheoMa(rs.getLong("ma_san_pham")).get());
+            	bl.setNgay_binh_luan(Date.from(rs.getTimestamp("ngay_binh_luan").toInstant()));
             	lbl.add(bl);
             }
         } catch (Exception e) {

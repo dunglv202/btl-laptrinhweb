@@ -24,7 +24,6 @@ public class GioHangController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         yeuCauQuyen(req, List.of(QuyenNguoiDung.KHACH_HANG));
-
         NguoiDung nguoiDung = HoTroXacThuc.nguoiDungHienTai(req);
         List<SanPhamTrongGio> danhSachSanPham = gioHangService.layTatCaCuaNguoiDung(nguoiDung);
         req.setAttribute("danhSachSanPham", danhSachSanPham);
