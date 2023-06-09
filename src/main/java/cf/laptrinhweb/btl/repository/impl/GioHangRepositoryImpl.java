@@ -1,5 +1,6 @@
 package cf.laptrinhweb.btl.repository.impl;
 
+import cf.laptrinhweb.btl.entity.NguoiDung;
 import cf.laptrinhweb.btl.entity.SanPhamTrongGio;
 import cf.laptrinhweb.btl.mapper.SanPhamTrongGioMapper;
 import cf.laptrinhweb.btl.repository.GioHangRepository;
@@ -18,7 +19,7 @@ public class GioHangRepositoryImpl implements GioHangRepository {
                 INSERT INTO gio_hang (
                     ma_nguoi_dung,
                     ma_san_pham,
-                    so_luong
+                    so_luong_mua
                 ) VALUES (?, ?, ?)
             """);
             ps.setLong(1, maNguoiDung);
@@ -56,7 +57,7 @@ public class GioHangRepositoryImpl implements GioHangRepository {
         try (Connection ketNoi = moKetNoi()) {
             PreparedStatement ps = ketNoi.prepareStatement("""
                 UPDATE gio_hang
-                SET so_luong = ?
+                SET so_luong_mua = ?
                 WHERE ma_muc_gio_hang = ?
             """);
             ps.setLong(1, soLuongMoi);
@@ -89,4 +90,24 @@ public class GioHangRepositoryImpl implements GioHangRepository {
             throw new RuntimeException("Khong the truy van gio hang", e);
         }
     }
+
+	@Override
+	public void xoaGioHang(Long maSanPhamTrongGio, Long nguoidung) {
+		// TODO Auto-generated method stub
+		try (Connection ketNoi = moKetNoi()) {
+            PreparedStatement ps = ketNoi.prepareStatement("""
+                DELETE 
+                FROM gio_hang
+                WHERE ma_muc_gio_hang = ? AND ma_nguoi_dung = ?
+            """);
+            ps.setLong(1, maSanPhamTrongGio);
+            ps.setLong(2,  nguoidung);     
+            ps.executeUpdate();
+        } catch (Exception e) {
+            throw new RuntimeException("Khong the xoa san pham khoi gio hang", e);
+        }
+		
+	}
+
+
 }
