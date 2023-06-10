@@ -120,7 +120,157 @@ public class DatHangRepositoryImpl implements DatHangRepository{
             throw new RuntimeException("Khong the truy van dat hang", e);
         }
 	}
+
+	@Override
+	public List<DatHang> layDonTheoTrangThai(int trang_thai, int gioi_han) {
+		// TODO Auto-generated method stub
+		try (Connection ketNoi = moKetNoi()) {
+            PreparedStatement ps = ketNoi.prepareStatement("""
+                SELECT *
+                FROM dat_hang
+                WHERE trang_thai = ?
+            	LIMIT ?
+            """);
+            ps.setInt(1, trang_thai);
+            ps.setInt(2, gioi_han);
+            ResultSet resultSet = ps.executeQuery();
+            List<DatHang> res = new ArrayList<>();
+            while( resultSet.next() ) {
+            	DatHang dh = new DatHang();
+            	dh.setDiaChiGiao(resultSet.getString("dia_chi_giao"));
+            	dh.setMaDatHang(resultSet.getLong("ma_dat_hang"));
+            	dh.setHinhThucThanhToan(resultSet.getInt("hinh_thuc_thanh_toan") == 1 ? HinhThucThanhToan.THANH_TOAN_KHI_NHAN : HinhThucThanhToan.THE_NGAN_HANG);
+            	dh.setGhiChu(resultSet.getString("ghi_chu"));
+            	dh.setPhuongThucVanChuyen(resultSet.getInt("phuong_thuc_van_chuyen"));
+            	dh.setSdtNhan(resultSet.getString("sdt_nhan"));
+            	dh.setTenNguoiNhan(resultSet.getString("ten_nguoi_nhan"));
+            	dh.setTinhTrang(resultSet.getInt("trang_thai"));
+            	dh.setNgayTaoDon(Date.from(resultSet.getTimestamp("ngay_dat_hang").toInstant()));
+            	dh.setTongTien(resultSet.getDouble("tong_tien"));
+            	res.add(dh);
+            }
+            return res;
+        } catch (Exception e) {
+            throw new RuntimeException("Khong the truy van dat hang theo trang thai", e);
+        }
+	}
+
+	@Override
+	public void thayDoiTrangThai(Long maDatHang, int trang_thai_moi) {
+		try (Connection ketNoi = moKetNoi()) {
+            PreparedStatement ps = ketNoi.prepareStatement("""
+                UPDATE dat_hang
+                SET trang_thai = ?
+                WHERE ma_dat_hang = ?
+            """);
+            ps.setInt(1, trang_thai_moi);
+            ps.setLong(2, maDatHang);
+            ps.executeUpdate();
+        } catch (Exception e) {
+            throw new RuntimeException("Khong the cap nhat trang thai don hang", e);
+        }
+		
+	}
+
+	@Override
+	public List<DatHang> layDonTheoTrangThaiVaNgayDat(int trangThai, int gioiHan) {
+		// TODO Auto-generated method stub
+		try (Connection ketNoi = moKetNoi()) {
+            PreparedStatement ps = ketNoi.prepareStatement("""
+                SELECT *
+                FROM dat_hang
+                WHERE trang_thai = ?
+            	ORDER BY ngay_dat_hang DESC
+            	LIMIT ?
+            """);
+            ps.setInt(1, trangThai);
+            ps.setInt(2, gioiHan);
+            ResultSet resultSet = ps.executeQuery();
+            List<DatHang> res = new ArrayList<>();
+            while( resultSet.next() ) {
+            	DatHang dh = new DatHang();
+            	dh.setDiaChiGiao(resultSet.getString("dia_chi_giao"));
+            	dh.setMaDatHang(resultSet.getLong("ma_dat_hang"));
+            	dh.setHinhThucThanhToan(resultSet.getInt("hinh_thuc_thanh_toan") == 1 ? HinhThucThanhToan.THANH_TOAN_KHI_NHAN : HinhThucThanhToan.THE_NGAN_HANG);
+            	dh.setGhiChu(resultSet.getString("ghi_chu"));
+            	dh.setPhuongThucVanChuyen(resultSet.getInt("phuong_thuc_van_chuyen"));
+            	dh.setSdtNhan(resultSet.getString("sdt_nhan"));
+            	dh.setTenNguoiNhan(resultSet.getString("ten_nguoi_nhan"));
+            	dh.setTinhTrang(resultSet.getInt("trang_thai"));
+            	dh.setNgayTaoDon(Date.from(resultSet.getTimestamp("ngay_dat_hang").toInstant()));
+            	dh.setTongTien(resultSet.getDouble("tong_tien"));
+            	res.add(dh);
+            }
+            return res;
+        } catch (Exception e) {
+            throw new RuntimeException("Khong the truy van dat hang theo trang thai", e);
+        }
+	}
+
+	@Override
+	public List<DatHang> layDonTheoTrangThaiVaTongTien(int trangThai, int gioiHan) {
+		// TODO Auto-generated method stub
+		try (Connection ketNoi = moKetNoi()) {
+            PreparedStatement ps = ketNoi.prepareStatement("""
+                SELECT *
+                FROM dat_hang
+                WHERE trang_thai = ?
+            	ORDER BY tong_tien DESC
+            	LIMIT ?
+            """);
+            ps.setInt(1, trangThai);
+            ps.setInt(2, gioiHan);
+            ResultSet resultSet = ps.executeQuery();
+            List<DatHang> res = new ArrayList<>();
+            while( resultSet.next() ) {
+            	DatHang dh = new DatHang();
+            	dh.setDiaChiGiao(resultSet.getString("dia_chi_giao"));
+            	dh.setMaDatHang(resultSet.getLong("ma_dat_hang"));
+            	dh.setHinhThucThanhToan(resultSet.getInt("hinh_thuc_thanh_toan") == 1 ? HinhThucThanhToan.THANH_TOAN_KHI_NHAN : HinhThucThanhToan.THE_NGAN_HANG);
+            	dh.setGhiChu(resultSet.getString("ghi_chu"));
+            	dh.setPhuongThucVanChuyen(resultSet.getInt("phuong_thuc_van_chuyen"));
+            	dh.setSdtNhan(resultSet.getString("sdt_nhan"));
+            	dh.setTenNguoiNhan(resultSet.getString("ten_nguoi_nhan"));
+            	dh.setTinhTrang(resultSet.getInt("trang_thai"));
+            	dh.setNgayTaoDon(Date.from(resultSet.getTimestamp("ngay_dat_hang").toInstant()));
+            	dh.setTongTien(resultSet.getDouble("tong_tien"));
+            	res.add(dh);
+            }
+            return res;
+        } catch (Exception e) {
+            throw new RuntimeException("Khong the truy van dat hang theo trang thai", e);
+        }
+	}
+
+	@Override
+	public List<DatHang> layDonKhongDieuKien(int gioiHan) {
+		try (Connection ketNoi = moKetNoi()) {
+            PreparedStatement ps = ketNoi.prepareStatement("""
+                SELECT *
+                FROM dat_hang
+            	LIMIT ?
+            """);
+            ps.setInt(1, gioiHan);
+            ResultSet resultSet = ps.executeQuery();
+            List<DatHang> res = new ArrayList<>();
+            while( resultSet.next() ) {
+            	DatHang dh = new DatHang();
+            	dh.setDiaChiGiao(resultSet.getString("dia_chi_giao"));
+            	dh.setMaDatHang(resultSet.getLong("ma_dat_hang"));
+            	dh.setHinhThucThanhToan(resultSet.getInt("hinh_thuc_thanh_toan") == 1 ? HinhThucThanhToan.THANH_TOAN_KHI_NHAN : HinhThucThanhToan.THE_NGAN_HANG);
+            	dh.setGhiChu(resultSet.getString("ghi_chu"));
+            	dh.setPhuongThucVanChuyen(resultSet.getInt("phuong_thuc_van_chuyen"));
+            	dh.setSdtNhan(resultSet.getString("sdt_nhan"));
+            	dh.setTenNguoiNhan(resultSet.getString("ten_nguoi_nhan"));
+            	dh.setTinhTrang(resultSet.getInt("trang_thai"));
+            	dh.setNgayTaoDon(Date.from(resultSet.getTimestamp("ngay_dat_hang").toInstant()));
+            	dh.setTongTien(resultSet.getDouble("tong_tien"));
+            	res.add(dh);
+            }
+            return res;
+        } catch (Exception e) {
+            throw new RuntimeException("Khong the truy van dat hang theo trang thai", e);
+        }
+	}
 	
-
-
 }
