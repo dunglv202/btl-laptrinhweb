@@ -87,8 +87,10 @@ public class DatHangController extends HttpServlet {
         else {
         	dathang.setPhuongThucVanChuyen(PhuongThucVanChuyen.GIAO_HANG_NHANH);
         }
+        dathang.setDanhSachSanPham(dsDat);
+        dathang.capNhatTongTien();
               
-        datHangService.themDatHang(dathang, dsDat, listSP, nguoiDung);
+        datHangService.themDatHang(dathang, listSP, nguoiDung);
         System.out.print("thanh Cong");
         
         

@@ -19,17 +19,13 @@ public class DatHangServiceImpl implements DatHangService{
 	private final SanPhamRepository sanPhamRepository = new SanPhamRepositoryImpl();
 	private final GioHangRepository gioHangRepository = new GioHangRepositoryImpl();
 	
-
-	@Override
-	public List<SanPhamDat> layDonTheoMa(Long maDatHang, NguoiDung nguoiDung) {
-		// TODO Auto-generated method stub
-		
-		return sanPhamDatRepository.layTatCaTheoMaDat(maDatHang, nguoiDung);
+	
+	public DatHang layDonTheoMaDatHang(Long maDatHang, NguoiDung nguoidung) {
+		return datHangRepository.layDonTheoMaDatHang(maDatHang, nguoidung);
 	}
 
 	@Override
-	public void themDatHang(DatHang dathang, List<SanPhamDat> danhSachSanPham, List<SanPhamTrongGio> listGio,
-			NguoiDung nguoidung) {
+	public void themDatHang(DatHang dathang, List<SanPhamTrongGio> listGio, NguoiDung nguoidung) {
 		// TODO Auto-generated method stub
 		if(listGio.size() == 0)
 			return;
@@ -37,20 +33,17 @@ public class DatHangServiceImpl implements DatHangService{
 			if(i.getSoLuong() > i.getSanPham().getSoLuong())
 				return;
 		}
-        for(SanPhamDat sp : danhSachSanPham) {
-        	sp.setDatHang(dathang);
+        for(SanPhamDat sp : dathang.getDanhSachSanPham()) {
         	sanPhamRepository.giamSoLuong(sp.getSanPham().getMaSanPham(), sp.getSoLuong());
         }
            
         for(SanPhamTrongGio sp : listGio) {
         	gioHangRepository.xoaGioHang(sp.getMaMucGioHang(), nguoidung.getMaNguoiDung());
         }
-        dathang.setDanhSachSanPham(danhSachSanPham);
-        dathang.capNhatTongTien();
+        
+        
 		datHangRepository.themDatHang(dathang);
-		for(SanPhamDat sp : danhSachSanPham) {
-			sanPhamDatRepository.themSanPhamDat(sp);
-		}
+		sanPhamDatRepository.themSanPhamDat(dathang);
 		
 	}
 

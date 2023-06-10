@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import cf.laptrinhweb.btl.constant.QuyenNguoiDung;
 import cf.laptrinhweb.btl.entity.NguoiDung;
+import cf.laptrinhweb.btl.entity.DatHang;
 import cf.laptrinhweb.btl.entity.SanPhamDat;
 import cf.laptrinhweb.btl.helper.HoTroXacThuc;
 
@@ -26,9 +27,8 @@ public class ChiTietDonHangController extends HttpServlet {
     	yeuCauQuyen(req, List.of(QuyenNguoiDung.KHACH_HANG));
 
         NguoiDung nguoiDung = HoTroXacThuc.nguoiDungHienTai(req);
-    	List<SanPhamDat> listSP = datHangSevice.layDonTheoMa(Long.valueOf(req.getParameter("maDatHang")), nguoiDung);
-    	req.setAttribute("datHang", listSP.get(0).getDatHang());
-    	req.setAttribute("danhSachSanPham", listSP);
+    	DatHang datHang = datHangSevice.layDonTheoMaDatHang(Long.valueOf(req.getParameter("maDatHang")), nguoiDung);
+    	req.setAttribute("datHang", datHang);
         req.getRequestDispatcher("/WEB-INF/chi_tiet_don_hang.jsp").forward(req, resp);
     }
 }

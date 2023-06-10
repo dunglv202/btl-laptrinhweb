@@ -53,7 +53,7 @@
       </div>
 
       <ul id="danh-sach-hang-dat" class="toi-gian">
-      	<c:forEach var = "sanpham" items = "${danhSachSanPham}">
+      	<c:forEach var = "sanpham" items = "${datHang.danhSachSanPham}">
         <li class="hang-dat">
           <div class="chi-tiet-hang-dat">
             <div class="anh">
@@ -68,7 +68,8 @@
             </div>
           </div>
           <form class="form-danh-gia" method="post" action="/danh-gia">
-            <input type="hidden" name="maSanPhamMua" value="1" />
+            <input type="hidden" name="ma_san_pham_dat" value="${sanpham.id}" />
+            <input type="hidden" name="ma_san_pham" value="${sanpham.sanPham.maSanPham}" />
             <div class="diem-danh-gia">
               <span>Đánh giá: </span>
               <div class="danh-gia danh-gia-cua-toi">
@@ -81,6 +82,7 @@
                 </label>
                 <label class="sao">
                   <input type="radio" name="danhGia" value="3" />
+                  
                 </label>
                 <label class="sao">
                   <input type="radio" name="danhGia" value="4" />
