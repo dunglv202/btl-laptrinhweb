@@ -324,9 +324,6 @@ select {
   color: var(--xanh-la);
   font-weight: bold;
 }
-.tien-te::after {
-  content: " đ";
-}
 
 @media screen and (max-width: 600px) {
   form.tieu-chuan .truong {

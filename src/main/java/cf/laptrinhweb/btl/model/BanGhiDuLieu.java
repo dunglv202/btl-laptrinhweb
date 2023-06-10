@@ -1,8 +1,10 @@
 package cf.laptrinhweb.btl.model;
 
 import lombok.Getter;
+import lombok.Setter;
 
 @Getter
+@Setter
 public class BanGhiDuLieu {
     private String nhan;
     private Number giaTri;
