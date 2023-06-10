@@ -38,7 +38,7 @@ public class DatHangRepositoryImpl implements DatHangRepository{
             ps.setInt(2, datHang.getPhuongThucVanChuyen());
             ps.setInt(3, datHang.getTinhTrang());
             ps.setString(4, datHang.getDiaChiGiao());
-            ps.setString(5, datHang.getNote());
+            ps.setString(5, datHang.getGhiChu());
             ps.setTimestamp(6, Timestamp.from(datHang.getNgayTaoDon().toInstant()));
             ps.setLong(7, datHang.getNguoiDung().getMaNguoiDung());
             ps.setString(8,datHang.getTenNguoiNhan());
@@ -71,7 +71,7 @@ public class DatHangRepositoryImpl implements DatHangRepository{
             	dh.setDiaChiGiao(resultSet.getString("dia_chi_giao"));
             	dh.setMaDatHang(resultSet.getLong("ma_dat_hang"));
             	dh.setHinhThucThanhToan(resultSet.getInt("hinh_thuc_thanh_toan") == 1 ? HinhThucThanhToan.THANH_TOAN_KHI_NHAN : HinhThucThanhToan.THE_NGAN_HANG);
-            	dh.setNote(resultSet.getString("ghi_chu"));
+            	dh.setGhiChu(resultSet.getString("ghi_chu"));
             	dh.setPhuongThucVanChuyen(resultSet.getInt("phuong_thuc_van_chuyen"));
             	dh.setSdtNhan(resultSet.getString("sdt_nhan"));
             	dh.setNguoiDung(nguoidung);
@@ -106,7 +106,7 @@ public class DatHangRepositoryImpl implements DatHangRepository{
         	dh.setDiaChiGiao(resultSet.getString("dia_chi_giao"));
         	dh.setMaDatHang(resultSet.getLong("ma_dat_hang"));
         	dh.setHinhThucThanhToan(resultSet.getInt("hinh_thuc_thanh_toan") == 1 ? HinhThucThanhToan.THANH_TOAN_KHI_NHAN : HinhThucThanhToan.THE_NGAN_HANG);
-        	dh.setNote(resultSet.getString("ghi_chu"));
+        	dh.setGhiChu(resultSet.getString("ghi_chu"));
         	dh.setPhuongThucVanChuyen(resultSet.getInt("phuong_thuc_van_chuyen"));
         	dh.setSdtNhan(resultSet.getString("sdt_nhan"));
         	dh.setNguoiDung(nguoidung);

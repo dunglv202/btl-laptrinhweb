@@ -186,4 +186,34 @@ public class NguoiDungRepositoryImpl implements NguoiDungRepository {
             throw new RuntimeException(e);
         }
     }
+
+    @Override
+    public void tangCoGangDangNhap(NguoiDung nguoiDung) {
+        try (Connection ketNoi = moKetNoi()) {
+            PreparedStatement ps = ketNoi.prepareStatement("""
+                UPDATE nguoi_dung
+                SET co_gang_dang_nhap = co_gang_dang_nhap + 1
+                WHERE ma_nguoi_dung = ?
+            """);
+            ps.setLong(1, nguoiDung.getMaNguoiDung());
+            ps.executeUpdate();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public void resetCoGangDangNhap(Long maNguoiDung) {
+        try (Connection ketNoi = moKetNoi()) {
+            PreparedStatement ps = ketNoi.prepareStatement("""
+                UPDATE nguoi_dung
+                SET co_gang_dang_nhap = 0
+                WHERE ma_nguoi_dung = ?
+            """);
+            ps.setLong(1, maNguoiDung);
+            ps.executeUpdate();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
 }

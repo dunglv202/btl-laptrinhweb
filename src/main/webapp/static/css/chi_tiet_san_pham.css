@@ -166,21 +166,12 @@
   margin-top: 1rem;
   height: 0;
 }
-#chi-tiet-san-pham .cac-danh-gia .muc-danh-gia {
-  /*background: var(--trang-nhat);*/
-  margin-bottom: 1.5rem;
+.cac-danh-gia {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
 }
-#chi-tiet-san-pham .cac-danh-gia .ten-nguoi-danh-gia,
-#chi-tiet-san-pham .cac-danh-gia .thoi-gian-danh-gia {
-  font-weight: bold;
-}
-#chi-tiet-san-pham .cac-danh-gia .muc-danh-gia .noi-dung {
-  margin-bottom: 0;
-}
-#chi-tiet-san-pham .danh-gia {
-  margin-bottom: 1rem;
-}
-#chi-tiet-san-pham .danh-gia .sao::after {
+.danh-gia .danh-gia-sao .sao {
   width: 20px;
   height: 20px;
 }

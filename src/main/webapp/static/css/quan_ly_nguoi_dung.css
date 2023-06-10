@@ -4,9 +4,6 @@
     cursor: pointer;
     user-select: none;
 }
-.bang .hanh-dong {
-    display: unset;
-}
 .bang-admin .hanh-dong .danh-sach {
     display: flex;
     flex-direction: column;
