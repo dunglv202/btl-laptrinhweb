@@ -8,11 +8,15 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import cf.laptrinhweb.btl.constant.HinhThucThanhToan;
+import cf.laptrinhweb.btl.constant.TrangThaiDon;
 import cf.laptrinhweb.btl.entity.DatHang;
 import cf.laptrinhweb.btl.entity.NguoiDung;
 import cf.laptrinhweb.btl.entity.SanPhamDat;
+import cf.laptrinhweb.btl.mapper.DatHangMapper;
+import cf.laptrinhweb.btl.model.DieuKienDonHang;
 import cf.laptrinhweb.btl.repository.DatHangRepository;
 
 public class DatHangRepositoryImpl implements DatHangRepository{
@@ -36,10 +40,10 @@ public class DatHangRepositoryImpl implements DatHangRepository{
             """, Statement.RETURN_GENERATED_KEYS);
             ps.setInt(1, datHang.getHinhThucThanhToan() == HinhThucThanhToan.THANH_TOAN_KHI_NHAN ? 1 : 2);
             ps.setInt(2, datHang.getPhuongThucVanChuyen());
-            ps.setInt(3, datHang.getTinhTrang());
+            ps.setInt(3, datHang.getTinhTrang().getGiaTri());
             ps.setString(4, datHang.getDiaChiGiao());
             ps.setString(5, datHang.getGhiChu());
-            ps.setTimestamp(6, Timestamp.from(datHang.getNgayTaoDon().toInstant()));
+            ps.setTimestamp(6, Timestamp.valueOf(datHang.getNgayTaoDon()));
             ps.setLong(7, datHang.getNguoiDung().getMaNguoiDung());
             ps.setString(8,datHang.getTenNguoiNhan());
             ps.setString(9, datHang.getSdtNhan());
@@ -76,8 +80,8 @@ public class DatHangRepositoryImpl implements DatHangRepository{
             	dh.setSdtNhan(resultSet.getString("sdt_nhan"));
             	dh.setNguoiDung(nguoidung);
             	dh.setTenNguoiNhan(resultSet.getString("ten_nguoi_nhan"));
-            	dh.setTinhTrang(resultSet.getInt("trang_thai"));
-            	dh.setNgayTaoDon(Date.from(resultSet.getTimestamp("ngay_dat_hang").toInstant()));
+            	dh.setTinhTrang(TrangThaiDon.cuaGiaTri(resultSet.getInt("trang_thai")));
+            	dh.setNgayTaoDon(resultSet.getTimestamp("ngay_dat_hang").toLocalDateTime());
             	dh.setTongTien(resultSet.getDouble("tong_tien"));
             	dh.setDanhSachSanPham(new SanPhamDatRepositoryImpl().layTatCaTheoMaDat(dh.getMaDatHang(), nguoidung));
             	res.add(dh);
@@ -111,8 +115,8 @@ public class DatHangRepositoryImpl implements DatHangRepository{
         	dh.setSdtNhan(resultSet.getString("sdt_nhan"));
         	dh.setNguoiDung(nguoidung);
         	dh.setTenNguoiNhan(resultSet.getString("ten_nguoi_nhan"));
-        	dh.setTinhTrang(resultSet.getInt("trang_thai"));
-        	dh.setNgayTaoDon(Date.from(resultSet.getTimestamp("ngay_dat_hang").toInstant()));
+        	dh.setTinhTrang(TrangThaiDon.cuaGiaTri(resultSet.getInt("trang_thai")));
+        	dh.setNgayTaoDon(resultSet.getTimestamp("ngay_dat_hang").toLocalDateTime());
         	dh.setTongTien(resultSet.getDouble("tong_tien"));
         	dh.setDanhSachSanPham(new SanPhamDatRepositoryImpl().layTatCaTheoMaDat(maDatHang, nguoidung));
             return dh;
@@ -120,7 +124,39 @@ public class DatHangRepositoryImpl implements DatHangRepository{
             throw new RuntimeException("Khong the truy van dat hang", e);
         }
 	}
-	
 
-
+    @Override
+    public List<DatHang> locTheoDieuKien(DieuKienDonHang dieuKien) {
+        try (Connection ketNoi = moKetNoi()) {
+            String truyVan = """
+                SELECT *
+                FROM dat_hang
+                WHERE trang_thai IN (%s)
+                ORDER BY %s %s
+                LIMIT ?, ?
+            """;
+            String dieuKienTrangThai = dieuKien.getDsTrangThai()
+                .stream()
+                .map(a -> a.getGiaTri().toString())
+                .collect(Collectors.joining(", "));
+            truyVan = String.format(
+                truyVan,
+                dieuKienTrangThai,
+                dieuKien.getKieuSapXep().getCot(),
+                dieuKien.getKieuSapXep().getHuongSapXep()
+            );
+            PreparedStatement ps = ketNoi.prepareStatement(truyVan);
+            ps.setInt(1, dieuKien.getTrang() * dieuKien.getKichThuoc());
+            ps.setInt(2, dieuKien.getKichThuoc());
+            ResultSet resultSet = ps.executeQuery();
+            List<DatHang> dsDonHang = new ArrayList<>();
+            DatHangMapper mapper = new DatHangMapper();
+            while (resultSet.next()) {
+                dsDonHang.add(mapper.map(resultSet));
+            }
+            return dsDonHang;
+        } catch (Exception e) {
+            throw new RuntimeException("Khong the loc san pham", e);
+        }
+    }
 }
