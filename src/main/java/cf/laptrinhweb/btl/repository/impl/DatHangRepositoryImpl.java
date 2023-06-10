@@ -79,13 +79,47 @@ public class DatHangRepositoryImpl implements DatHangRepository{
             	dh.setTinhTrang(resultSet.getInt("trang_thai"));
             	dh.setNgayTaoDon(Date.from(resultSet.getTimestamp("ngay_dat_hang").toInstant()));
             	dh.setTongTien(resultSet.getDouble("tong_tien"));
-            	res.add(dh);
             }
             return res;
         } catch (Exception e) {
             throw new RuntimeException("Khong the truy van dat hang", e);
         }
 	}
+
+	@Override
+	public DatHang layDatHang(Long ma_dat_hang) {
+		// TODO Auto-generated method stub
+		try (Connection ketNoi = moKetNoi()) {
+            PreparedStatement ps = ketNoi.prepareStatement("""
+                SELECT *
+                FROM dat_hang
+                WHERE ma_dat_hang = ?
+            """);
+            ps.setLong(1, ma_dat_hang);
+            ResultSet resultSet = ps.executeQuery();
+            DatHang dh = new DatHang();
+            if(resultSet.next()) {
+            	
+            	dh.setDiaChiGiao(resultSet.getString("dia_chi_giao"));
+            	dh.setMaDatHang(resultSet.getLong("ma_dat_hang"));
+            	dh.setHinhThucThanhToan(resultSet.getInt("hinh_thuc_thanh_toan") == 1 ? HinhThucThanhToan.THANH_TOAN_KHI_NHAN : HinhThucThanhToan.THE_NGAN_HANG);
+            	dh.setNote(resultSet.getString("ghi_chu"));
+            	dh.setPhuongThucVanChuyen(resultSet.getInt("phuong_thuc_van_chuyen"));
+            	dh.setSdtNhan(resultSet.getString("sdt_nhan"));
+            	dh.setNguoiDung(new NguoiDungRepositoryImpl().timNguoiDung(resultSet.getLong("ma_nguoi_dat")));
+            	dh.setTenNguoiNhan(resultSet.getString("ten_nguoi_nhan"));
+            	dh.setTinhTrang(resultSet.getInt("trang_thai"));
+            	dh.setNgayTaoDon(Date.from(resultSet.getTimestamp("ngay_dat_hang").toInstant()));
+            	dh.setTongTien(resultSet.getDouble("tong_tien"));
+            	
+            }
+            return dh;
+        } catch (Exception e) {
+            throw new RuntimeException("Khong the truy van dat hang", e);
+        }
+		
+	}
+	
 	
 
 

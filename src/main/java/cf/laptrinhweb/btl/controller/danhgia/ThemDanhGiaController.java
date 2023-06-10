@@ -26,18 +26,17 @@ public class ThemDanhGiaController extends HttpServlet {
 		yeuCauQuyen(request, List.of(QuyenNguoiDung.KHACH_HANG));
 		NguoiDung nguoiDung = HoTroXacThuc.nguoiDungHienTai(request);
 		DanhGia danhGia = new DanhGia();
-		danhGia.setKhachHangDanhGia(new NguoiDungRepositoryImpl().timNguoiDung((Long.parseLong(request.getParameter("ma_khach_hang")))));
-		System.out.println(request.getParameter("ma_khach_hang"));
+		danhGia.setKhachHangDanhGia(nguoiDung);
 		danhGia.setNoi_dung_danh_gia(request.getParameter("noi_dung_danh_gia"));
-		System.out.println(danhGia.getNoi_dung_danh_gia());
+
 		danhGia.setNgay_danh_gia(new Date(System.currentTimeMillis()));
-		System.out.println(danhGia.getNgay_danh_gia());
+
 		danhGia.setSoDiemDanhGia(Integer.parseInt(request.getParameter("so_diem_danh_gia")));
-		System.out.println(request.getParameter("so_diem_danh_gia"));
+
 		Long ma_san_pham_dat = Long.parseLong(request.getParameter("ma_san_pham_dat"));
-		System.out.println(request.getParameter("ma_san_pham_dat"));
+
 		danhGiaService.themDanhGia(danhGia,ma_san_pham_dat);
-		System.out.println("ok");
+
 		response.sendRedirect(request.getContextPath()+"/xem-tat-ca-danh-gia?ma_san_pham=" + request.getParameter("ma_san_pham"));
 	}
 

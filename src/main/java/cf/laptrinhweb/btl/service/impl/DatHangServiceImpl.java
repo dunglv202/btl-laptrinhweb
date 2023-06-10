@@ -65,4 +65,10 @@ public class DatHangServiceImpl implements DatHangService{
 		return listDH;
 	}
 
+	@Override
+	public DatHang layDatHang(Long ma_dat_hang) {
+		// TODO Auto-generated method stub
+		return datHangRepository.layDatHang(ma_dat_hang);
+	}
+
 }
