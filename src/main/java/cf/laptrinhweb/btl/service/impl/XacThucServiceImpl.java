@@ -20,6 +20,7 @@ import cf.laptrinhweb.btl.repository.impl.NguoiDungRepositoryImpl;
 import cf.laptrinhweb.btl.repository.impl.PhanQuyenRepositoryImpl;
 import cf.laptrinhweb.btl.repository.impl.QuyenRepositoryImpl;
 import cf.laptrinhweb.btl.service.XacThucService;
+import org.mindrot.jbcrypt.BCrypt;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.*;
@@ -36,6 +37,7 @@ public class XacThucServiceImpl implements XacThucService {
     public void dangKy(Map<String, String[]> thongTinDangKy) {
         NguoiDung nguoiDung = taoNguoiDung(thongTinDangKy);
         kiemTraThongTin(nguoiDung);
+        nguoiDung.setMatKhau(BCrypt.hashpw(nguoiDung.getMatKhau(), BCrypt.gensalt()));
         nguoiDungRepository.taoMoiNguoiDung(nguoiDung);
         themQuyenChoNguoiDung(nguoiDung, Set.of(KHACH_HANG));
     }
@@ -76,7 +78,7 @@ public class XacThucServiceImpl implements XacThucService {
             .orElseThrow(SaiThongTinDangNhapException::new);
         if (nguoiDung.isDaKhoa())
             throw new TaiKhoanBiKhoaException(nguoiDung.getMaNguoiDung());
-        if (!nguoiDung.getMatKhau().equals(matKhau)) {
+        if (!BCrypt.checkpw(matKhau, nguoiDung.getMatKhau())) {
             nguoiDungRepository.tangCoGangDangNhap(nguoiDung);
             if (nguoiDung.getCoGangDangNhap() >= 4) {
                 doiTrangThaiTaiKhoan(nguoiDung.getMaNguoiDung(), true);
