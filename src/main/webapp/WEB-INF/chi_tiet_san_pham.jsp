@@ -16,17 +16,19 @@
     <main>
       <div id="chi-tiet-san-pham">
         <div class="anh-san-pham">
-          <div class="danh-sach-anh">
-            <ul class="danh-sach toi-gian">
-              <c:forEach var="anh" items="${sanPham.danhSachAnh}">
-                <li class="anh">
-                  <img src="${anh.duongDan}" />
-                </li>
-              </c:forEach>
-            </ul>
-          </div>
+          <c:if test="${!sanPham.danhSachAnh.isEmpty()}">
+            <div class="danh-sach-anh">
+              <ul class="danh-sach toi-gian">
+                <c:forEach var="anh" items="${sanPham.danhSachAnh}">
+                  <li class="anh">
+                    <img src="${anh.duongDan}" />
+                  </li>
+                </c:forEach>
+              </ul>
+            </div>
+          </c:if>
           <div id="anh-hien-thi" class="anh-hien-thi">
-            <img src="${(sanPham.anhXemTruoc == null) ? "/public/anh-trong.svg" : sanPham.anhXemTruoc}" />
+            <img src="${(sanPham.anhXemTruoc == null) ? "/public/anh-trong.jpg" : sanPham.anhXemTruoc}" />
           </div>
         </div>
         <div class="chi-tiet-san-pham">
@@ -59,7 +61,7 @@
             </table>
           </div>
           <div class="hanh-dong">
-            <form class="them-vao-gio-hang" action="<%=request.getContextPath()%>/them-vao-gio-hang" method="POST">
+            <form class="them-vao-gio-hang" action="<%=request.getContextPath()%>/gio-hang/them" method="POST">
               <input type="hidden" name="maSanPham" value="${sanPham.maSanPham}" />
               <div class="thay-doi-so-luong">
                 <button type="button" class="giam">-</button>
@@ -85,66 +87,23 @@
               <div class="noi-dung">
                 <div>
                   <ul class="toi-gian cac-danh-gia">
-                    <li class="muc-danh-gia">
-                      <div class="diem-danh-gia">
-                        <jsp:include page="components/danh_gia_sao.jsp">
-                          <jsp:param name="saoDanhGia" value="5"/>
-                        </jsp:include>
-                      </div>
-                      <div class="thong-tin-danh-gia">
-                        <span class="ten-nguoi-danh-gia"> DungLV </span>
-                        <span> vào </span>
-                        <span class="thoi-gian-danh-gia"> 11 Tháng 3, 2022 </span>
-                      </div>
-                      <p class="noi-dung">
-                        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Blanditiis earum mollitia facere qui
-                        velit ullam rem voluptas quas officiis excepturi.
-                      </p>
-                    </li>
-                    <li class="muc-danh-gia">
-                      <div class="diem-danh-gia">
-                        <jsp:include page="components/danh_gia_sao.jsp">
-                          <jsp:param name="saoDanhGia" value="2"/>
-                        </jsp:include>
-                      </div>
-                      <div class="thong-tin-danh-gia">
-                        <span class="ten-nguoi-danh-gia"> DungLV </span>
-                        <span> vào </span>
-                        <span class="thoi-gian-danh-gia"> 11 Tháng 3, 2022 </span>
-                      </div>
-                      <p class="noi-dung">
-                      </p>
-                    </li>
-                    <li class="muc-danh-gia">
-                      <div class="diem-danh-gia">
-                        <jsp:include page="components/danh_gia_sao.jsp">
-                          <jsp:param name="saoDanhGia" value="3"/>
-                        </jsp:include>
-                      </div>
-                      <div class="thong-tin-danh-gia">
-                        <span class="ten-nguoi-danh-gia"> DungLV </span>
-                        <span> vào </span>
-                        <span class="thoi-gian-danh-gia"> 11 Tháng 3, 2022 </span>
-                      </div>
-                      <p class="noi-dung">
-                      </p>
-                    </li>
-                    <li class="muc-danh-gia">
-                      <div class="diem-danh-gia">
-                        <jsp:include page="components/danh_gia_sao.jsp">
-                          <jsp:param name="saoDanhGia" value="4"/>
-                        </jsp:include>
-                      </div>
-                      <div class="thong-tin-danh-gia">
-                        <span class="ten-nguoi-danh-gia"> DungLV </span>
-                        <span> vào </span>
-                        <span class="thoi-gian-danh-gia"> 11 Tháng 3, 2022 </span>
-                      </div>
-                      <p class="noi-dung">
-                        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Blanditiis earum mollitia facere qui
-                        velit ullam rem voluptas quas officiis excepturi.
-                      </p>
-                    </li>
+                    <jsp:include page="components/danh_gia.jsp">
+                      <jsp:param name="tenNguoiDanhGia" value="Lưu Văn Dũng"/>
+                      <jsp:param name="thoiGian" value="2023/05/06"/>
+                      <jsp:param name="noiDung" value="Không có gì cả nhé"/>
+                      <jsp:param name="diemSoDanhGia" value="5"/>
+                    </jsp:include>
+                    <jsp:include page="components/danh_gia.jsp">
+                      <jsp:param name="tenNguoiDanhGia" value="Lưu Văn Dũng"/>
+                      <jsp:param name="thoiGian" value="2023/05/06"/>
+                      <jsp:param name="noiDung" value="Lorem ipsum dolor sit amet consectetur, adipisicing elit. Adipisci omnis velit itaque minus quas debitis. Soluta exercitationem iusto illo sint ratione quam excepturi laborum odio doloribus. Eligendi magnam sequi velit!"/>
+                      <jsp:param name="diemSoDanhGia" value="3"/>
+                    </jsp:include>
+                    <jsp:include page="components/danh_gia.jsp">
+                      <jsp:param name="tenNguoiDanhGia" value="Lưu Văn Dũng"/>
+                      <jsp:param name="thoiGian" value="2023/05/06"/>
+                      <jsp:param name="diemSoDanhGia" value="4"/>
+                    </jsp:include>
                   </ul>
                 </div>
               </div>

@@ -2,6 +2,9 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <html>
 <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Title</title>
     <link rel="stylesheet" href="<%=request.getContextPath()%>/static/css/chung.css">
     <link rel="stylesheet" href="<%=request.getContextPath()%>/static/css/dang_nhap.css">
@@ -12,7 +15,6 @@
         <h1>Đã có tài khoản</h1>
         <h2>Đăng nhập</h2>
         <form id="form-dang-nhap" class="tieu-chuan" method="POST">
-            <input type="hidden" name="dieuHuong" value="<%=request.getHeader("Referer")%>"/>
             <div class="truong bat-buoc">
                 <label>Tên đăng nhập</label>
                 <input

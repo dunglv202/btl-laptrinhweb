@@ -8,6 +8,14 @@ import java.sql.SQLException;
 
 public class SanPhamMapper {
     public SanPham map(ResultSet resultSet) throws SQLException {
+        SanPham sanPham = mapDonGian(resultSet);
+        sanPham.setTheLoai(new TheLoaiMapper().map(resultSet));
+        sanPham.setThuongHieu(new ThuongHieuMapper().map(resultSet));
+        sanPham.setChatLieu(new ChatLieuMapper().map(resultSet));
+        return sanPham;
+    }
+
+    public SanPham mapDonGian(ResultSet resultSet) throws SQLException {
         return SanPham.builder()
             .maSanPham(resultSet.getLong("ma_san_pham"))
             .tenSanPham(resultSet.getString("ten_san_pham"))
@@ -17,9 +25,7 @@ public class SanPhamMapper {
             .soLuong(resultSet.getInt("so_luong"))
             .trongLuong((Double) resultSet.getObject("trong_luong"))
             .kichThuoc(resultSet.getString("kich_thuoc"))
-            .theLoai(new TheLoaiMapper().map(resultSet))
-            .thuongHieu(new ThuongHieuMapper().map(resultSet))
-            .chatLieu(new ChatLieuMapper().map(resultSet))
+            .daAn(resultSet.getBoolean("da_an"))
             .build();
     }
 }

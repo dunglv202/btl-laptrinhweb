@@ -47,93 +47,22 @@
             <span>Trang Chủ</span>
           </a>
         </li>
-        <li class="muc co-menu-con menu-con-rong">
+        <li class="muc co-menu-con">
           <a class="lien-ket gach-chan mo-rong">
             <span>Danh mục</span>
           </a>
-          <div class="menu-con mo-rong danh-muc">
-            <div class="cac-danh-muc">
-              <ul class="danh-muc">
-                <h2>Tên danh mục</h2>
+          <div class="menu-con">
+            <ul class="toi-gian">
+              <c:forEach var="theLoai" items="${danhSachTheLoai}">
                 <li>
-                  <a class="lien-ket gach-chan mo-rong sang-phai" href="#">
-                    <span>Chỉ mục 1</span>
+                  <a class="lien-ket gach-chan mo-rong sang-phai" href="<%=request.getContextPath()%>/the-loai?maDanhMuc=${theLoai.maTheLoai}">
+                    <span>
+                      ${theLoai.tenTheLoai}
+                    </span>
                   </a>
                 </li>
-                <li>
-                  <a class="lien-ket gach-chan mo-rong sang-phai" href="#">
-                    <span>Chỉ mục 2</span>
-                  </a>
-                </li>
-                <li>
-                  <a class="lien-ket gach-chan mo-rong sang-phai" href="#">
-                    <span>Chỉ mục 3</span>
-                  </a>
-                </li>
-              </ul>
-              <ul class="danh-muc">
-                <h2>Tên danh mục</h2>
-                <li>
-                  <a class="lien-ket gach-chan mo-rong sang-phai" href="#">
-                    <span>Chỉ mục 1</span>
-                  </a>
-                </li>
-                <li>
-                  <a class="lien-ket gach-chan mo-rong sang-phai" href="#">
-                    <span>Chỉ mục 2</span>
-                  </a>
-                </li>
-                <li>
-                  <a class="lien-ket gach-chan mo-rong sang-phai" href="#">
-                    <span>Chỉ mục 3</span>
-                  </a>
-                </li>
-              </ul>
-              <ul class="danh-muc">
-                <h2>Tên danh mục</h2>
-                <li>
-                  <a class="lien-ket gach-chan mo-rong sang-phai" href="#">
-                    <span>Chỉ mục 1</span>
-                  </a>
-                </li>
-                <li>
-                  <a class="lien-ket gach-chan mo-rong sang-phai" href="#">
-                    <span>Chỉ mục 2</span>
-                  </a>
-                </li>
-                <li>
-                  <a class="lien-ket gach-chan mo-rong sang-phai" href="#">
-                    <span>Chỉ mục 3</span>
-                  </a>
-                </li>
-              </ul>
-            </div>
-            <div class="cac-bo-suu-tap">
-              <a href="#">
-                <div class="bo-suu-tap">
-                  <div class="anh-dai-dien">
-                    <img
-                            src="https://images.pexels.com/photos/14348172/pexels-photo-14348172.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
-                    />
-                  </div>
-                  <div class="tieu-de gach-chan thu-hep sang-phai">
-                    <span>Bộ sưu tập nổi bật</span>
-                  </div>
-                </div>
-              </a>
-              <a href="#">
-                <div class="bo-suu-tap">
-                  <div class="anh-dai-dien">
-                    <img
-                            src="https://images.pexels.com/photos/14348172/pexels-photo-14348172.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
-                    />
-                  </div>
-                  <div class="tieu-de gach-chan thu-hep sang-phai">
-                    <span>Bộ sưu tập nổi bật</span>
-                  </div>
-                </div>
-              </a>
-            </div>
+              </c:forEach>
+            </ul>
           </div>
         </li>
         <li class="muc co-menu-con">
@@ -178,7 +107,7 @@
         </div>
       </div>
       <div class="chuc-nang">
-        <a href="<%=request.getContextPath()%>/gio-hang" id="gio-hang" class="nut chuc-nang"></a>
+        <a href="<%=request.getContextPath()%>/gio-hang" id="nut-gio-hang" class="nut chuc-nang"></a>
         <div class="menu-con"></div>
       </div>
     </div>

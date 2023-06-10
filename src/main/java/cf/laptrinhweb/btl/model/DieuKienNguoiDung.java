@@ -8,6 +8,8 @@ import lombok.Setter;
 @Setter
 @Builder
 public class DieuKienNguoiDung extends PhanTrang {
+    @Builder.Default
+    private Integer kichThuoc = 15;
     private Long maNguoiDung;
     private String tuKhoa = "";
 }

@@ -4,7 +4,7 @@
 .danh-sach-san-pham {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 3rem 1.5rem;
+  gap: 4rem 2rem;
 }
 .danh-sach-san-pham .san-pham {
   overflow: hidden;
@@ -12,6 +12,13 @@
 }
 .danh-sach-san-pham .san-pham * {
   text-decoration: none;
+}
+.danh-sach-san-pham .san-pham .danh-gia-sao {
+  margin-top: 4px;
+}
+.danh-sach-san-pham .san-pham .danh-gia-sao .sao {
+  width: 16px;
+  height: 16px;
 }
 .danh-sach-san-pham .anh-san-pham {
   height: 280px;
@@ -40,7 +47,7 @@
   color: var(--den);
   display: block;
   padding: 5px 0;
-  font-size: 1.2rem;
+  font-size: 1.1rem;
 }
 .danh-sach-san-pham .ten-san-pham:hover {
   text-decoration: underline;

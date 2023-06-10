@@ -1,6 +1,7 @@
 package cf.laptrinhweb.btl.controller.sanpham;
 
 import cf.laptrinhweb.btl.entity.*;
+import cf.laptrinhweb.btl.model.DieuKienSanPham;
 import cf.laptrinhweb.btl.repository.SanPhamRepository;
 import cf.laptrinhweb.btl.repository.impl.SanPhamRepositoryImpl;
 import cf.laptrinhweb.btl.service.SanPhamService;
@@ -18,13 +19,12 @@ import java.util.List;
 @WebServlet("/san-pham")
 public class ChiTietSanPhamController extends HttpServlet {
     private final SanPhamService sanPhamService = new SanPhamServiceImpl();
-    private final SanPhamRepository sanPhamRepository = new SanPhamRepositoryImpl();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         Long maSanPham = Long.parseLong(req.getParameter("maSanPham"));
         req.setAttribute("sanPham", sanPhamService.timTheoMa(maSanPham));
-        req.setAttribute("sanPhamLienQuan", sanPhamService.timTatCa(null));
+        req.setAttribute("sanPhamLienQuan", sanPhamService.timTatCa(DieuKienSanPham.builder().daAn(false).build()));
         req.getRequestDispatcher("/WEB-INF/chi_tiet_san_pham.jsp").forward(req, resp);
     }
 }
