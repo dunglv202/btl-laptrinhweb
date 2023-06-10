@@ -13,6 +13,13 @@
 .danh-sach-san-pham .san-pham * {
   text-decoration: none;
 }
+.danh-sach-san-pham .san-pham .danh-gia-sao {
+  margin-top: 4px;
+}
+.danh-sach-san-pham .san-pham .danh-gia-sao .sao {
+  width: 16px;
+  height: 16px;
+}
 .danh-sach-san-pham .anh-san-pham {
   height: 280px;
   overflow: hidden;
