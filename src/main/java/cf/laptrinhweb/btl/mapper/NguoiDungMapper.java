@@ -17,6 +17,7 @@ public class NguoiDungMapper {
         nguoiDung.setSoDienThoai(resultSet.getString("so_dien_thoai"));
         nguoiDung.setMatKhau(resultSet.getString("mat_khau"));
         nguoiDung.setDaKhoa(resultSet.getBoolean("da_khoa"));
+        nguoiDung.setCoGangDangNhap(resultSet.getInt("co_gang_dang_nhap"));
         nguoiDung.setThoiGianTao(resultSet.getTimestamp("thoi_gian_tao"));
         return nguoiDung;
     }

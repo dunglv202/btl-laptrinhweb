@@ -2,12 +2,15 @@ package cf.laptrinhweb.btl.helper;
 
 import org.apache.commons.io.IOUtils;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.Part;
 
 import static java.nio.charset.StandardCharsets.UTF_8;
 
 public class HoTroRequest {
+    public static ServletContext servletContext;
+
     public static String layThamSo(HttpServletRequest request, String tenThamSo) {
         try {
             Part part = request.getParts()

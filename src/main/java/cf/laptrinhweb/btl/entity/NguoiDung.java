@@ -20,6 +20,7 @@ public class NguoiDung {
     private String matKhau;
     private Date thoiGianTao;
     private boolean daKhoa;
+    private int coGangDangNhap;
     private List<Quyen> dsQuyen = new ArrayList<>();
 
     public boolean coQuyen(QuyenNguoiDung quyen) {

@@ -1,5 +1,6 @@
 package cf.laptrinhweb.btl.service.impl;
 
+import cf.laptrinhweb.btl.constant.KhoaSession;
 import cf.laptrinhweb.btl.constant.LoaiThongTinDangNhap;
 import cf.laptrinhweb.btl.constant.QuyenNguoiDung;
 import cf.laptrinhweb.btl.exception.xacthuc.MatKhauKhongDungException;
@@ -7,6 +8,7 @@ import cf.laptrinhweb.btl.exception.xacthuc.TaiKhoanBiKhoaException;
 import cf.laptrinhweb.btl.exception.xacthuc.ThongTinDangNhapDaTonTaiException;
 import cf.laptrinhweb.btl.exception.chung.ThongTinKhongHopLeException;
 import cf.laptrinhweb.btl.exception.xacthuc.SaiThongTinDangNhapException;
+import cf.laptrinhweb.btl.helper.HoTroRequest;
 import cf.laptrinhweb.btl.helper.HoTroXacThuc;
 import cf.laptrinhweb.btl.entity.NguoiDung;
 import cf.laptrinhweb.btl.entity.Quyen;
@@ -72,12 +74,19 @@ public class XacThucServiceImpl implements XacThucService {
         Objects.requireNonNull(tenDangNhap, "Tên đăng nhập không được nhận giá trị null");
     	NguoiDung nguoiDung = nguoiDungRepository.timBangThongTinDangNhap(tenDangNhap)
             .orElseThrow(SaiThongTinDangNhapException::new);
-        if (!nguoiDung.getMatKhau().equals(matKhau))
-            throw new SaiThongTinDangNhapException();
         if (nguoiDung.isDaKhoa())
             throw new TaiKhoanBiKhoaException();
+        if (!nguoiDung.getMatKhau().equals(matKhau)) {
+            nguoiDungRepository.tangCoGangDangNhap(nguoiDung);
+            if (nguoiDung.getCoGangDangNhap() >= 5) {
+                doiTrangThaiTaiKhoan(nguoiDung.getMaNguoiDung(), true);
+                throw new TaiKhoanBiKhoaException();
+            }
+            throw new SaiThongTinDangNhapException();
+        }
         List<Quyen> dsQuyen = phanQuyenRepository.timBangMaNguoiDung(nguoiDung.getMaNguoiDung());
         nguoiDung.setDsQuyen(dsQuyen);
+        nguoiDungRepository.resetCoGangDangNhap(nguoiDung.getMaNguoiDung());
         return nguoiDung;
     }
 
@@ -109,8 +118,14 @@ public class XacThucServiceImpl implements XacThucService {
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public void doiTrangThaiTaiKhoan(Long maNguoiDung, boolean khoa) {
         nguoiDungRepository.thayDoiTrangThai(maNguoiDung, khoa);
+        if (khoa) {
+            ((Set<Long>) HoTroRequest.servletContext.getAttribute(KhoaSession.BUOC_DANG_XUAT)).add(maNguoiDung);
+        } else {
+            nguoiDungRepository.resetCoGangDangNhap(maNguoiDung);
+        }
     }
 
     @Override
