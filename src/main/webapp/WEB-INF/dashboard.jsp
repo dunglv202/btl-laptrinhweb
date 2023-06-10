@@ -14,28 +14,39 @@
     <link rel="stylesheet" href="<%=request.getContextPath()%>/static/css/dashboard.css"/>
   </head>
   <body>
+    <fmt:setLocale value = "vi_VN"/>
     <jsp:include page="components/menu_admin.jsp">
       <jsp:param name="mucHienTai" value="dashboard"/>
     </jsp:include>
     <main>
       <h1 style="text-align: center">Thống kê trong 30 ngày gần nhất</h1>
-      <% request.setAttribute("danhSachDuLieu", request.getAttribute("doanhThuThang")); %>
       <div id="thong-ke-30-ngay-gan-nhat">
+        <% request.setAttribute("danhSachDuLieu", request.getAttribute("doanhThuTungNgay")); %>
         <jsp:include page="components/bieu_do.jsp">
           <jsp:param name="idBieuDo" value="bieu-do-doanh-thu-30-ngay"/>
         </jsp:include>
         <div class="thong-ke">
           <div>
             <h2 class="tieu-de">Tổng doanh thu</h2>
-            <div class="gia-tri tien-te">100000</div>
+            <div class="gia-tri tien-te">
+              <fmt:formatNumber value = "${tongDoanhThu}"
+                                type = "currency"/>
+            </div>
           </div>
           <div>
             <h2 class="tieu-de">Giá trị trung bình đơn hàng</h2>
-            <div class="gia-tri tien-te">1000</div>
+            <div class="gia-tri tien-te">
+              <fmt:formatNumber value = "${trungBinhDon}"
+                                type = "currency"/>
+            </div>
           </div>
           <div>
             <h2 class="tieu-de">Tỉ lệ huỷ đơn</h2>
-            <div class="gia-tri">5%</div>
+            <div class="gia-tri">
+              <fmt:formatNumber type = "percent"
+                                maxIntegerDigits="3"
+                                value = "${tiLeHuyDon}" />
+            </div>
           </div>
         </div>
       </div>
