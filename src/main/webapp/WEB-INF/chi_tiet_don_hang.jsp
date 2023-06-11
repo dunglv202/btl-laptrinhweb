@@ -19,7 +19,7 @@
     <jsp:include page="components/header.jsp"/>
 
     <main>
-      <h1 id="tieu-de-trang">Chi tiết đơn hàng <span class="ma-don-hang">01</span></h1>
+      <h1 id="tieu-de-trang">Chi tiết đơn hàng <span class="ma-don-hang">${datHang.maDatHang}</span></h1>
 
       <div id="thong-tin-don-hang">
         <div class="truong">
@@ -62,6 +62,11 @@
 	           <c:set var="dinhDangNgayThang" value='<%=DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm")%>' scope="page"/>
 	          <span>${dinhDangNgayThang.format(datHang.ngayTaoDon)}</span>
 	      </div>
+	      
+	      <div class="truong">
+          <label>Ghi chú</label>
+          <span>${datHang.ghiChu}</span>
+      	</div>
 	      
       </div>
       
