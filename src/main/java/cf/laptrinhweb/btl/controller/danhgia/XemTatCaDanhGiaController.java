@@ -30,7 +30,7 @@ public class XemTatCaDanhGiaController extends HttpServlet {
         yeuCauQuyen(request, List.of(QuyenNguoiDung.KHACH_HANG));
         List<DanhGia> ldg = danhGiaService.layTatCaDanhGia(Long.parseLong(request.getParameter("ma_san_pham")));
         request.setAttribute("tat_ca_danh_gia", ldg);
-        request.getRequestDispatcher("WEB-INF/danh_gia.jsp").forward(request, response);
+        request.getRequestDispatcher("WEB-INF/danhgia.jsp").forward(request, response);
 	}
 
 	/**

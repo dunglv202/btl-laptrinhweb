@@ -19,13 +19,18 @@ public class BinhLuanServiceImpl implements BinhLuanService{
 	public void xoaBinhLuan(Long ma_binh_luan,Long ma_nguoi_dung) {
 		// TODO Auto-generated method stub
 		binhLuanRepository.xoaBinhLuan(ma_binh_luan,ma_nguoi_dung);
-		
 	}
 
 	@Override
 	public List<BinhLuan> layTatCaBinhLuan(Long ma_san_pham) {
 		// TODO Auto-generated method stub
 		return binhLuanRepository.layTatCaBinhLuan(ma_san_pham);
+	}
+
+	@Override
+	public List<BinhLuan> layTatCaBinhLuanTraLoi(Long ma_binh_luan) {
+		// TODO Auto-generated method stub
+		return binhLuanRepository.latTatCaBinhLuanTraLoi(ma_binh_luan);
 	}
 
 }

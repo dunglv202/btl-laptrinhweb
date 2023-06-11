@@ -10,9 +10,12 @@ import java.util.Date;
 import java.util.List;
 
 import cf.laptrinhweb.btl.entity.DanhGia;
+import cf.laptrinhweb.btl.entity.NguoiDung;
 import cf.laptrinhweb.btl.entity.SanPhamDat;
 import cf.laptrinhweb.btl.repository.DanhGiaRepository;
 import cf.laptrinhweb.btl.service.impl.DatHangServiceImpl;
+import cf.laptrinhweb.btl.service.impl.SanPhamDatServiceImpl;
+import cf.laptrinhweb.btl.service.impl.SanPhamServiceImpl;
 
 public class DanhGiaRepositoryImpl implements DanhGiaRepository{
 
@@ -75,7 +78,8 @@ public class DanhGiaRepositoryImpl implements DanhGiaRepository{
             PreparedStatement ps = ketNoi.prepareStatement("""
                 select * 
                 from danh_gia,san_pham_dat,san_pham
-                where danh_gia.ma_san_pham_dat = san_pham_dat.ma_san_pham_dat	
+                where danh_gia.ma_san_pham_dat = san_pham_dat.ma_san_pham_dat
+                and san_pham_dat.ma_san_pham = san_pham.ma_san_pham
                 and san_pham_dat.ma_san_pham = ?
                 """);
             ps.setLong(1, ma_san_pham);
@@ -97,6 +101,42 @@ public class DanhGiaRepositoryImpl implements DanhGiaRepository{
             }
         } catch (Exception e) {
             throw new RuntimeException("Khong the xoa danh gia", e);
+        }
+		return ldg;
+	}
+
+	@Override
+	public List<DanhGia> layTatCaDanhGiaCuaNguoiDung(NguoiDung nguoidung) {
+		// TODO Auto-generated method stub
+		List<DanhGia> ldg = new ArrayList<>();
+		// TODO Auto-generated method stub
+		try (Connection ketNoi = moKetNoi()) {
+            PreparedStatement ps = ketNoi.prepareStatement("""
+                select ma_danh_gia,ma_nguoi_danh_gia,noi_dung_danh_gia,diem_danh_gia,ngay_danh_gia,
+            			ma_san_pham,ma_san_pham_dat
+                from danh_gia,san_pham_dat,san_pham
+                where danh_gia.ma_san_pham_dat = san_pham_dat.ma_san_pham_dat	
+                and san_pham_dat.ma_san_pham = san_pham.ma_san_pham
+                and danh_gia.ma_nguoi_danh_gia = ?
+                """);
+            ps.setLong(1, nguoidung.getMaNguoiDung());
+            ResultSet rs = ps.executeQuery();
+            while(rs.next()) {
+            	DanhGia a = new DanhGia();
+            	a.setId(rs.getLong("ma_danh_gia"));
+            	a.setKhachHangDanhGia(nguoidung);
+            	a.setNoi_dung_danh_gia(rs.getString("noi_dung_danh_gia"));
+            	a.setSoDiemDanhGia(rs.getInt("diem_danh_gia"));
+            	a.setNgay_danh_gia(Date.from(rs.getTimestamp("ngay_danh_gia").toInstant()));
+            	SanPhamDat spd = new SanPhamDat();
+            	Long ma_san_pham_dat = new SanPhamDatServiceImpl().timMaSanPham(rs.getLong("ma_san_pham_dat"));
+            	spd.setId(ma_san_pham_dat);
+            	spd.setSanPham(new SanPhamServiceImpl().timTheoMa(rs.getLong("ma_san-pham")));
+            	a.setSan_pham_dat(spd);
+            	ldg.add(a);
+            }
+        } catch (Exception e) {
+            throw new RuntimeException("Khong the xem danh gia", e);
         }
 		return ldg;
 	}

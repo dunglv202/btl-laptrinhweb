@@ -11,15 +11,22 @@
 </head>
 <body>
 	<c:forEach var = "item" items = "${tat_ca_binh_luan}">
+		<div> ${item.nguoi_binh_luan.tenHienThi}</div>
+		<div> ${item.noi_dung_binh_luan}</div>
+		<div>${item.ma_binh_luan_tra_loi}</div>
 		<form action = "<%=request.getContextPath()%>/xoa-binh-luan" method = "POST">
 			<input type = "hidden" name = "ma_san_pham" value = "${item.san_pham.maSanPham}"/>
 			<input type = "hidden" name = "ma_binh_luan" value = "${item.id}"/>
-			<div> ${item.nguoi_binh_luan.tenHienThi}</div>
-			<div> ${item.noi_dung_binh_luan}</div>
 			<button type = "submit"> delete </button>
 		</form>
+		<form action = "<%=request.getContextPath()%>/tra-loi-binh-luan" method = "GET">
+			<input type = "hidden" name = "ma_san_pham" value = "${item.san_pham.maSanPham}"/>
+			<input name = "ma_binh_luan" value = "${item.id}" type = "hidden">
+			<p>Dien noi dung</p>
+			<input name = "noi_dung_tra_loi" value = "">
+			<button type = "submit"> tra loi</button>
+		</form>
 	</c:forEach> 
-	<div> okok </div>
 	<div> </div>
 </body>
 </html>

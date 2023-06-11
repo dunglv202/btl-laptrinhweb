@@ -12,6 +12,7 @@ import java.util.Optional;
 import cf.laptrinhweb.btl.constant.HinhThucThanhToan;
 import cf.laptrinhweb.btl.entity.DatHang;
 import cf.laptrinhweb.btl.entity.NguoiDung;
+import cf.laptrinhweb.btl.entity.SanPham;
 import cf.laptrinhweb.btl.entity.SanPhamDat;
 import cf.laptrinhweb.btl.mapper.SanPhamMapper;
 import cf.laptrinhweb.btl.repository.SanPhamDatRepository;
@@ -78,4 +79,25 @@ public class SanPhamDatRepositoryImpl implements SanPhamDatRepository{
             throw new RuntimeException("Khong the tim san pham theo ma", e);
         }
 	}
+
+	@Override
+	public Long timMaSanPham(Long ma_san_pham_dat) {
+		try (Connection ketNoi = moKetNoi()) {
+            PreparedStatement ps = ketNoi.prepareStatement("""
+               select ma_san_pham
+               from san_pham_dat
+               where ma_san_pham_dat = ?
+            """);
+            ps.setLong(1, ma_san_pham_dat);
+            ResultSet rs = ps.executeQuery();
+            if(rs.next()) 
+            	return rs.getLong("ma_san_pham");
+        } catch (Exception e) {
+            throw new RuntimeException("Khong the them sp_dat vao gio hang", e);
+        }
+		return null;
+	}
+
+
+
 }

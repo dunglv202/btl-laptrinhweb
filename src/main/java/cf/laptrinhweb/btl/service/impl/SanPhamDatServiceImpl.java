@@ -17,4 +17,10 @@ public class SanPhamDatServiceImpl implements SanPhamDatService{
 		return null;
 	}
 
+	@Override
+	public Long timMaSanPham(Long ma_san_pham_dat) {
+		// TODO Auto-generated method stub
+		return sanPhamDatRepository.timMaSanPham(ma_san_pham_dat);
+	}
+
 }

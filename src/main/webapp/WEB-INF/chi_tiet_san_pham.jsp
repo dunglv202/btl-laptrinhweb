@@ -86,13 +86,14 @@
               <h2 class="tieu-de">Đánh giá</h2>
               <div class="noi-dung">
                 <div>
-                  <ul class="toi-gian cac-danh-gia">
+                  <ul class="toi-gian cac-danh-gia">    
                     <li class="muc-danh-gia">
                       <div class="diem-danh-gia">
                         <jsp:include page="components/danh_gia_sao.jsp">
                           <jsp:param name="saoDanhGia" value="5"/>
                         </jsp:include>
                       </div>
+                   
                       <div class="thong-tin-danh-gia">
                         <span class="ten-nguoi-danh-gia"> DungLV </span>
                         <span> vào </span>
@@ -154,7 +155,7 @@
             </div>
             <div style = "width : 100%">
             	 <div style = "width:50%">
-            	 	<a href =" <%=request.getContextPath()%>/xem-tat-ca-danh-gia?ma_san_pham="${sanPham.maSanPham}">xem tất cả dannh gia</a>
+            	 	<a href =" <%=request.getContextPath()%>/binhluan?ma_san_pham=${sanPham.maSanPham}">xem tất cả binhgia</a>
             	 </div>
 
             	 <form action = "<%=request.getContextPath()%>/them-danh-gia" method = "GET">

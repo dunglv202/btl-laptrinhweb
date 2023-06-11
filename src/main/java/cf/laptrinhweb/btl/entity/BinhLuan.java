@@ -13,4 +13,5 @@ public class BinhLuan {
 	private SanPham san_pham;
 	private Date ngay_binh_luan;
 	private NguoiDung nguoi_binh_luan;
+	private Long ma_binh_luan_tra_loi;
 }
