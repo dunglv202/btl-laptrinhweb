@@ -4,6 +4,7 @@ import cf.laptrinhweb.btl.model.BanGhiDuLieu;
 import cf.laptrinhweb.btl.repository.ThongKeRepository;
 import cf.laptrinhweb.btl.repository.impl.ThongKeRepositoryImpl;
 import cf.laptrinhweb.btl.service.DashboardService;
+import cf.laptrinhweb.btl.model.SanPhamMuaNhieu;
 
 import java.time.LocalDate;
 import java.time.Period;
@@ -34,7 +35,10 @@ public class DashboardServiceImpl implements DashboardService {
     public double tinhTiLeHuyDon(LocalDate ngayBatDau, LocalDate ngayKetThuc) {
         return thongKeRepository.tinhTiLeHuyDon(ngayBatDau, ngayKetThuc);
     }
-
+        @Override
+    public List<SanPhamMuaNhieu> lietKe() {
+        return thongKeRepository.lietKe();
+    
     private List<BanGhiDuLieu> layDuLieuDoanhThu(LocalDate ngayBatDau, LocalDate ngayKetThuc) {
         Map<LocalDate, Double> duLieuThongKeDuoc = thongKeRepository.thongKeDoanhThu(ngayBatDau, ngayKetThuc);
         List<BanGhiDuLieu> dsDuLieuDayDu = new ArrayList<>();
