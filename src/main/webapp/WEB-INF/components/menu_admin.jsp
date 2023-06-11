@@ -30,7 +30,7 @@
     </li>
     <li class="muc">
       <div class="hien-thi">
-        <a href="lien-ket" class="lien-ket ${param.get("mucHienTai").equals("don-hang") ? "hien-tai" : ""}">
+        <a href="<%=request.getContextPath()%>/quan-ly/don-hang" class="lien-ket ${param.get("mucHienTai").equals("don-hang") ? "hien-tai" : ""}">
           <div class="anh">
             <img src="<%=request.getContextPath()%>/static/images/gio-hang-trang.svg" />
           </div>

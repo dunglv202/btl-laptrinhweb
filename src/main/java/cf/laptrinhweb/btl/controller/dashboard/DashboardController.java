@@ -1,5 +1,6 @@
 package cf.laptrinhweb.btl.controller.dashboard;
 
+import cf.laptrinhweb.btl.constant.QuyenNguoiDung;
 import cf.laptrinhweb.btl.model.BanGhiDuLieu;
 import cf.laptrinhweb.btl.model.DanhSachDuLieu;
 import cf.laptrinhweb.btl.service.DashboardService;
@@ -18,6 +19,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import static cf.laptrinhweb.btl.helper.HoTroXacThuc.yeuCauQuyen;
+
 @WebServlet("/quan-ly/dashboard")
 public class DashboardController extends HttpServlet {
     private final DashboardService dashboardService = new DashboardServiceImpl();
@@ -25,6 +28,8 @@ public class DashboardController extends HttpServlet {
     @Override
     @SuppressWarnings("unchecked")
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        yeuCauQuyen(req, List.of(QuyenNguoiDung.QUAN_LY));
+
         LocalDate ngayBatDau = LocalDate.now().minusDays(30);
         LocalDate ngayKetThuc = LocalDate.now();
         int soNgayThongKe = Period.between(ngayBatDau, ngayKetThuc).getDays();

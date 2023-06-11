@@ -35,7 +35,7 @@ public class LichSuMuaHangController extends HttpServlet {
         NguoiDung nguoiDung = HoTroXacThuc.nguoiDungHienTai(request);
 		List<DatHang> listDH = datHangService.layTatCaCuaNguoiDung(nguoiDung);
 		request.setAttribute("danhSachDonHang", listDH);
-		request.getRequestDispatcher("WEB-INF/quan_ly_don_hang.jsp").forward(request, response);
+		request.getRequestDispatcher("WEB-INF/lich_su_don_hang.jsp").forward(request, response);
 	}
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

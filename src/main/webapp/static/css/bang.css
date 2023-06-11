@@ -36,6 +36,19 @@
 .tuong-tac-bang {
   margin: 1.5rem 0;
 }
+.tuong-tac-bang .bo-loc {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.tuong-tac-bang .bo-loc .nhieu-lua-chon {
+  display: flex;
+  gap: 1rem;
+}
+.tuong-tac-bang .bo-loc .nhieu-lua-chon label {
+  display: flex;
+  gap: 5px;
+}
 .tuong-tac-bang .loc-du-lieu {
   display: flex;
 }
@@ -85,4 +98,10 @@
 .bang .hanh-dong a:hover{
   color: var(--trang);
   background-color: var(--den);
+}
+.bang td.can-giua {
+  text-align: center;
+}
+.bang td.can-phai {
+  text-align: right;
 }
