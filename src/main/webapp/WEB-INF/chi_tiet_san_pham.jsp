@@ -8,8 +8,11 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
+    
     <link rel="stylesheet" href="<%=request.getContextPath()%>/static/css/chung.css">
     <link rel="stylesheet" href="<%=request.getContextPath()%>/static/css/chi_tiet_san_pham.css">
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/static/css/binh_luan.css" />
+     
   </head>
   <body>
     <jsp:include page="components/header.jsp"/>
@@ -72,7 +75,8 @@
                 <span>Thêm vào giỏ</span>
               </button>
             </form>
-          </div>
+            
+            </div>
           <div class="chi-tiet">
             <div class="phan mo-ta-san-pham">
               <h2 class="tieu-de">Mô tả sản phẩm</h2>
@@ -82,95 +86,35 @@
                 </div>
               </div>
             </div>
-            <div class="phan">
-              <h2 class="tieu-de">Đánh giá</h2>
-              <div class="noi-dung">
-                <div>
-                  <ul class="toi-gian cac-danh-gia">    
-                    <li class="muc-danh-gia">
-                      <div class="diem-danh-gia">
-                        <jsp:include page="components/danh_gia_sao.jsp">
-                          <jsp:param name="saoDanhGia" value="5"/>
-                        </jsp:include>
-                      </div>
-                   
-                      <div class="thong-tin-danh-gia">
-                        <span class="ten-nguoi-danh-gia"> DungLV </span>
-                        <span> vào </span>
-                        <span class="thoi-gian-danh-gia"> 11 Tháng 3, 2022 </span>
-                      </div>
-                      <p class="noi-dung">
-                        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Blanditiis earum mollitia facere qui
-                        velit ullam rem voluptas quas officiis excepturi.
-                      </p>
-                    </li>
-                    <li class="muc-danh-gia">
-                      <div class="diem-danh-gia">
-                        <jsp:include page="components/danh_gia_sao.jsp">
-                          <jsp:param name="saoDanhGia" value="2"/>
-                        </jsp:include>
-                      </div>
-                      <div class="thong-tin-danh-gia">
-                        <span class="ten-nguoi-danh-gia"> DungLV </span>
-                        <span> vào </span>
-                        <span class="thoi-gian-danh-gia"> 11 Tháng 3, 2022 </span>
-                      </div>
-                      <p class="noi-dung">
-                      </p>
-                    </li>
-                    <li class="muc-danh-gia">
-                      <div class="diem-danh-gia">
-                        <jsp:include page="components/danh_gia_sao.jsp">
-                          <jsp:param name="saoDanhGia" value="3"/>
-                        </jsp:include>
-                      </div>
-                      <div class="thong-tin-danh-gia">
-                        <span class="ten-nguoi-danh-gia"> DungLV </span>
-                        <span> vào </span>
-                        <span class="thoi-gian-danh-gia"> 11 Tháng 3, 2022 </span>
-                      </div>
-                      <p class="noi-dung">
-                      </p>
-                    </li>
-                    <li class="muc-danh-gia">
-                      <div class="diem-danh-gia">
-                        <jsp:include page="components/danh_gia_sao.jsp">
-                          <jsp:param name="saoDanhGia" value="4"/>
-                        </jsp:include>
-                      </div>
-                      <div class="thong-tin-danh-gia">
-                        <span class="ten-nguoi-danh-gia"> DungLV </span>
-                        <span> vào </span>
-                        <span class="thoi-gian-danh-gia"> 11 Tháng 3, 2022 </span>
-                      </div>
-                      <p class="noi-dung">
-                        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Blanditiis earum mollitia facere qui
-                        velit ullam rem voluptas quas officiis excepturi.
-                      </p>
-                      
-                    </li>
-                  </ul>
-                </div>
+               
+			<div id="phan-binh-luan">
+			  <h2>Bình luận</h2>
+			  <form method="POST" action="<%=request.getContextPath()%>/them-binh-luan">
+			    <input type="hidden" name="phanHoiBinhLuan" value="1" />
+			    <input type="hidden" name = "maSanPham" value = "${sanPham.maSanPham}"/>
+			    <p>"${sanPham.maSanPham }"</p>
+			    <textarea name="noi_dung_binh_luan" placeholder="Nội dung bình luận"></textarea>
+			    <button class="nut kieu-1 nut-gui-bl" type="submit">Gửi</button>
+			  </form>
+			  <ul class="danh-sach-binh-luan">
+			    <c:forEach var="binhLuanGoc" items="${danhSachBinhLuan.keySet()}">
+			      <li class="khung-binh-luan">
+			        <c:set var="binhLuan" scope="request" value="${binhLuanGoc}" />
+			        <jsp:include page="binh_luan.jsp" />
+			        <ul class="danh-sach-binh-luan phan-hoi">
+			          <c:forEach var="binhLuanPhanHoi" items="${danhSachBinhLuan.get(binhLuanGoc)}">
+			            <li>
+			              <c:set var="binhLuan" scope="request" value="${binhLuanPhanHoi}" />
+			              <jsp:include page="binh_luan.jsp" />
+			            </li>
+			          </c:forEach>
+			        </ul>
+			      </li>
+			    </c:forEach>
+			  </ul>
+			</div>
+			<script src="<%=request.getContextPath()%>/static/js/binh_luan.js"></script>
               </div>
-            </div>
-            <div style = "width : 100%">
-            	 <div style = "width:50%">
-            	 	<a href =" <%=request.getContextPath()%>/binhluan?ma_san_pham=${sanPham.maSanPham}">xem tất cả binhgia</a>
-            	 </div>
-
-            	 <form action = "<%=request.getContextPath()%>/them-danh-gia" method = "GET">
-            	 	<p>noi dung</p>
-          			<input type = "text" name = "noi_dung_danh_gia"  value = "a"/>
-          			<p>ma sp</p>
-          			<input name = "ma_san_pham" value = "${sanPham.maSanPham}"/>
-          			<p>so diem </p>
-          			<input name = "so_diem_danh_gia" value = "3">
-          			<p>ma khach hang</p>
-          			<input name = "ma_khach_hang" value = "1"> 
-          			<p>ma san pham dat</p>
-          			<input name = "ma_san_pham_dat" value = "1">
-          			<button type = "submit">BTTT</button>
-				 </form>
             </div>
           </div>
         </div>
@@ -180,10 +124,10 @@
         <%request.setAttribute("danhSachSanPham", request.getAttribute("sanPhamLienQuan"));%>
         <jsp:include page="components/danh_sach_san_pham.jsp"/>
       </div>
+      
     </main>
     <jsp:include page="components/chan_trang.jsp"/>
-
+	
     <script src="<%=request.getContextPath()%>/static/js/chi_tiet_san_pham.js"></script>
-    
   </body>
 </html>

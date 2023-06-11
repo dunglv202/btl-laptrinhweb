@@ -1,6 +1,7 @@
 package cf.laptrinhweb.btl.service.impl;
 
 import java.util.List;
+import java.util.Map;
 
 import cf.laptrinhweb.btl.entity.BinhLuan;
 import cf.laptrinhweb.btl.repository.BinhLuanRepository;
@@ -22,7 +23,7 @@ public class BinhLuanServiceImpl implements BinhLuanService{
 	}
 
 	@Override
-	public List<BinhLuan> layTatCaBinhLuan(Long ma_san_pham) {
+	public Map<BinhLuan,List<BinhLuan>> layTatCaBinhLuan(Long ma_san_pham) {
 		// TODO Auto-generated method stub
 		return binhLuanRepository.layTatCaBinhLuan(ma_san_pham);
 	}
@@ -31,6 +32,12 @@ public class BinhLuanServiceImpl implements BinhLuanService{
 	public List<BinhLuan> layTatCaBinhLuanTraLoi(Long ma_binh_luan) {
 		// TODO Auto-generated method stub
 		return binhLuanRepository.latTatCaBinhLuanTraLoi(ma_binh_luan);
+	}
+
+	@Override
+	public BinhLuan layBinhLuan(Long ma_binh_luan) {
+		// TODO Auto-generated method stub
+		return binhLuanRepository.layBinhLuan(ma_binh_luan);
 	}
 
 }

@@ -2,17 +2,20 @@ package cf.laptrinhweb.btl.repository.impl;
 
 import java.sql.Connection;
 import java.util.Date;
+import java.util.HashMap;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import com.mysql.cj.xdevapi.Result;
 
 import cf.laptrinhweb.btl.entity.BinhLuan;
 import cf.laptrinhweb.btl.repository.BinhLuanRepository;
+import cf.laptrinhweb.btl.service.impl.BinhLuanServiceImpl;
 
 public class BinhLuanRepositoryImpl implements BinhLuanRepository{
 
@@ -63,15 +66,15 @@ public class BinhLuanRepositoryImpl implements BinhLuanRepository{
 	}
 
 	@Override
-	public List<BinhLuan> layTatCaBinhLuan(Long ma_san_pham) {
+	public Map<BinhLuan, List<BinhLuan>> layTatCaBinhLuan(Long ma_san_pham) {
 		// TODO Auto-generated method stub
-		List<BinhLuan> lbl = new ArrayList<>();
+		Map<BinhLuan, List<BinhLuan>> lbl = new HashMap<>();
+		Map<Long,List<BinhLuan>> lbl1 = new HashMap<>();
 		try (Connection ketNoi = moKetNoi()) {
             PreparedStatement ps = ketNoi.prepareStatement("""
                 select * 
                 from binh_luan 
                 where ma_san_pham = ?
-                ORDER BY ngay_binh_luan DESC 
             """);
             ps.setLong(1, ma_san_pham);
             ResultSet rs = ps.executeQuery();
@@ -83,10 +86,18 @@ public class BinhLuanRepositoryImpl implements BinhLuanRepository{
             	bl.setSan_pham(new SanPhamRepositoryImpl().timTheoMa(rs.getLong("ma_san_pham")).get());
             	bl.setNgay_binh_luan(Date.from(rs.getTimestamp("ngay_binh_luan").toInstant()));
             	bl.setMa_binh_luan_tra_loi(rs.getLong("ma_binh_luan_tra_loi"));
-            	lbl.add(bl);
+            	if(bl.getMa_binh_luan_tra_loi() == 0) {
+            		lbl1.put(bl.getId(), new ArrayList<BinhLuan>());
+            	}
+            	else if(lbl1.containsKey(bl.getMa_binh_luan_tra_loi())){
+            		List<BinhLuan> newList = lbl1.get(bl.getMa_binh_luan_tra_loi());
+            		newList.add(bl);
+            		lbl1.put(bl.getMa_binh_luan_tra_loi(), newList);
+            	}
+            	lbl1.forEach((k,v) -> lbl.put(new BinhLuanServiceImpl().layBinhLuan(k), v) );
             }
         } catch (Exception e) {
-            throw new RuntimeException("Khong the xoa", e);
+            throw new RuntimeException("Khong the them tra loi", e);
         }
 		return lbl;
 	}
@@ -111,7 +122,6 @@ public class BinhLuanRepositoryImpl implements BinhLuanRepository{
             	bl.setSan_pham(new SanPhamRepositoryImpl().timTheoMa(rs.getLong("ma_san_pham")).get());
             	bl.setNgay_binh_luan(Date.from(rs.getTimestamp("ngay_binh_luan").toInstant()));
             	bl.setMa_binh_luan_tra_loi(rs.getLong("ma_binh_luan_tra_loi"));
-            	System.out.println(1);
             	System.out.print(bl.getMa_binh_luan_tra_loi());
             	lbl.add(bl);
             }
@@ -120,6 +130,33 @@ public class BinhLuanRepositoryImpl implements BinhLuanRepository{
         }
 		return lbl;
 		
+	}
+
+	@Override
+	public BinhLuan layBinhLuan(Long ma_binh_luan) {
+		// TODO Auto-generated method stub
+		BinhLuan bl = new BinhLuan();
+		try (Connection ketNoi = moKetNoi()) {
+            PreparedStatement ps = ketNoi.prepareStatement("""
+                select * 
+                from binh_luan 
+                where ma_binh_luan= ?
+            """);
+            ps.setLong(1, ma_binh_luan);
+            ResultSet rs = ps.executeQuery();
+            if(rs.next()) {
+            
+            	bl.setId(rs.getLong("ma_binh_luan"));
+            	bl.setNoi_dung_binh_luan(rs.getString("noi_dung_binh_luan"));
+            	bl.setNguoi_binh_luan(new NguoiDungRepositoryImpl().timNguoiDung(rs.getLong("ma_nguoi_dung")));
+            	bl.setSan_pham(new SanPhamRepositoryImpl().timTheoMa(rs.getLong("ma_san_pham")).get());
+            	bl.setNgay_binh_luan(Date.from(rs.getTimestamp("ngay_binh_luan").toInstant()));
+            	bl.setMa_binh_luan_tra_loi(rs.getLong("ma_binh_luan_tra_loi"));
+            }
+        } catch (Exception e) {
+            throw new RuntimeException("Khong the lay tra loi", e);
+        }
+        return bl;
 	}
 		
 

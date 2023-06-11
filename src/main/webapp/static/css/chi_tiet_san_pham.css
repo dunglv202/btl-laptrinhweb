@@ -1,3 +1,4 @@
+
 #chi-tiet-san-pham {
   display: grid;
   grid-template-columns: minmax(auto, 48%) 1fr;
@@ -140,7 +141,7 @@
   margin: 0;
   font-size: 1.2rem;
   cursor: pointer;
-  display: inline-block;
+display: inline-block;
 }
 #chi-tiet-san-pham .chi-tiet .phan.dang-mo .tieu-de {
   color: var(--xanh-la);
@@ -239,4 +240,9 @@
   #chi-tiet-san-pham .chi-tiet .tieu-de {
     font-size: 1.3rem;
   }
+  
+  #phan-binh-luan {
+  padding: 3rem var(--le-trang);
 }
+}
+

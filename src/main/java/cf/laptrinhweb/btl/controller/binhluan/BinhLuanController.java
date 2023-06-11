@@ -23,14 +23,14 @@ import lombok.Setter;
 @Setter
 @Getter
 
-@WebServlet("/binhluan")
+@WebServlet("/binh-luan")
 public class BinhLuanController  extends HttpServlet{
 	private final BinhLuanService binhLuanService = new BinhLuanServiceImpl();
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         NguoiDung nguoiDung = HoTroXacThuc.nguoiDungHienTai(req);
         yeuCauQuyen(req, List.of(QuyenNguoiDung.KHACH_HANG));
 		Long ma_san_pham = Long.parseLong(req.getParameter("ma_san_pham"));
-		List<BinhLuan> lbl = binhLuanService.layTatCaBinhLuan(ma_san_pham);
+		//List<BinhLuan> lbl = binhLuanService.layTatCaBinhLuan(ma_san_pham);
 		req.setAttribute("tat_ca_binh_luan", lbl);
 		req.getRequestDispatcher("WEB-INF/binh_luan.jsp").forward(req, resp);
     }

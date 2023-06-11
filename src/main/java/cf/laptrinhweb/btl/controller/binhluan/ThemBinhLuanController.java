@@ -24,19 +24,21 @@ import lombok.Setter;
 
 @Getter
 @Setter
-@WebServlet("/themBinhluan")
+@WebServlet("/them-binh-luan")
 public class ThemBinhLuanController extends HttpServlet{
 	private final BinhLuanService binhLuanService = new BinhLuanServiceImpl();
-	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		System.out.print("da sang");
 		yeuCauQuyen(req, List.of(QuyenNguoiDung.KHACH_HANG));
 		NguoiDung nguoiDung = HoTroXacThuc.nguoiDungHienTai(req);
 		BinhLuan bl = new BinhLuan();
 		bl.setNoi_dung_binh_luan(req.getParameter("noi_dung_binh_luan").toString());
 		bl.setNguoi_binh_luan(nguoiDung);
-		bl.setSan_pham(new SanPhamServiceImpl().timTheoMa(Long.parseLong(req.getParameter("ma_san_pham").toString())));
+		bl.setSan_pham(new SanPhamServiceImpl().timTheoMa(Long.parseLong(req.getParameter("maSanPham").toString())));
 		bl.setNgay_binh_luan(new Date(System.currentTimeMillis()));
+		bl.setMa_binh_luan_tra_loi((long)0);
 		binhLuanService.themBinhLuan(bl);
 		System.out.print(req.getContextPath());
-		resp.sendRedirect(req.getContextPath()+"/binhluan?ma_san_pham=" + req.getParameter("ma_san_pham"));
+		resp.sendRedirect(req.getContextPath()+"/san-pham?maSanPham=" + req.getParameter("maSanPham"));
 	}
 }
