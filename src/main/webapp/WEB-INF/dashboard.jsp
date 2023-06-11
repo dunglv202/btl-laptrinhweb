@@ -66,17 +66,15 @@
               </tr>
               </thead>
               <tbody>
-              <%--            <c:forEach var="nguoiDung" items="${danhSachNguoiDung}">--%>
+                   <c:forEach var="sanPham" items="${topBanChay}">
               <tr>
-                <td>1</td>
-                <td>
-                  <a href="<%=request.getContextPath()%>/san-pham?maSanPham=1}">
-                    Tên sản phẩm
-                  </a>
+                <td> ${sanPham.stt}</td>
+                <td>                
+                    ${sanPham.tenSanPham}
                 </td>
-                <td>251</td>
+                <td> ${sanPham.soLuong}</td>
               </tr>
-              <%--            </c:forEach>--%>
+           </c:forEach>
               </tbody>
             </table>
           </div>
