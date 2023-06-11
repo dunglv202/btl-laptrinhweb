@@ -40,7 +40,7 @@ public class DashboardController extends HttpServlet {
             .build());
         req.setAttribute("tiLeHuyDon", dashboardService.tinhTiLeHuyDon(ngayBatDau, ngayKetThuc));
         req.setAttribute("topXemNhieu", List.of());
-        req.setAttribute("topBanChay", List.of());
+        req.setAttribute("topBanChay",  dashboardService.lietKe());
         req.getRequestDispatcher("/WEB-INF/dashboard.jsp").forward(req, resp);
     }
 
