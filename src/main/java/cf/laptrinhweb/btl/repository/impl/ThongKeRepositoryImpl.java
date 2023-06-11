@@ -2,6 +2,7 @@ package cf.laptrinhweb.btl.repository.impl;
 
 import cf.laptrinhweb.btl.constant.TinhTrangDon;
 import cf.laptrinhweb.btl.repository.ThongKeRepository;
+import cf.laptrinhweb.btl.model.SanPhamMuaNhieu;
 
 import java.sql.Connection;
 import java.sql.Date;
@@ -99,4 +100,31 @@ public class ThongKeRepositoryImpl implements ThongKeRepository {
             throw new RuntimeException("Khong the tinh toan ti le huy don", e);
         }
     }
+        @Override
+    public List<SanPhamMuaNhieu> lietKe() {
+        try (Connection ketNoi = moKetNoi()) {
+            PreparedStatement ps = ketNoi.prepareStatement("""
+               SELECT 
+            		sum(d.so_luong) AS so_luong_mua, s.ten_san_pham
+            	FROM san_pham_dat d
+            	JOIN san_pham s ON d.ma_san_pham = s.ma_san_pham
+            	GROUP BY d.ma_san_pham, s.ten_san_pham
+            	ORDER BY so_luong_mua DESC
+            	LIMIT 3
+            """);
+            ResultSet resultSet = ps.executeQuery();
+            List<SanPhamMuaNhieu> dsSP = new ArrayList<>();
+            int dem = 1;
+            while (resultSet.next()) {
+                SanPhamMuaNhieu sp = new SanPhamMuaNhieu();
+                sp.setStt(dem++);
+                sp.setSoLuong(resultSet.getInt("so_luong_mua"));
+                sp.setTenSanPham(resultSet.getString("ten_san_pham"));
+                dsSP.add(sp);
+            }
+            return dsSP;
+        } catch (Exception e) {
+            throw new RuntimeException("San pham moi cap nhat", e);
+        }
+    }                                  
 }
