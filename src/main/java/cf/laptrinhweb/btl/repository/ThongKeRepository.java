@@ -7,4 +7,5 @@ public interface ThongKeRepository extends JdbcRepository {
     Map<LocalDate, Double> thongKeDoanhThu(LocalDate ngayBatDau, LocalDate ngayKetThuc);
     double layGiaTriDonTrungBinh(LocalDate ngayBatDau, LocalDate ngayKetThuc);
     double tinhTiLeHuyDon(LocalDate ngayBatDau, LocalDate ngayKetThuc);
+     List<SanPhamMuaNhieu> lietKe();
 }
