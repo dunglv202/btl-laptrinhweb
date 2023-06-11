@@ -59,33 +59,11 @@ public class DatHangServiceImpl implements DatHangService{
 	}
 
 	@Override
-	public List<DatHang> layDonTheoTrangThai(int trangThai, int gioiHan) {
-		// TODO Auto-generated method stub
-		return datHangRepository.layDonTheoTrangThai(trangThai, gioiHan);
-	}
-
-	@Override
 	public void thayDoiTrangThaiDon(Long maDatHang, int trang_thai_moi) {
-		datHangRepository.thayDoiTrangThai(maDatHang, trang_thai_moi);
+		//datHangRepository.thayDoiTrangThai(maDatHang, trang_thai_moi);
 		
 	}
 
-	@Override
-	public List<DatHang> layDonTheoTrangThaiVaNgayDat(int trangThai, int gioiHan) {
-		// TODO Auto-generated method stub
-		return datHangRepository.layDonTheoTrangThaiVaNgayDat(trangThai, gioiHan);
-	}
 
-	@Override
-	public List<DatHang> layDonTheoTrangThaiVaTongTien(int trangThai, int gioiHan) {
-		// TODO Auto-generated method stub
-		return datHangRepository.layDonTheoTrangThaiVaTongTien(trangThai, gioiHan);
-	}
-
-	@Override
-	public List<DatHang> layDonKhongDieuKien(int gioiHan) {
-		// TODO Auto-generated method stub
-		return datHangRepository.layDonKhongDieuKien(gioiHan);
-	}
 
 }

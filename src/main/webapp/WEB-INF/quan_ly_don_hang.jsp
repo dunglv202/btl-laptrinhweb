@@ -98,7 +98,7 @@
                                     <fmt:formatNumber type="number" minFractionDigits="2" maxFractionDigits="2" value="${donHang.tongTien}"/>
                                 </td>
                                 <td class="hanh-dong">
-                                    <a class="lien-ket" href="<%=request.getContextPath()%>/quan-ly/don-hang/chi-tiet?maDonHang=${donHang.maDatHang}">
+                                    <a class="lien-ket" href="<%=request.getContextPath()%>/quan-ly/don-hang/chi-tiet?maDatHang=${donHang.maDatHang}">
                                         <span>Xem chi tiết</span>
                                     </a>
                                 </td>

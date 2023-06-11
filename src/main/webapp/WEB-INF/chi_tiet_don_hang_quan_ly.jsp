@@ -13,10 +13,14 @@
     <title>Document</title>
     <link rel="stylesheet" href="<%=request.getContextPath()%>/static/css/chung.css">
     <link rel="stylesheet" href="<%=request.getContextPath()%>/static/css/sao.css">
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/static/css/trang_admin.css">
     <link rel="stylesheet" href="<%=request.getContextPath()%>/static/css/chi_tiet_don_hang.css">
   </head>
   <body>
-    <jsp:include page="components/header.jsp"/>
+  	
+       <jsp:include page="components/menu_admin.jsp">
+        	<jsp:param name="mucHienTai" value="don-hang"/>
+       </jsp:include>
 
     <main>
       <h1 id="tieu-de-trang">Chi tiết đơn hàng <span class="ma-don-hang">01</span></h1>
@@ -55,18 +59,17 @@
         <div class="truong">
           <label>Trạng thái đơn hàng</label>
           <span>${datHang.tinhTrang}</span>
-	      </div>
-	      
-	      <div class="truong">
-	          <label>Ngày đặt đơn</label>
-	           <c:set var="dinhDangNgayThang" value='<%=DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm")%>' scope="page"/>
-	          <span>${dinhDangNgayThang.format(datHang.ngayTaoDon)}</span>
-	      </div>
-	      
+      	</div>
+      
+      	<div class="truong">
+          <label>Ngày đặt đơn</label>
+           <c:set var="dinhDangNgayThang" value='<%=DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm")%>' scope="page"/>
+          <span>${dinhDangNgayThang.format(datHang.ngayTaoDon)}</span>
+      	</div>
+        
       </div>
       
-            
-
+      
       <ul id="danh-sach-hang-dat" class="toi-gian">
       	<c:forEach var = "sanpham" items = "${datHang.danhSachSanPham}">
         <li class="hang-dat">
@@ -82,28 +85,11 @@
               <div class="thanh-tien tien-te">${sanpham.gia}</div>
             </div>
           </div>
-          <form class="form-danh-gia" method="post" action="/danh-gia">
-            <input type="hidden" name="ma_san_pham_dat" value="${sanpham.id}" />
-            <input type="hidden" name="ma_san_pham" value="${sanpham.sanPham.maSanPham}" />
-            <div class="diem-danh-gia">
-              <span>Đánh giá: </span>
-              <div class="danh-gia-sao danh-gia-cua-toi chua-danh-gia"></div>
-            </div>
-            <div class="binh-luan">
-              <textarea name="binhLuan" placeholder="Bạn nghĩ sao về sản phẩm này?"></textarea>
-            </div>
-            <div class="hanh-dong">
-              <button type="submit" class="nut kieu-1 nut-danh-gia" disabled>Xác nhận</button>
-            </div>
-          </form>
         </li>
         </c:forEach>
       </ul>
     </main>
 
-    <jsp:include page="components/chan_trang.jsp"/>
-
-    <script src="<%=request.getContextPath()%>/static/js/danh_gia.js"></script>
     <script src="<%=request.getContextPath()%>/static/js/sao.js"></script>
   </body>
 </html>
