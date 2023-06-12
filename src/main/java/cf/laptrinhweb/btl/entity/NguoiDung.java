@@ -27,9 +27,9 @@ public class NguoiDung {
     private Date thoiGianTao;
     private boolean daKhoa;
     private int coGangDangNhap;
+    @Builder.Default
     private List<Quyen> dsQuyen = new ArrayList<>();
-    
-    
+
     public boolean coQuyen(QuyenNguoiDung quyen) {
         return this.dsQuyen.stream().anyMatch(q -> q.getTenQuyen().equals(quyen.name()));
     }

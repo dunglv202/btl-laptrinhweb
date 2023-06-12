@@ -5,5 +5,5 @@ import lombok.Data;
 @Data
 public class PhanQuyen {
     private Long maNguoiDung;
-    private Long maQuyen;
+    private Quyen quyen;
 }

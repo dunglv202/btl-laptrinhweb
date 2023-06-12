@@ -3,6 +3,7 @@ package cf.laptrinhweb.btl.service.impl;
 import cf.laptrinhweb.btl.constant.KhoaSession;
 import cf.laptrinhweb.btl.constant.LoaiThongTinDangNhap;
 import cf.laptrinhweb.btl.constant.QuyenNguoiDung;
+import cf.laptrinhweb.btl.entity.PhanQuyen;
 import cf.laptrinhweb.btl.exception.xacthuc.MatKhauKhongDungException;
 import cf.laptrinhweb.btl.exception.xacthuc.TaiKhoanBiKhoaException;
 import cf.laptrinhweb.btl.exception.xacthuc.ThongTinDangNhapDaTonTaiException;
@@ -117,9 +118,15 @@ public class XacThucServiceImpl implements XacThucService {
         } else {
             dsNguoiDung = nguoiDungRepository.timTatCa(dieuKien);
         }
+        List<PhanQuyen> danhSachPhanQuyen = phanQuyenRepository.layTheoDanhSachNguoiDung(dsNguoiDung);
         dsNguoiDung.forEach(nguoiDung -> {
-            List<Quyen> dsQuyen = phanQuyenRepository.timBangMaNguoiDung(nguoiDung.getMaNguoiDung());
-            nguoiDung.setDsQuyen(dsQuyen);
+            nguoiDung.getDsQuyen().addAll(
+                danhSachPhanQuyen
+                    .stream()
+                    .filter(phanQuyen -> phanQuyen.getMaNguoiDung().equals(nguoiDung.getMaNguoiDung()))
+                    .map(PhanQuyen::getQuyen)
+                    .toList()
+            );
         });
         return dsNguoiDung;
     }
