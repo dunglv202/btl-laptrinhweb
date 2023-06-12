@@ -55,18 +55,46 @@
       <%-- THONG KE SAN PHAM --%>
       <div id="thong-ke-khac">
         <div class="phan-thong-ke">
-          <h2 class="tieu-de-bang">Sản phẩm xem nhiều</h2>
+          <h2 class="tieu-de-bang">Khách hàng mua nhiều nhất</h2>
+          <div class="bang-admin">
+            <table class="bang">
+              <thead>
+              <tr>
+                <th>STT</th>
+                <th>Tên đăng nhập</th>
+                <th>Tên hiển thị</th>
+                <th>Lượng mua (VNĐ)</th>
+              </tr>
+              </thead>
+              <tbody>
+            <c:forEach var="nguoiDung" items="${topMuaNhieu}">
+              <tr>
+                 <td> ${nguoiDung.stt}</td>
+                <td>                
+                    ${nguoiDung.tenDangNhap}
+                </td>
+                <td> ${nguoiDung.tenHienThi}</td>
+                 <td> ${nguoiDung.tongTien}</td>
+              </tr>
+        </c:forEach>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        
+        <div class="phan-thong-ke">
+          <h2 class="tieu-de-bang">Sản phẩm bán chạy nhất</h2>
           <div class="bang-admin">
             <table class="bang">
               <thead>
               <tr>
                 <th>STT</th>
                 <th>Tên sản phẩm</th>
-                <th>Lượt xem</th>
+                <th>Số lượng đã bán</th>
               </tr>
               </thead>
               <tbody>
-                   <c:forEach var="sanPham" items="${topBanChay}">
+              <c:forEach var="sanPham" items="${topBanChay}">
               <tr>
                 <td> ${sanPham.stt}</td>
                 <td>                
@@ -79,34 +107,60 @@
             </table>
           </div>
         </div>
+        </div>
+        
+      <div id="thong-ke-khac">
         <div class="phan-thong-ke">
-          <h2 class="tieu-de-bang">Top bán chạy</h2>
+          <h2 class="tieu-de-bang">Thể loại bán chạy nhất </h2>
           <div class="bang-admin">
             <table class="bang">
               <thead>
               <tr>
                 <th>STT</th>
-                <th>Tên sản phẩm</th>
+                <th>Tên thể loại</th>
+                <th>Số lượng đã bán </th>
+              </tr>
+              </thead>
+              <tbody>
+            <c:forEach var="theLoai" items="${theLoaiBanChay}">
+              <tr>
+                 <td> ${theLoai.stt}</td>
+                <td> ${theLoai.tenTheLoai}</td>
+                 <td> ${theLoai.soLuong}</td>
+              </tr>
+        </c:forEach>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        
+        <div class="phan-thong-ke">
+          <h2 class="tieu-de-bang">Thương hiệu bán chạy nhất</h2>
+          <div class="bang-admin">
+            <table class="bang">
+              <thead>
+              <tr>
+                <th>STT</th>
+                <th>Tên thương hiệu</th>
                 <th>Số lượng đã bán</th>
               </tr>
               </thead>
               <tbody>
-              <%--            <c:forEach var="nguoiDung" items="${danhSachNguoiDung}">--%>
+              <c:forEach var="thuongHieu" items="${thuongHieuBanChay}">
               <tr>
-                <td>1</td>
-                <td>
-                  <a href="<%=request.getContextPath()%>/san-pham?maSanPham=1}">
-                    Tên sản phẩm
-                  </a>
+                <td> ${thuongHieu.stt}</td>
+                <td>                
+                    ${thuongHieu.tenThuongHieu}
                 </td>
-                <td>251</td>
+                <td> ${thuongHieu.soLuong}</td>
               </tr>
-              <%--            </c:forEach>--%>
+           </c:forEach>
               </tbody>
             </table>
           </div>
         </div>
         </div>
+        
       </div>
     </main>
   </body>
