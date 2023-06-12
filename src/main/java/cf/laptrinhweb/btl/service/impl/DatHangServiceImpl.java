@@ -40,22 +40,14 @@ public class DatHangServiceImpl implements DatHangService{
         for(SanPhamTrongGio sp : listGio) {
         	gioHangRepository.xoaGioHang(sp.getMaMucGioHang(), nguoidung.getMaNguoiDung());
         }
-        
-        
+
 		datHangRepository.themDatHang(dathang);
 		sanPhamDatRepository.themSanPhamDat(dathang);
-		
 	}
 
 	@Override
 	public List<DatHang> layTatCaCuaNguoiDung(NguoiDung nguoidung) {
-		// TODO Auto-generated method stub
-		List<DatHang> listDH = datHangRepository.layTatCaCuaNguoiDung(nguoidung);
-		for(DatHang i : listDH) {
-			i.setDanhSachSanPham(sanPhamDatRepository.layTatCaTheoMaDat(i.getMaDatHang(), nguoidung));
-			i.capNhatTongTien();
-		}
-		return listDH;
+		return datHangRepository.layTatCaCuaNguoiDung(nguoidung);
 	}
 
 	@Override
