@@ -28,7 +28,7 @@ public class XemTatCaDanhGiaController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		NguoiDung nguoiDung = HoTroXacThuc.nguoiDungHienTai(request);
         yeuCauQuyen(request, List.of(QuyenNguoiDung.KHACH_HANG));
-        List<DanhGia> ldg = danhGiaService.layTatCaDanhGia(Long.parseLong(request.getParameter("ma_san_pham")));
+        List<DanhGia> ldg = danhGiaService.layTatCaDanhGia(Long.parseLong(request.getParameter("maSanPham")));
         request.setAttribute("tat_ca_danh_gia", ldg);
         request.getRequestDispatcher("WEB-INF/danhgia.jsp").forward(request, response);
 	}

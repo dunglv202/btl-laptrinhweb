@@ -79,6 +79,8 @@ public class DatHangRepositoryImpl implements DatHangRepository{
             	dh.setTinhTrang(resultSet.getInt("trang_thai"));
             	dh.setNgayTaoDon(Date.from(resultSet.getTimestamp("ngay_dat_hang").toInstant()));
             	dh.setTongTien(resultSet.getDouble("tong_tien"));
+            	dh.setDanhSachSanPham(new SanPhamDatRepositoryImpl().layTatCaTheoMaDat(dh.getMaDatHang(), nguoidung));
+            	res.add(dh);
             }
             return res;
         } catch (Exception e) {
@@ -111,7 +113,7 @@ public class DatHangRepositoryImpl implements DatHangRepository{
             	dh.setTinhTrang(resultSet.getInt("trang_thai"));
             	dh.setNgayTaoDon(Date.from(resultSet.getTimestamp("ngay_dat_hang").toInstant()));
             	dh.setTongTien(resultSet.getDouble("tong_tien"));
-            	
+            	dh.setDanhSachSanPham(new SanPhamDatRepositoryImpl().layTatCaTheoMaDat(dh.getMaDatHang(), dh.getNguoiDung()));
             }
             return dh;
         } catch (Exception e) {

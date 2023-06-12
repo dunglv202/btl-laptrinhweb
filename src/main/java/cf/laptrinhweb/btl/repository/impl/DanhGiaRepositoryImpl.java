@@ -93,9 +93,9 @@ public class DanhGiaRepositoryImpl implements DanhGiaRepository{
             	a.setNgay_danh_gia(Date.from(rs.getTimestamp("ngay_danh_gia").toInstant()));
             	SanPhamDat spd = new SanPhamDat();
             	spd.setId(rs.getLong("ma_san_pham_dat"));
-            	spd.setDatHang(new DatHangServiceImpl().layDatHang(rs.getLong("ma_dat_hang")));
             	spd.setGia(rs.getDouble("don_gia"));
             	spd.setSoLuong(rs.getInt("so_luong"));
+            	spd.setSanPham(new SanPhamRepositoryImpl().timTheoMa(rs.getLong("ma_san_pham")).get());
             	a.setSan_pham_dat(spd);
             	ldg.add(a);
             }

@@ -86,6 +86,10 @@
                 </div>
               </div>
             </div>
+            
+            <div class = "hanh-dong">
+            	<a href = "<%=request.getContextPath()%>/xem-tat-ca-danh-gia?maSanPham=${sanPham.maSanPham}">Xem tất cả đánh giá</a>
+            </div>
                
 			<div id="phan-binh-luan">
 			  <h2>Bình luận</h2>
