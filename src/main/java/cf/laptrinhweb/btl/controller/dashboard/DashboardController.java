@@ -39,8 +39,10 @@ public class DashboardController extends HttpServlet {
             .danhSachDuLieu((List<BanGhiDuLieu>) thongKeDoanhThu.get("doanhThuTungNgay"))
             .build());
         req.setAttribute("tiLeHuyDon", dashboardService.tinhTiLeHuyDon(ngayBatDau, ngayKetThuc));
-        req.setAttribute("topXemNhieu", List.of());
-        req.setAttribute("topBanChay",  dashboardService.lietKe());
+        req.setAttribute("topMuaNhieu",dashboardService.lietKe2() );
+        req.setAttribute("topBanChay", dashboardService.lietKe());
+        req.setAttribute("theLoaiBanChay", dashboardService.lietKe3());
+        req.setAttribute("thuongHieuBanChay", dashboardService.lietKe4());
         req.getRequestDispatcher("/WEB-INF/dashboard.jsp").forward(req, resp);
     }
 
