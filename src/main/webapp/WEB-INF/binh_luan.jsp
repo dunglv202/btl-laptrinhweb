@@ -9,7 +9,7 @@
   </div>
   <div class="noi-dung">
     ${binhLuan.noi_dung_binh_luan}
-  </div>
+  </div>   
   <div class="hanh-dong">
     <button class="nut-phan-hoi">Phản hồi</button>
   </div>

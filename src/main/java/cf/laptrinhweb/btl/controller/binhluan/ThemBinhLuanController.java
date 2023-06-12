@@ -29,7 +29,7 @@ public class ThemBinhLuanController extends HttpServlet{
 	private final BinhLuanService binhLuanService = new BinhLuanServiceImpl();
 	
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		System.out.print("da sang");
+		//System.out.print("da sang");
 		yeuCauQuyen(req, List.of(QuyenNguoiDung.KHACH_HANG));
 		NguoiDung nguoiDung = HoTroXacThuc.nguoiDungHienTai(req);
 		BinhLuan bl = new BinhLuan();
@@ -37,7 +37,7 @@ public class ThemBinhLuanController extends HttpServlet{
 		bl.setNguoi_binh_luan(nguoiDung);
 		bl.setSan_pham(new SanPhamServiceImpl().timTheoMa(Long.parseLong(req.getParameter("maSanPham"))));
 		bl.setNgay_binh_luan(new Date(System.currentTimeMillis()));
-		System.out.print(req.getParameter("phanHoiBinhLuan"));
+		//System.out.print(req.getParameter("phanHoiBinhLuan"));
 		bl.setMa_binh_luan_tra_loi(Long.valueOf(req.getParameter("phanHoiBinhLuan")));
 		binhLuanService.themBinhLuan(bl);
 		

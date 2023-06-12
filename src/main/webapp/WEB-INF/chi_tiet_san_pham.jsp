@@ -33,6 +33,9 @@
           <div id="anh-hien-thi" class="anh-hien-thi">
             <img src="${(sanPham.anhXemTruoc == null) ? "/public/anh-trong.jpg" : sanPham.anhXemTruoc}" />
           </div>
+<!--           <div class = "xem-danh-gia"> -->
+<%--           		<a href = "<%=request.getContextPath()%>/xem-tat-ca-danh-gia?maSanPham=${sanPham.maSanPham}">Xem tất cả đánh giá</a> --%>
+<!--            </div> -->
         </div>
         <div class="chi-tiet-san-pham">
           <div class="noi-dung-co-ban">
@@ -94,7 +97,7 @@
 			<div id="phan-binh-luan">
 			  <h2>Bình luận</h2>
 			  <form method="POST" action="<%=request.getContextPath()%>/them-binh-luan">
-			    <input type="hidden" name="phanHoiBinhLuan" value="1" />
+			    <input type="hidden" name="phanHoiBinhLuan" value="0" />
 			    <input type="hidden" name = "maSanPham" value = "${sanPham.maSanPham}"/>
 			    <p>"${sanPham.maSanPham }"</p>
 			    <textarea name="noi_dung_binh_luan" placeholder="Nội dung bình luận"></textarea>

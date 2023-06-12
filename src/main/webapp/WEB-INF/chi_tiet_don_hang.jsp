@@ -67,17 +67,18 @@
               <div class="thanh-tien tien-te">${sanpham.gia}</div>
             </div>
           </div>
-          <form class="form-danh-gia" method="post" action="/danh-gia">
-            <input type="hidden" name="maSanPhamMua" value="1" />
+          <form class="form-danh-gia" method="GET" action="/btl/them-danh-gia">
+            <input type="hidden" name="ma_san_pham_dat" value="${sanpham.id}" />
+            <input type="hidden" name="ma_san_pham" value="${sanpham.sanPham.maSanPham}" />
             <div class="diem-danh-gia">
               <span>Đánh giá: </span>
               <div class="danh-gia-sao danh-gia-cua-toi chua-danh-gia"></div>
             </div>
             <div class="binh-luan">
-              <textarea name="binhLuan" placeholder="Bạn nghĩ sao về sản phẩm này?"></textarea>
+              <textarea name="noi_dung_binh_luan" placeholder="Bạn nghĩ sao về sản phẩm này?"></textarea>
             </div>
             <div class="hanh-dong">
-              <button type="submit" class="nut kieu-1 nut-danh-gia" disabled>Xác nhận</button>
+              <button type="submit" class="nut kieu-1 nut-danh-gia">Xác nhận</button>
             </div>
           </form>
         </li>

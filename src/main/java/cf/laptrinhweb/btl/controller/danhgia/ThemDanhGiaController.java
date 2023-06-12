@@ -27,17 +27,18 @@ public class ThemDanhGiaController extends HttpServlet {
 		NguoiDung nguoiDung = HoTroXacThuc.nguoiDungHienTai(request);
 		DanhGia danhGia = new DanhGia();
 		danhGia.setKhachHangDanhGia(nguoiDung);
-		danhGia.setNoi_dung_danh_gia(request.getParameter("noi_dung_danh_gia"));
+		danhGia.setNoi_dung_danh_gia(request.getParameter("noi_dung_binh_luan"));
 
 		danhGia.setNgay_danh_gia(new Date(System.currentTimeMillis()));
-
-		danhGia.setSoDiemDanhGia(Integer.parseInt(request.getParameter("so_diem_danh_gia")));
+		
+		danhGia.setSoDiemDanhGia(Integer.parseInt(request.getParameter("danhGia")));
+		System.out.println("diem la:" + danhGia.getSoDiemDanhGia());
 
 		Long ma_san_pham_dat = Long.parseLong(request.getParameter("ma_san_pham_dat"));
-
+		
 		danhGiaService.themDanhGia(danhGia,ma_san_pham_dat);
 
-		response.sendRedirect(request.getContextPath()+"/xem-tat-ca-danh-gia?ma_san_pham=" + request.getParameter("ma_san_pham"));
+		response.sendRedirect(request.getContextPath()+"/xem-tat-ca-danh-gia?maSanPham=" + request.getParameter("ma_san_pham"));
 	}
 
 	/**

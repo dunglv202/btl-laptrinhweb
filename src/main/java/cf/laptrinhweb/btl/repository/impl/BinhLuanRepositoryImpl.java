@@ -1,6 +1,8 @@
 package cf.laptrinhweb.btl.repository.impl;
 
 import java.sql.Connection;
+import java.util.Set;
+import java.util.TreeSet;
 import java.util.Date;
 import java.util.HashMap;
 import java.sql.PreparedStatement;
@@ -8,6 +10,7 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.*;
 import java.util.List;
 import java.util.Map;
 
@@ -68,13 +71,15 @@ public class BinhLuanRepositoryImpl implements BinhLuanRepository{
 	@Override
 	public Map<BinhLuan, List<BinhLuan>> layTatCaBinhLuan(Long ma_san_pham) {
 		// TODO Auto-generated method stub
-		Map<BinhLuan, List<BinhLuan>> lbl = new HashMap<>();
-		Map<Long,List<BinhLuan>> lbl1 = new HashMap<>();
+		Map<BinhLuan, List<BinhLuan>> lbl = new TreeMap<BinhLuan, List<BinhLuan>>();
+		Map<Long,List<BinhLuan>> lbl1 = new TreeMap<>();
+		List<BinhLuan> blcon = new ArrayList<>();
 		try (Connection ketNoi = moKetNoi()) {
             PreparedStatement ps = ketNoi.prepareStatement("""
                 select * 
                 from binh_luan 
                 where ma_san_pham = ?
+                order by ngay_binh_luan DESC
             """);
             ps.setLong(1, ma_san_pham);
             ResultSet rs = ps.executeQuery();
@@ -89,16 +94,24 @@ public class BinhLuanRepositoryImpl implements BinhLuanRepository{
             	if(bl.getMa_binh_luan_tra_loi() == 0) {
             		lbl1.put(bl.getId(), new ArrayList<BinhLuan>());
             	}
-            	else if(lbl1.containsKey(bl.getMa_binh_luan_tra_loi())){
+            	else {
+            		blcon.add(bl);
+            	}
+            	
+            }
+            for(BinhLuan bl : blcon) {
+            	if(lbl1.containsKey(bl.getMa_binh_luan_tra_loi())){
             		List<BinhLuan> newList = lbl1.get(bl.getMa_binh_luan_tra_loi());
             		newList.add(bl);
             		lbl1.put(bl.getMa_binh_luan_tra_loi(), newList);
             	}
-            	
-            	
             }
-            for(Long k : lbl1.keySet()) {
+            
+        	
+            Set<Long> newSet = new TreeSet<>(lbl1.keySet());
+            for(Long k : newSet) {
         		lbl.put(this.layBinhLuan(k), lbl1.get(k));
+        		System.out.println(" " + k);
         	}
         } catch (Exception e) {
             throw new RuntimeException("Khong the them tra loi", e);
