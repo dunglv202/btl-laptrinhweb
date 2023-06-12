@@ -1,5 +1,6 @@
 package cf.laptrinhweb.btl.helper;
 
+import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
@@ -10,7 +11,8 @@ import java.time.format.DateTimeFormatter;
 
 public class HoTroJson {
     private static final ObjectMapper objectMapper = new ObjectMapper()
-        .registerModules(new JavaTimeModule());
+        .registerModules(new JavaTimeModule())
+        .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 
     public static <T> T layThongTin(HttpServletRequest request, Class<T> lopDich) {
         try {

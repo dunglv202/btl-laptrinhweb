@@ -1,6 +1,7 @@
 package cf.laptrinhweb.btl.filter;
 
 import cf.laptrinhweb.btl.constant.KhoaSession;
+import cf.laptrinhweb.btl.exception.xacthuc.KhongCoQuyenTruyCapException;
 
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
@@ -9,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 import static cf.laptrinhweb.btl.helper.HoTroRequest.traVeLoi;
+import static javax.servlet.http.HttpServletResponse.SC_FORBIDDEN;
 import static javax.servlet.http.HttpServletResponse.SC_INTERNAL_SERVER_ERROR;
 
 @WebFilter(filterName = "UngDungFilter")
@@ -29,6 +31,8 @@ public class UngDungFilter implements Filter {
                 try {
                     // bat va xu ly loi (exception) ma controller chua handle
                     chain.doFilter(request, response);
+                } catch (KhongCoQuyenTruyCapException e) {
+                    traVeLoi(httpResponse, SC_FORBIDDEN, "Ban khong co quyen truy cap tai nguyen nay");
                 } catch (Exception e) {
                     traVeLoi(httpResponse, SC_INTERNAL_SERVER_ERROR, "Loi da xay ra");
                 }
