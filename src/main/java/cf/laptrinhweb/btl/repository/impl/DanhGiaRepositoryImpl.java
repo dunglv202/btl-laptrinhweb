@@ -41,8 +41,7 @@ public class DanhGiaRepositoryImpl implements DanhGiaRepository{
             ps.setString(4, danhGia.getNoi_dung_danh_gia());
          
             ps.setTimestamp(5, Timestamp.from(danhGia.getNgay_danh_gia().toInstant()));
-            System.out.println(Timestamp.from(danhGia.getNgay_danh_gia().toInstant()).toString());
-            System.out.println(6);
+            
             ps.executeUpdate();
          
             ResultSet rs = ps.getGeneratedKeys();

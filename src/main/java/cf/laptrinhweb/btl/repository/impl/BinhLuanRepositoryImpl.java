@@ -23,10 +23,10 @@ public class BinhLuanRepositoryImpl implements BinhLuanRepository{
 		 try (Connection ketNoi = moKetNoi()) {
 	            PreparedStatement ps = ketNoi.prepareStatement("""
 					INSERT INTO binh_luan (
-						noi_dung_binh_luan,
+						noi_dung,
 						ma_nguoi_dung,
 						ma_san_pham,
-						ngay_binh_luan,
+						thoi_gian_binh_luan,
 						ma_binh_luan_goc
 					) VALUES (?, ?, ?, ?, ?)
 				""", Statement.RETURN_GENERATED_KEYS);
@@ -76,17 +76,17 @@ public class BinhLuanRepositoryImpl implements BinhLuanRepository{
                 select * 
                 from binh_luan 
                 where ma_san_pham = ?
-                order by ngay_binh_luan DESC
+                order by thoi_gian_binh_luan DESC
             """);
             ps.setLong(1, ma_san_pham);
             ResultSet rs = ps.executeQuery();
             while(rs.next()) {
             	BinhLuan bl = new BinhLuan();
             	bl.setId(rs.getLong("ma_binh_luan"));
-            	bl.setNoi_dung_binh_luan(rs.getString("noi_dung_binh_luan"));
+            	bl.setNoi_dung_binh_luan(rs.getString("noi_dung"));
             	bl.setNguoi_binh_luan(new NguoiDungRepositoryImpl().timNguoiDung(rs.getLong("ma_nguoi_dung")));
             	bl.setSan_pham(new SanPhamRepositoryImpl().timTheoMa(rs.getLong("ma_san_pham")).get());
-            	bl.setNgay_binh_luan(Date.from(rs.getTimestamp("ngay_binh_luan").toInstant()));
+            	bl.setNgay_binh_luan(Date.from(rs.getTimestamp("thoi_gian_binh_luan").toInstant()));
             	bl.setMa_binh_luan_goc(rs.getLong("ma_binh_luan_goc"));
             	if(bl.getMa_binh_luan_goc() == 0) {
             		lbl1.put(bl.getId(), new ArrayList<BinhLuan>());
@@ -126,17 +126,17 @@ public class BinhLuanRepositoryImpl implements BinhLuanRepository{
                 select * 
                 from binh_luan 
                 where ma_binh_luan_goc = ?
-                ORDER BY ngay_binh_luan DESC 
+                ORDER BY thoi_gian_binh_luan DESC 
             """);
             ps.setLong(1, ma_binh_luan);
             ResultSet rs = ps.executeQuery();
             while(rs.next()) {
             	BinhLuan bl = new BinhLuan();
             	bl.setId(rs.getLong("ma_binh_luan"));
-            	bl.setNoi_dung_binh_luan(rs.getString("noi_dung_binh_luan"));
+            	bl.setNoi_dung_binh_luan(rs.getString("noi_dung"));
             	bl.setNguoi_binh_luan(new NguoiDungRepositoryImpl().timNguoiDung(rs.getLong("ma_nguoi_dung")));
             	bl.setSan_pham(new SanPhamRepositoryImpl().timTheoMa(rs.getLong("ma_san_pham")).get());
-            	bl.setNgay_binh_luan(Date.from(rs.getTimestamp("ngay_binh_luan").toInstant()));
+            	bl.setNgay_binh_luan(Date.from(rs.getTimestamp("thoi_gian_binh_luan").toInstant()));
             	bl.setMa_binh_luan_goc(rs.getLong("ma_binh_luan_goc"));
             	System.out.print(bl.getMa_binh_luan_goc());
             	lbl.add(bl);
@@ -162,10 +162,10 @@ public class BinhLuanRepositoryImpl implements BinhLuanRepository{
             ResultSet rs = ps.executeQuery();
             if(rs.next()) {
             	bl.setId(rs.getLong("ma_binh_luan"));
-            	bl.setNoi_dung_binh_luan(rs.getString("noi_dung_binh_luan"));
+            	bl.setNoi_dung_binh_luan(rs.getString("noi_dung"));
             	bl.setNguoi_binh_luan(new NguoiDungRepositoryImpl().timNguoiDung(rs.getLong("ma_nguoi_dung")));
             	bl.setSan_pham(new SanPhamRepositoryImpl().timTheoMa(rs.getLong("ma_san_pham")).get());
-            	bl.setNgay_binh_luan(Date.from(rs.getTimestamp("ngay_binh_luan").toInstant()));
+            	bl.setNgay_binh_luan(Date.from(rs.getTimestamp("thoi_gian_binh_luan").toInstant()));
             	bl.setMa_binh_luan_goc(rs.getLong("ma_binh_luan_goc"));
             }
         } catch (Exception e) {
