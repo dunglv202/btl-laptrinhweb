@@ -94,12 +94,18 @@ public class BinhLuanRepositoryImpl implements BinhLuanRepository{
             		newList.add(bl);
             		lbl1.put(bl.getMa_binh_luan_tra_loi(), newList);
             	}
-            	lbl1.forEach((k,v) -> lbl.put(new BinhLuanServiceImpl().layBinhLuan(k), v) );
+            	
+            	
             }
+            for(Long k : lbl1.keySet()) {
+        		lbl.put(this.layBinhLuan(k), lbl1.get(k));
+        	}
         } catch (Exception e) {
             throw new RuntimeException("Khong the them tra loi", e);
         }
+		
 		return lbl;
+		
 	}
 
 	@Override

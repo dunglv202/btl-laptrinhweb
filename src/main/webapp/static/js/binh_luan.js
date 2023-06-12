@@ -10,12 +10,15 @@ function themFormBinhLuan(khungChua, maBinhLuanPhanHoi) {
     let formBinhLuan = document.createElement("form");
     formBinhLuan.classList.add("tao-binh-luan");
     formBinhLuan.innerHTML = `
-        ${maBinhLuanPhanHoi ? '<input type="hidden" name="phanHoiBinhLuan" value="${maBinhLuanPhanHoi}" />' : ""}
-        <textarea name="noiDung" placeholder="Nội dung phản hồi"></textarea>
+        ${maBinhLuanPhanHoi ? `<input type="hidden" name="phanHoiBinhLuan" value="${maBinhLuanPhanHoi}" />` : "0"}
+        <textarea name="noi_dung_binh_luan" placeholder="Nội dung phản hồi"></textarea>
+        <input type = "hidden" name = "maSanPham" value = "${window.maSanPham}"/>
         <button class="nut kieu-2 nut-gui-bl" type="submit">
           Gửi
         </button>
     `;
+    formBinhLuan.setAttribute("method", "post");
+    formBinhLuan.setAttribute("action", "/btl/them-binh-luan");
     khungChua.appendChild(formBinhLuan);
     formBinhLuan.querySelector("textarea").focus();
 }

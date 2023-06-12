@@ -124,10 +124,12 @@
         <%request.setAttribute("danhSachSanPham", request.getAttribute("sanPhamLienQuan"));%>
         <jsp:include page="components/danh_sach_san_pham.jsp"/>
       </div>
+      <script>
+      window.maSanPham = <%=request.getParameter("maSanPham")%>
+      </script>
       
     </main>
     <jsp:include page="components/chan_trang.jsp"/>
-	
     <script src="<%=request.getContextPath()%>/static/js/chi_tiet_san_pham.js"></script>
   </body>
 </html>
