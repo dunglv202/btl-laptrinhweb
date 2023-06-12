@@ -7,4 +7,5 @@ import java.util.*;
 public interface SanPhamDatRepository extends JdbcRepository{
 	void themSanPhamDat(DatHang dathang);
 	List<SanPhamDat> layTatCaTheoMaDat(Long maDatHang, NguoiDung nguoiDung);
+	public List<SanPhamDat> layTatCaTheoMaDatBoiQuanLy(Long maDatHang);
 }

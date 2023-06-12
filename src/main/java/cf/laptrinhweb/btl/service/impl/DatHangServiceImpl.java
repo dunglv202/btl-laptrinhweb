@@ -58,4 +58,12 @@ public class DatHangServiceImpl implements DatHangService{
 		return listDH;
 	}
 
+	@Override
+	public void thayDoiTrangThaiDon(Long maDatHang, int trang_thai_moi) {
+		//datHangRepository.thayDoiTrangThai(maDatHang, trang_thai_moi);
+		
+	}
+
+
+
 }

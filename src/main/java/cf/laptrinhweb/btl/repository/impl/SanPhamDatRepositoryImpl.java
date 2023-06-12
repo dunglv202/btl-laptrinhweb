@@ -68,4 +68,29 @@ public class SanPhamDatRepositoryImpl implements SanPhamDatRepository{
             throw new RuntimeException("Khong the tim san pham theo ma", e);
         }
 	}
+	
+	public List<SanPhamDat> layTatCaTheoMaDatBoiQuanLy(Long maDatHang) {
+		try (Connection ketNoi = moKetNoi()) {
+            PreparedStatement ps = ketNoi.prepareStatement("""
+                SELECT *
+                FROM san_pham_dat, dat_hang
+                WHERE san_pham_dat.ma_dat_hang = ?
+            		    AND san_pham_dat.ma_dat_hang = dat_hang.ma_dat_hang
+            """);
+            ps.setLong(1, maDatHang);
+            ResultSet resultSet = ps.executeQuery();
+            List<SanPhamDat> res = new ArrayList<>();
+            while( resultSet.next() ) {
+            	SanPhamDat tmp = new SanPhamDat();
+            	tmp.setGia(resultSet.getDouble("don_gia"));
+            	tmp.setId(resultSet.getLong("ma_san_pham_dat"));
+            	tmp.setSoLuong(resultSet.getInt("so_luong"));
+            	tmp.setSanPham(new SanPhamRepositoryImpl().timTheoMa(resultSet.getLong("ma_san_pham")).get());
+            	res.add(tmp);
+            }
+            return res;
+        } catch (Exception e) {
+            throw new RuntimeException("Khong the tim san pham theo ma", e);
+        }
+	}
 }
