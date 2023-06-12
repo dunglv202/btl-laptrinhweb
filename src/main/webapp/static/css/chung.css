@@ -100,6 +100,7 @@ input, textarea, button, select {
 
 .truong input:not([type="checkbox"], [type="radio"]),
 .truong textarea,
+select,
 .nut {
   padding: 0.7rem 1.5rem;
   border-radius: 0;
@@ -117,7 +118,8 @@ input, textarea, button, select {
   font-family: inherit;
 }
 
-.truong input:not([type="checkbox"], [type="radio"]):focus {
+.truong input:not([type="checkbox"], [type="radio"]):focus,
+select:focus {
   box-shadow: 1px 1px 7px rgba(0, 0, 0, 0.1);
   border-color: transparent;
 }
@@ -323,9 +325,6 @@ select {
 .tien-te {
   color: var(--xanh-la);
   font-weight: bold;
-}
-.tien-te::after {
-  content: " đ";
 }
 
 @media screen and (max-width: 600px) {

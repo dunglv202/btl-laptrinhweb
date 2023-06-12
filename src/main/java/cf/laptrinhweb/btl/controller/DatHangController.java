@@ -6,10 +6,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import cf.laptrinhweb.btl.constant.HinhThucThanhToan;
-import cf.laptrinhweb.btl.constant.PhuongThucVanChuyen;
-import cf.laptrinhweb.btl.constant.QuyenNguoiDung;
-import cf.laptrinhweb.btl.constant.TinhTrangDon;
+import cf.laptrinhweb.btl.constant.*;
 import cf.laptrinhweb.btl.entity.*;
 import cf.laptrinhweb.btl.entity.SanPhamTrongGio;
 import cf.laptrinhweb.btl.helper.HoTroXacThuc;
@@ -19,6 +16,7 @@ import cf.laptrinhweb.btl.service.impl.*;
 import static cf.laptrinhweb.btl.helper.HoTroXacThuc.yeuCauQuyen;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.*;
 
@@ -74,9 +72,9 @@ public class DatHangController extends HttpServlet {
         dathang.setNguoiDung(nguoiDung);
         dathang.setTenNguoiNhan(req.getParameter("tenNguoiNhan"));
         dathang.setSdtNhan(req.getParameter("dienThoai"));
-        dathang.setTinhTrang(TinhTrangDon.CHO_DUYET);
+        dathang.setTinhTrang(TrangThaiDon.CHO_DUYET);
         long milis = System.currentTimeMillis();
-        dathang.setNgayTaoDon(new Date(milis));
+        dathang.setNgayTaoDon(LocalDateTime.now());
         dathang.setHinhThucThanhToan(req.getParameter("hinhThucThanhToan").equals("COD")? HinhThucThanhToan.THANH_TOAN_KHI_NHAN : HinhThucThanhToan.THE_NGAN_HANG);
         if(req.getParameter("phuongThucVanChuyen").equals("VIETTEL_POST")){
         	dathang.setPhuongThucVanChuyen(PhuongThucVanChuyen.VIETTEL_POST);
@@ -87,8 +85,10 @@ public class DatHangController extends HttpServlet {
         else {
         	dathang.setPhuongThucVanChuyen(PhuongThucVanChuyen.GIAO_HANG_NHANH);
         }
+        dathang.setDanhSachSanPham(dsDat);
+        dathang.capNhatTongTien();
               
-        datHangService.themDatHang(dathang, dsDat, listSP, nguoiDung);
+        datHangService.themDatHang(dathang, listSP, nguoiDung);
         System.out.print("thanh Cong");
         
         

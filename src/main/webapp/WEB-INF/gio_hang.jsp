@@ -47,7 +47,7 @@
                                     <a href="<%=request.getContextPath()%>/san-pham?maSanPham=${item.sanPham.maSanPham}">
                                         ${item.sanPham.tenSanPham}
                                     </a>
-                                    <span>(Còn lại: ${item.sanPham.soLuong})</span>
+                                    <span class="con-lai">(Còn lại: ${item.sanPham.soLuong})</span>
                                 </h2>
                                 <div class="tien-te don-gia">${item.sanPham.gia}</div>
                                	<form style = "margin:0" class = "so-luong" method="POST" action="<%=request.getContextPath()%>/gio-hang/cap-nhat">
@@ -62,16 +62,16 @@
                         </li>
                     </c:forEach>
                 </ul>
-                <div>
-                    <a href="<%=request.getContextPath()%>" class="lien-ket gach-chan mo-rong mua-sam-them">
+                <div id="cac-lien-ket">
+                    <a href="<%=request.getContextPath()%>/" class="lien-ket gach-chan mo-rong mua-sam-them">
                         <div class="hinh">
                             <img src="<%=request.getContextPath()%>/static/images/mui_ten.svg" />
                         </div>
                         <span>Tiếp tục mua sắm </span>
                     </a>
-                    <a href="<%=request.getContextPath()%>/lich-su-mua-hang" class="lien-ket gach-chan mo-rong mua-sam-them">
+                    <a href="<%=request.getContextPath()%>/lich-su-mua-hang" class="lien-ket gach-chan mo-rong">
                         <div class="hinh">
-                            <img src="<%=request.getContextPath()%>/static/images/mui_ten.svg" />
+                            <img src="<%=request.getContextPath()%>/static/images/lich_su.svg" />
                         </div>
                         <span>Lịch sử mua hàng </span>
                     </a>
@@ -93,7 +93,7 @@
                         <span>Miễn phí</span>
                     </div>
                     <hr />
-                    <a href="<%=request.getContextPath()%>/dat-hang" class="nut kieu-1"> Đặt hàng </a>
+                    <a href="<%=request.getContextPath()%>/dat-hang" id="nut-dat-hang" class="nut kieu-1"> Đặt hàng </a>
                     <% 
                     	String loi = "";
                     	if (request.getAttribute("Loi") != null)

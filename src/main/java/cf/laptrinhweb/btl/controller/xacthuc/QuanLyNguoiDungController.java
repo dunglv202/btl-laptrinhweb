@@ -24,23 +24,8 @@ public class QuanLyNguoiDungController extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         yeuCauQuyen(req, List.of(QuyenNguoiDung.ADMIN));
 
-        List<NguoiDung> dsNguoiDung = xacThucService.timNguoiDung(taoDieuKien(req));
+        List<NguoiDung> dsNguoiDung = xacThucService.timNguoiDung(DieuKienNguoiDung.trichXuat(req));
         req.setAttribute("danhSachNguoiDung", dsNguoiDung);
         req.getRequestDispatcher("/WEB-INF/quan_ly_nguoi_dung.jsp").forward(req, resp);
-    }
-
-    private DieuKienNguoiDung taoDieuKien(HttpServletRequest request) {
-        DieuKienNguoiDung dieuKienNguoiDung = DieuKienNguoiDung.builder().tuKhoa(request.getParameter("tuKhoa")).build();
-        String maNguoiDungStr = request.getParameter("maNguoiDung");
-        if (maNguoiDungStr != null && !maNguoiDungStr.isBlank()) {
-            dieuKienNguoiDung.setMaNguoiDung(Long.parseLong(maNguoiDungStr));
-        }
-        String trang = request.getParameter("trang");
-        if (trang != null && !trang.isBlank() && Integer.parseInt(trang) > 0)
-            dieuKienNguoiDung.setTrang(Integer.parseInt(trang) - 1);
-        String kichThuoc = request.getParameter("kichThuoc");
-        if (kichThuoc != null && !kichThuoc.isBlank())
-            dieuKienNguoiDung.setTrang(Integer.parseInt(kichThuoc));
-        return dieuKienNguoiDung;
     }
 }
