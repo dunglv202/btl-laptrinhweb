@@ -1,4 +1,9 @@
 <%@ page import="cf.laptrinhweb.btl.helper.HoTroRequest" %>
+<%@ page import="cf.laptrinhweb.btl.constant.QuyenNguoiDung" %>
+<%@ page import="java.util.Arrays" %>
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="java.util.Optional" %>
+<%@ page import="java.util.Objects" %>
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
@@ -29,12 +34,28 @@
                 <div class="tuong-tac-bang">
                     <form class="tieu-chuan loc-du-lieu">
                         <div class="bo-loc">
-                            <div class="truong">
-                                <div class="tim-kiem">
-                                    <input class="o-tim-kiem" name="tuKhoa" value="${param.get("tuKhoa")}" placeholder="Từ khoá" />
-                                    <button class="nut kieu-1">Tìm kiếm</button>
-                                </div>
+                            <div class="loc-quyen">
+                                <c:set var="quyenDaChon"
+                                       value='<%= Arrays.asList(Objects.requireNonNullElse(request.getParameterValues("quyen"), new String[]{})) %>'/>
+                                <c:forEach var="quyen" items="<%=QuyenNguoiDung.values()%>">
+                                    <label>
+                                        <input type="checkbox"
+                                               name="quyen"
+                                               value="${quyen.name()}"
+                                               class="chon"
+                                               ${quyenDaChon.contains(quyen.name()) ? "checked" : ""}
+                                        />
+                                        <span class="checkbox-tu-tao"></span>
+                                        <span class="noi-dung-checkbox">
+                                                ${quyen.nhan}
+                                        </span>
+                                    </label>
+                                </c:forEach>
                             </div>
+                            <div class="truong tim-kiem">
+                                <input class="o-tim-kiem" name="tuKhoa" value="${param.get("tuKhoa")}" placeholder="Từ khoá" />
+                            </div>
+                            <button id="nut-loc" class="nut kieu-1">Tìm kiếm</button>
                         </div>
                         <div class="phan-trang">
                             Trang

@@ -1,5 +1,6 @@
 package cf.laptrinhweb.btl.repository.impl;
 
+import cf.laptrinhweb.btl.constant.QuyenNguoiDung;
 import cf.laptrinhweb.btl.entity.NguoiDung;
 import cf.laptrinhweb.btl.entity.SanPhamDat;
 import cf.laptrinhweb.btl.mapper.NguoiDungMapper;
@@ -11,6 +12,8 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.StringJoiner;
+import java.util.stream.Collectors;
 
 public class NguoiDungRepositoryImpl implements NguoiDungRepository {
     @Override
@@ -126,14 +129,18 @@ public class NguoiDungRepositoryImpl implements NguoiDungRepository {
     @Override
     public List<NguoiDung> timTatCa(DieuKienNguoiDung dieuKien) {
         try (Connection ketNoi = moKetNoi()) {
-            PreparedStatement ps;
-            if (dieuKien.getMaNguoiDung() == null) {
-                ps = timTheoTuKhoa(ketNoi, dieuKien);
-            } else {
-                ps = timTheoMa(ketNoi, dieuKien.getMaNguoiDung());
-            }
+            PreparedStatement truyVan = dieuKien.getQuyen() != null
+                ? taoTruyVanVoiQuyen(ketNoi, dieuKien)
+                : taoTruyVanKhongQuyen(ketNoi, dieuKien);
 
-            ResultSet resultSet = ps.executeQuery();
+            String tuKhoa = dieuKien.getTuKhoa()!=null ? dieuKien.getTuKhoa() + "%" : "%";
+            truyVan.setString(1, tuKhoa);
+            truyVan.setString(2, tuKhoa);
+            truyVan.setString(3, tuKhoa);
+            truyVan.setInt(4, dieuKien.getTrang() * dieuKien.getKichThuoc());
+            truyVan.setInt(5, dieuKien.getKichThuoc());
+
+            ResultSet resultSet = truyVan.executeQuery();
             NguoiDungMapper mapper = new NguoiDungMapper();
             List<NguoiDung> dsNguoiDung = new ArrayList<>();
             while (resultSet.next()) {
@@ -145,8 +152,8 @@ public class NguoiDungRepositoryImpl implements NguoiDungRepository {
         }
     }
 
-    private PreparedStatement timTheoTuKhoa(Connection ketNoi, DieuKienNguoiDung dieuKien) throws SQLException {
-        PreparedStatement ps = ketNoi.prepareStatement("""
+    private PreparedStatement taoTruyVanKhongQuyen(Connection ketNoi, DieuKienNguoiDung dieuKien) throws SQLException {
+        return ketNoi.prepareStatement("""
                 SELECT *
                 FROM nguoi_dung
                 WHERE
@@ -155,21 +162,27 @@ public class NguoiDungRepositoryImpl implements NguoiDungRepository {
                     OR so_dien_thoai LIKE ?
                 LIMIT ?, ?
             """);
-        String tuKhoa = dieuKien.getTuKhoa()!=null ? dieuKien.getTuKhoa() + "%" : "%";
-        ps.setString(1, tuKhoa);
-        ps.setString(2, tuKhoa);
-        ps.setString(3, tuKhoa);
-        ps.setInt(4, dieuKien.getTrang() * dieuKien.getKichThuoc());
-        ps.setInt(5, dieuKien.getKichThuoc());
-        return ps;
     }
 
-    private PreparedStatement timTheoMa(Connection ketNoi, Long maNguoiDung) throws SQLException {
-        PreparedStatement ps = ketNoi.prepareStatement("""
-            SELECT * FROM nguoi_dung WHERE ma_nguoi_dung = ?
-        """);
-        ps.setLong(1, maNguoiDung);
-        return ps;
+    private PreparedStatement taoTruyVanVoiQuyen(Connection ketNoi, DieuKienNguoiDung dieuKien) throws SQLException {
+        return ketNoi.prepareStatement(String.format("""
+            SELECT nguoi_dung.*
+            FROM nguoi_dung
+            LEFT JOIN phan_quyen
+                ON phan_quyen.ma_nguoi_dung = nguoi_dung.ma_nguoi_dung
+            LEFT JOIN quyen
+                ON quyen.ma_quyen = phan_quyen.ma_quyen
+            WHERE
+                ( ten_dang_nhap LIKE ?
+                OR email LIKE ?
+                OR so_dien_thoai LIKE ? )
+                AND quyen.ten_quyen IN ( %s )
+            GROUP BY ma_nguoi_dung
+            LIMIT ?, ?
+        """, dieuKien.getQuyen()
+            .stream()
+            .map(q -> "'" + q.name() + "'")
+            .collect(Collectors.joining(","))));
     }
 
     @Override

@@ -102,16 +102,21 @@ public class XacThucServiceImpl implements XacThucService {
 
         // kiem tra mat khau cu chinh xac hay khong
         NguoiDung nguoiDung = HoTroXacThuc.nguoiDungHienTai(req);
-        if (!nguoiDung.getMatKhau().equals(matKhauCu)) {
+        if (!BCrypt.checkpw(matKhauCu, nguoiDung.getMatKhau())) {
             throw new MatKhauKhongDungException();
         }
         // doi mat khau moi
-        nguoiDungRepository.doiMatKhau(nguoiDung, matKhauMoi);
+        nguoiDungRepository.doiMatKhau(nguoiDung, BCrypt.hashpw(matKhauMoi, BCrypt.gensalt()));
     }
 
     @Override
     public List<NguoiDung> timNguoiDung(DieuKienNguoiDung dieuKien) {
-        List<NguoiDung> dsNguoiDung = nguoiDungRepository.timTatCa(dieuKien);
+        List<NguoiDung> dsNguoiDung;
+        if (dieuKien.getMaNguoiDung() != null) {
+            dsNguoiDung = List.of(nguoiDungRepository.timNguoiDung(dieuKien.getMaNguoiDung()));
+        } else {
+            dsNguoiDung = nguoiDungRepository.timTatCa(dieuKien);
+        }
         dsNguoiDung.forEach(nguoiDung -> {
             List<Quyen> dsQuyen = phanQuyenRepository.timBangMaNguoiDung(nguoiDung.getMaNguoiDung());
             nguoiDung.setDsQuyen(dsQuyen);

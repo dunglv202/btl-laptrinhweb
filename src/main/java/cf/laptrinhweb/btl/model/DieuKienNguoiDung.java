@@ -1,8 +1,13 @@
 package cf.laptrinhweb.btl.model;
 
+import cf.laptrinhweb.btl.constant.QuyenNguoiDung;
+import cf.laptrinhweb.btl.entity.Quyen;
 import lombok.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 @Getter
 @Setter
@@ -14,6 +19,7 @@ public class DieuKienNguoiDung extends PhanTrang {
     private Integer kichThuoc = 15;
     private Long maNguoiDung;
     private String tuKhoa = "";
+    private List<QuyenNguoiDung> quyen;
 
     public static DieuKienNguoiDung trichXuat(HttpServletRequest request) {
         DieuKienNguoiDung dieuKienNguoiDung = DieuKienNguoiDung.builder().tuKhoa(request.getParameter("tuKhoa")).build();
@@ -27,6 +33,9 @@ public class DieuKienNguoiDung extends PhanTrang {
         String kichThuoc = request.getParameter("kichThuoc");
         if (kichThuoc != null && !kichThuoc.isBlank())
             dieuKienNguoiDung.setKichThuoc(Integer.parseInt(kichThuoc));
+        String[] dsQuyen = request.getParameterValues("quyen");
+        if (dsQuyen != null)
+            dieuKienNguoiDung.setQuyen(Arrays.stream(dsQuyen).map(QuyenNguoiDung::valueOf).toList());
         return dieuKienNguoiDung;
     }
 }

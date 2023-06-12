@@ -12,6 +12,21 @@
     gap: 0.5rem;
     transition: 0.2s;
 }
+.bang-admin .bo-loc {
+    display: flex;
+}
+.bang-admin .bo-loc .loc-quyen {
+    display: flex;
+    gap: 1rem;
+}
+.bang-admin .bo-loc .loc-quyen > label {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+}
+#nut-loc {
+    white-space: nowrap;
+}
 @media screen and (max-width: 720px) {
     .tuong-tac-bang {
         flex-direction: column;
