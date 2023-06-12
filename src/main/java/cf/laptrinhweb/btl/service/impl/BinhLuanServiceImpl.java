@@ -24,7 +24,6 @@ public class BinhLuanServiceImpl implements BinhLuanService{
 
 	@Override
 	public Map<BinhLuan,List<BinhLuan>> layTatCaBinhLuan(Long ma_san_pham) {
-		// TODO Auto-generated method stub
 		return binhLuanRepository.layTatCaBinhLuan(ma_san_pham);
 	}
 

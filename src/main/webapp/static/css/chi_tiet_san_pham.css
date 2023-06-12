@@ -182,6 +182,10 @@ display: inline-block;
   height: 20px;
 }
 
+#phan-binh-luan {
+  padding: 3rem var(--le-trang);
+}
+
 @media screen and (max-width: 900px) {
   #chi-tiet-san-pham form.them-vao-gio-hang {
     gap: 1rem;
@@ -245,9 +249,5 @@ display: inline-block;
   #chi-tiet-san-pham .chi-tiet .tieu-de {
     font-size: 1.3rem;
   }
-  
-  #phan-binh-luan {
-  padding: 3rem var(--le-trang);
-}
 }
 

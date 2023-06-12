@@ -13,7 +13,7 @@ public class BinhLuan implements Comparable<BinhLuan>{
 	private SanPham san_pham;
 	private Date ngay_binh_luan;
 	private NguoiDung nguoi_binh_luan;
-	private Long ma_binh_luan_tra_loi;
+	private Long ma_binh_luan_goc;
 	@Override
 	public int compareTo(BinhLuan o) {
 		// TODO Auto-generated method stub

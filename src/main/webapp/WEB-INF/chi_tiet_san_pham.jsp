@@ -33,9 +33,6 @@
           <div id="anh-hien-thi" class="anh-hien-thi">
             <img src="${(sanPham.anhXemTruoc == null) ? "/public/anh-trong.jpg" : sanPham.anhXemTruoc}" />
           </div>
-<!--           <div class = "xem-danh-gia"> -->
-<%--           		<a href = "<%=request.getContextPath()%>/xem-tat-ca-danh-gia?maSanPham=${sanPham.maSanPham}">Xem tất cả đánh giá</a> --%>
-<!--            </div> -->
         </div>
         <div class="chi-tiet-san-pham">
           <div class="noi-dung-co-ban">
@@ -78,8 +75,7 @@
                 <span>Thêm vào giỏ</span>
               </button>
             </form>
-            
-            </div>
+          </div>
           <div class="chi-tiet">
             <div class="phan mo-ta-san-pham">
               <h2 class="tieu-de">Mô tả sản phẩm</h2>
@@ -89,54 +85,50 @@
                 </div>
               </div>
             </div>
-            
             <div class = "hanh-dong">
             	<a href = "<%=request.getContextPath()%>/xem-tat-ca-danh-gia?maSanPham=${sanPham.maSanPham}">Xem tất cả đánh giá</a>
             </div>
-               
-			<div id="phan-binh-luan">
-			  <h2>Bình luận</h2>
-			  <form method="POST" action="<%=request.getContextPath()%>/them-binh-luan">
-			    <input type="hidden" name="phanHoiBinhLuan" value="0" />
-			    <input type="hidden" name = "maSanPham" value = "${sanPham.maSanPham}"/>
-			    <p>"${sanPham.maSanPham }"</p>
-			    <textarea name="noi_dung_binh_luan" placeholder="Nội dung bình luận"></textarea>
-			    <button class="nut kieu-1 nut-gui-bl" type="submit">Gửi</button>
-			  </form>
-			  <ul class="danh-sach-binh-luan">
-			    <c:forEach var="binhLuanGoc" items="${danhSachBinhLuan.keySet()}">
-			      <li class="khung-binh-luan">
-			        <c:set var="binhLuan" scope="request" value="${binhLuanGoc}" />
-			        <jsp:include page="binh_luan.jsp" />
-			        <ul class="danh-sach-binh-luan phan-hoi">
-			          <c:forEach var="binhLuanPhanHoi" items="${danhSachBinhLuan.get(binhLuanGoc)}">
-			            <li>
-			              <c:set var="binhLuan" scope="request" value="${binhLuanPhanHoi}" />
-			              <jsp:include page="binh_luan.jsp" />
-			            </li>
-			          </c:forEach>
-			        </ul>
-			      </li>
-			    </c:forEach>
-			  </ul>
-			</div>
-			<script src="<%=request.getContextPath()%>/static/js/binh_luan.js"></script>
-              </div>
-            </div>
           </div>
         </div>
+      </div>
+
+      <div id="phan-binh-luan">
+          <h2>Bình luận</h2>
+          <form method="POST" action="<%=request.getContextPath()%>/them-binh-luan">
+              <input type="hidden" name = "maSanPham" value = "${sanPham.maSanPham}"/>
+              <textarea name="noi_dung_binh_luan" placeholder="Nội dung bình luận"></textarea>
+              <button class="nut kieu-1 nut-gui-bl" type="submit">Gửi</button>
+          </form>
+          <ul class="danh-sach-binh-luan">
+              <c:forEach var="binhLuanGoc" items="${danhSachBinhLuan.keySet()}">
+                  <li class="khung-binh-luan">
+                      <c:set var="binhLuan" scope="request" value="${binhLuanGoc}" />
+                      <jsp:include page="binh_luan.jsp" />
+                      <ul class="danh-sach-binh-luan phan-hoi">
+                          <c:forEach var="binhLuanPhanHoi" items="${danhSachBinhLuan.get(binhLuanGoc)}">
+                              <li>
+                                  <c:set var="binhLuan" scope="request" value="${binhLuanPhanHoi}" />
+                                  <jsp:include page="binh_luan.jsp" />
+                              </li>
+                          </c:forEach>
+                      </ul>
+                  </li>
+              </c:forEach>
+          </ul>
       </div>
 
       <div id="san-pham-lien-quan">
         <%request.setAttribute("danhSachSanPham", request.getAttribute("sanPhamLienQuan"));%>
         <jsp:include page="components/danh_sach_san_pham.jsp"/>
       </div>
-      <script>
-      window.maSanPham = <%=request.getParameter("maSanPham")%>
-      </script>
-      
     </main>
     <jsp:include page="components/chan_trang.jsp"/>
+
+    <script>
+        window.maSanPham = <%=request.getParameter("maSanPham")%>;
+        window.contextPath = "<%=request.getContextPath()%>";
+    </script>
     <script src="<%=request.getContextPath()%>/static/js/chi_tiet_san_pham.js"></script>
+    <script src="<%=request.getContextPath()%>/static/js/binh_luan.js"></script>
   </body>
 </html>

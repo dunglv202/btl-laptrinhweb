@@ -16,7 +16,7 @@
     font-weight: bold;
 }
 .binh-luan .noi-dung {
-    margin-block: 0.5rem;
+    padding-block: 0.7rem;
     text-align: justify;
 }
 .binh-luan + .phan-hoi {

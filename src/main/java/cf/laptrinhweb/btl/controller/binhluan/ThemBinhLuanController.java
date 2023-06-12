@@ -14,8 +14,6 @@ import cf.laptrinhweb.btl.constant.QuyenNguoiDung;
 import cf.laptrinhweb.btl.entity.BinhLuan;
 import cf.laptrinhweb.btl.entity.NguoiDung;
 import cf.laptrinhweb.btl.helper.HoTroXacThuc;
-import cf.laptrinhweb.btl.repository.BinhLuanRepository;
-import cf.laptrinhweb.btl.repository.impl.BinhLuanRepositoryImpl;
 import cf.laptrinhweb.btl.service.BinhLuanService;
 import cf.laptrinhweb.btl.service.impl.BinhLuanServiceImpl;
 import cf.laptrinhweb.btl.service.impl.SanPhamServiceImpl;
@@ -37,8 +35,10 @@ public class ThemBinhLuanController extends HttpServlet{
 		bl.setNguoi_binh_luan(nguoiDung);
 		bl.setSan_pham(new SanPhamServiceImpl().timTheoMa(Long.parseLong(req.getParameter("maSanPham"))));
 		bl.setNgay_binh_luan(new Date(System.currentTimeMillis()));
-		//System.out.print(req.getParameter("phanHoiBinhLuan"));
-		bl.setMa_binh_luan_tra_loi(Long.valueOf(req.getParameter("phanHoiBinhLuan")));
+		String maBinhLuanGoc = req.getParameter("maBinhLuanGoc");
+		if (maBinhLuanGoc != null) {
+			bl.setMa_binh_luan_goc(Long.valueOf(maBinhLuanGoc));
+		}
 		binhLuanService.themBinhLuan(bl);
 		
 		resp.sendRedirect(req.getContextPath()+"/san-pham?maSanPham=" + req.getParameter("maSanPham"));

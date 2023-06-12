@@ -26,7 +26,6 @@ public class ChiTietSanPhamController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         Long maSanPham = Long.parseLong(req.getParameter("maSanPham"));
-        System.out.print(maSanPham);
         req.setAttribute("danhSachBinhLuan", binhLuanService.layTatCaBinhLuan(maSanPham));	
         req.setAttribute("sanPham", sanPhamService.timTheoMa(maSanPham));
         req.setAttribute("sanPhamLienQuan", sanPhamService.timTatCa(DieuKienSanPham.builder().daAn(false).build()));
