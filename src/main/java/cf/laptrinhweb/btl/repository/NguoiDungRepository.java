@@ -16,4 +16,6 @@ public interface NguoiDungRepository extends JdbcRepository {
     List<NguoiDung> timTatCa(DieuKienNguoiDung dieuKien);
     void thayDoiTrangThai(Long maNguoiDung, boolean khoa);
     NguoiDung timNguoiDung(Long ma_nguoi_dung);
+    void tangCoGangDangNhap(NguoiDung nguoiDung);
+    void resetCoGangDangNhap(Long maNguoiDung);
 }

@@ -6,7 +6,7 @@ const kiemTra = {
     },
   },
   tenDangNhap: {
-    thongBaoLoi: "Số điện thoại không hợp lệ",
+    thongBaoLoi: "Tên đăng nhập không hợp lệ",
     hopLe: function (giaTri) {
       return giaTri.match(/^[\d\w.]{2,16}$/);
     },

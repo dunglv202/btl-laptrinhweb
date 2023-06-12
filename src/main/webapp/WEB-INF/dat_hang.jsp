@@ -3,6 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page import="java.util.List" %>
 <%@page import="cf.laptrinhweb.btl.entity.SanPhamTrongGio" %>
+
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -15,26 +16,30 @@
   </head>
   <body>
   	<jsp:include page="components/header.jsp"/>
-    <form id="thong-tin-dat-hang" action = "<%=request.getContextPath()%>/dat-hang" method = "POST">
-      <div class="nhieu-buoc thiet-lap-don-hang">
-        <div class="buoc hien-tai thong-tin-nguoi-nhan">
-          <h2 class="tieu-de-buoc">Thông tin người nhận</h2>
+    <form id="thong-tin-dat-hang" class="tieu-chuan" action="<%=request.getContextPath()%>/dat-hang" method = "POST">
+      <div class="thiet-lap-don-hang">
+        <div class="phan thong-tin-nguoi-nhan">
+          <h2 class="tieu-de">Thông tin người nhận</h2>
           <div class="noi-dung">
-            <div class="truong">
+            <div class="truong bat-buoc" data-dieu-kien="batBuoc">
               <label>Tên người nhận</label>
-              <input type="text" name="tenNguoiNhan" autofocus />
+              <input type="text" name="tenNguoiNhan" autofocus required/>
             </div>
-            <div class="truong">
+            <div class="truong bat-buoc" data-dieu-kien="batBuoc">
               <label>Địa chỉ</label>
-              <input type="text" name="diaChi" />
+              <input type="text" name="diaChi" required/>
+            </div>
+            <div class="truong bat-buoc" data-dieu-kien="soDienThoai">
+              <label>Số điện thoại</label>
+              <input type="tel" name="dienThoai" required/>
             </div>
             <div class="truong">
-              <label>Số điện thoại</label>
-              <input type="text" name="dienThoai" />
+              <label>Ghi chú</label>
+              <input type="text" name="ghiChu" />
             </div>
           </div>
         </div>
-        <div class="buoc van-chuyen">
+        <div class="phan van-chuyen">
           <h2 class="tieu-de-buoc">Phương thức vận chuyển</h2>
           <div class="noi-dung">
             <div class="box-chua">
@@ -59,7 +64,7 @@
             </div>
           </div>
         </div>
-        <div class="buoc thanh-toan">
+        <div class="phan thanh-toan">
           <h2 class="tieu-de-buoc">Hình thức thanh toán</h2>
           <div class="noi-dung">
             <div class="box-chua">
@@ -117,7 +122,7 @@
 	          </li>
 	        </ul>
         </c:forEach>
-		<% 
+		    <%
             List<SanPhamTrongGio> ls = (List<SanPhamTrongGio>)request.getAttribute("danhSachSanPham");
         	int tong = 0;
         	for(SanPhamTrongGio i : ls) {
@@ -138,8 +143,9 @@
         <button type="submit" class="nut kieu-1">Đặt hàng</button>
       </div>
     </form>
-	<jsp:include page="components/chan_trang.jsp"/>
+	  <jsp:include page="components/chan_trang.jsp"/>
     <jsp:include page="components/thong_bao.jsp"/>
-    <script src="<%=request.getContextPath()%>/static/js/nhieu-buoc.js"></script>
+    <script type="module" src="<%=request.getContextPath()%>/static/js/form.js"></script>
+    <script type="module" src="<%=request.getContextPath()%>/static/js/dat_hang.js"></script>
   </body>
 </html>

@@ -1,24 +1,14 @@
-.bang-admin .hanh-dong .chon-hanh-dong {
-    display: block;
-    padding: 0.5rem;
-    cursor: pointer;
-    user-select: none;
+.bang .hanh-dong a {
+    border: none;
+    background: transparent !important;
+    text-transform: unset;
 }
-.bang .hanh-dong {
-    display: unset;
+.bang .hanh-dong a:hover {
+    color: initial;
 }
-.bang-admin .hanh-dong .danh-sach {
-    display: flex;
-    flex-direction: column;
-    overflow: hidden;
-    align-items: center;
-    gap: 0.5rem;
-    transition: 0.2s;
-}
-@media screen and (max-width: 720px) {
-    .tuong-tac-bang {
+@media screen and (max-width: 900px) {
+    .tuong-tac-bang .bo-loc {
         flex-direction: column;
         align-items: flex-start;
-        gap: 1rem;
     }
 }

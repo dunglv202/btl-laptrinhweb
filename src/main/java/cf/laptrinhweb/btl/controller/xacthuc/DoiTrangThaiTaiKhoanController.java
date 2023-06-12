@@ -21,16 +21,12 @@ public class DoiTrangThaiTaiKhoanController extends HttpServlet {
     private final XacThucService xacThucService = new XacThucServiceImpl();
 
     @Override
-    @SuppressWarnings("unchecked")
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         yeuCauQuyen(req, List.of(QuyenNguoiDung.ADMIN));
 
         boolean khoa = Boolean.parseBoolean(req.getParameter("khoa"));
         Long maNguoiDung = Long.parseLong(req.getParameter("maNguoiDung"));
         xacThucService.doiTrangThaiTaiKhoan(maNguoiDung, khoa);
-        if (khoa) {
-            ((Set<Long>) req.getServletContext().getAttribute(KhoaSession.BUOC_DANG_XUAT)).add(maNguoiDung);
-        }
         resp.sendRedirect(req.getContextPath() + "/quan-ly/nguoi-dung");
     }
 }
