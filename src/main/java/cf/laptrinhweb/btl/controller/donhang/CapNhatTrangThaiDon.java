@@ -20,7 +20,7 @@ public class CapNhatTrangThaiDon extends HttpServlet {
 	private DatHangRepository datHangRepository = new DatHangRepositoryImpl();
        
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		TrangThaiDon moi = TrangThaiDon.cuaGiaTri(Integer.valueOf(request.getParameter("trangThai")));
+		TrangThaiDon moi = TrangThaiDon.cuaGiaTri(Integer.valueOf(request.getParameter("trangThai") != null ? request.getParameter("trangThai"): "1"));
 		Long maDH = Long.parseLong(request.getParameter("maDatHang"));
 		datHangRepository.CapNhatTrangThaiDon(maDH, moi);
 		response.sendRedirect(request.getHeader("Referer"));
