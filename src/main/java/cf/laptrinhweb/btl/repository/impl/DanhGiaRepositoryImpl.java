@@ -49,7 +49,7 @@ public class DanhGiaRepositoryImpl implements DanhGiaRepository{
             danhGia.setId(rs.getLong(1));
             Long ma_san_pham = new SanPhamDatRepositoryImpl().timMaSanPham(ma_san_pham_dat);
             SanPham sp = new SanPhamRepositoryImpl().timTheoMa(ma_san_pham).get();
-            new SanPhamServiceImpl().capNhatDanhGia(danhGia, sp.getMaSanPham());
+            this.capNhatDanhGia(danhGia, sp.getMaSanPham());
        
         } catch (Exception e) {
             throw new RuntimeException("Khong the them danh gia", e);
@@ -83,6 +83,7 @@ public class DanhGiaRepositoryImpl implements DanhGiaRepository{
                 where danh_gia.ma_san_pham_dat = san_pham_dat.ma_san_pham_dat
                 and san_pham_dat.ma_san_pham = san_pham.ma_san_pham
                 and san_pham_dat.ma_san_pham = ?
+                order by ngay_danh_gia DESC
                 """);
             ps.setLong(1, ma_san_pham);
             ResultSet rs = ps.executeQuery();
@@ -143,5 +144,24 @@ public class DanhGiaRepositoryImpl implements DanhGiaRepository{
         }
 		return ldg;
 	}
+
+	@Override
+	public void capNhatDanhGia(DanhGia dg, Long maSanPham) {
+		try (Connection ketNoi = moKetNoi()) {
+            PreparedStatement ps = ketNoi.prepareStatement("""
+                update san_pham
+                set so_danh_gia = so_danh_gia + 1,
+            		     diem_trung_binh = (diem_trung_binh * so_danh_gia + ?) / so_danh_gia
+                where ma_san_pham = ?
+            """);
+            ps.setDouble(1,dg.getSoDiemDanhGia());
+            ps.setLong(2, maSanPham);
+            ps.executeUpdate();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+		
+	}
+	
 
 }

@@ -14,5 +14,4 @@ public interface SanPhamRepository extends JdbcRepository {
     List<SanPham> timTatCa(DieuKienSanPham dieuKien);
     SanPham timSanPham(Long ma_san_pham);
     void giamSoLuong(Long maSanPham, int soLuongGiam);
-    void capNhatDanhGia(DanhGia ldg,Long maSanPham);
 }

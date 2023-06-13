@@ -146,26 +146,5 @@ public class SanPhamRepositoryImpl implements SanPhamRepository {
 		}
 	}
 
-	@Override
-	public void capNhatDanhGia(DanhGia dg, Long maSanPham) {
-		SanPham sp = this.timSanPham(maSanPham);
-		int so_danh_gia = sp.getSoDanhGia()+1;
-		double diem_danh_gia = (sp.getDiemTrungBinh()*sp.getSoDanhGia()+dg.getSoDiemDanhGia())/so_danh_gia;
-		
-		try (Connection ketNoi = moKetNoi()) {
-            PreparedStatement ps = ketNoi.prepareStatement("""
-                update san_pham
-                set so_danh_gia = ?, diem_trung_binh = ?
-                where ma_san_pham = ?
-            """);
-            ps.setInt(1, so_danh_gia);
-            ps.setDouble(2,diem_danh_gia);
-            ps.setLong(3,maSanPham);
-            ps.executeUpdate();
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-		
-	}
 	
 }
