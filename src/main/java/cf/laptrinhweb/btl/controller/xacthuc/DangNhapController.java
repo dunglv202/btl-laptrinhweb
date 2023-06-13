@@ -8,6 +8,7 @@ import cf.laptrinhweb.btl.entity.NguoiDung;
 import cf.laptrinhweb.btl.exception.xacthuc.TaiKhoanBiKhoaException;
 import cf.laptrinhweb.btl.model.thongbao.ThongBaoSaiThongTinDangNhap;
 import cf.laptrinhweb.btl.model.thongbao.ThongBaoTkBiKhoa;
+import cf.laptrinhweb.btl.model.xacthuc.NguoiDungUngDung;
 import cf.laptrinhweb.btl.service.LichSuHanhDongService;
 import cf.laptrinhweb.btl.service.XacThucService;
 import cf.laptrinhweb.btl.service.impl.LichSuHanhDongServiceImpl;
@@ -38,7 +39,7 @@ public class DangNhapController extends HttpServlet {
         String matKhau = req.getParameter("matKhau");
         try {
             NguoiDung nguoiDung = xacThucService.dangNhap(tenDangNhap, matKhau);
-            req.getSession().setAttribute(KhoaSession.NGUOI_DUNG, nguoiDung);
+            req.getSession().setAttribute(KhoaSession.NGUOI_DUNG, new NguoiDungUngDung(nguoiDung));
             ((Set<Long>) req.getServletContext().getAttribute(KhoaSession.BUOC_DANG_XUAT)).remove(nguoiDung.getMaNguoiDung());
             String diaChiDieuHuong = layDiaChiDieuHuong(req, nguoiDung);
             lichSuHanhDongService.themLichSu(req, LoaiHanhDong.DANG_NHAP, true);
