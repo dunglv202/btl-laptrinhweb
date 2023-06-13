@@ -1,6 +1,7 @@
 package cf.laptrinhweb.btl.repository.impl;
 
 import cf.laptrinhweb.btl.constant.TinhTrangDon;
+import cf.laptrinhweb.btl.constant.TrangThaiDon;
 import cf.laptrinhweb.btl.model.KhachHangMuaNhieu;
 import cf.laptrinhweb.btl.model.SanPhamMuaNhieu;
 import cf.laptrinhweb.btl.model.TheLoaiMuaNhieu;
@@ -27,12 +28,14 @@ public class ThongKeRepositoryImpl implements ThongKeRepository {
                     SUM(tong_tien) AS tong_tien
                 FROM dat_hang
                 WHERE
-                	DATE(ngay_dat_hang) >= ?
+                    trang_thai <> ?
+                	AND DATE(ngay_dat_hang) >= ?
                     AND DATE(ngay_dat_hang) <= ?
                 GROUP BY ngay_dat;
             """);
-            ps.setDate(1, Date.valueOf(ngayBatDau));
-            ps.setDate(2, Date.valueOf(ngayKetThuc));
+            ps.setInt(1, TrangThaiDon.DA_HUY.getGiaTri());
+            ps.setDate(2, Date.valueOf(ngayBatDau));
+            ps.setDate(3, Date.valueOf(ngayKetThuc));
             ResultSet resultSet = ps.executeQuery();
             Map<LocalDate, Double> cacThongKe = new HashMap<>();
             while (resultSet.next()) {
@@ -54,11 +57,13 @@ public class ThongKeRepositoryImpl implements ThongKeRepository {
                 	AVG(tong_tien) AS trung_binh_don
                 FROM dat_hang
                 WHERE
-                	DATE(ngay_dat_hang) >= ?
+                    trang_thai <> ?
+                	AND DATE(ngay_dat_hang) >= ?
                     AND DATE(ngay_dat_hang) <= ?
             """);
-            ps.setDate(1, Date.valueOf(ngayBatDau));
-            ps.setDate(2, Date.valueOf(ngayKetThuc));
+            ps.setInt(1, TrangThaiDon.DA_HUY.getGiaTri());
+            ps.setDate(2, Date.valueOf(ngayBatDau));
+            ps.setDate(3, Date.valueOf(ngayKetThuc));
             ResultSet resultSet = ps.executeQuery();
             resultSet.next();
             return resultSet.getDouble("trung_binh_don");
@@ -72,19 +77,19 @@ public class ThongKeRepositoryImpl implements ThongKeRepository {
         try (Connection ketNoi = moKetNoi()) {
             PreparedStatement ps = ketNoi.prepareStatement("""
                 SELECT
-                	COUNT(*) AS tong_so_don
+                	COUNT(*) AS tong_so_don_huy
                 FROM dat_hang
                 WHERE
                     dat_hang.trang_thai = ?
                 	AND DATE(ngay_dat_hang) >= ?
                     AND DATE(ngay_dat_hang) <= ?
             """);
-            ps.setInt(1, TinhTrangDon.DA_HUY);
+            ps.setInt(1, TrangThaiDon.DA_HUY.getGiaTri());
             ps.setDate(2, Date.valueOf(ngayBatDau));
             ps.setDate(3, Date.valueOf(ngayKetThuc));
             ResultSet resultSet = ps.executeQuery();
             resultSet.next();
-            int tongSoDon = resultSet.getInt("tong_so_don");
+            int tongSoDon = resultSet.getInt("tong_so_don_huy");
 
             ps = ketNoi.prepareStatement("""
                 SELECT
@@ -110,7 +115,7 @@ public class ThongKeRepositoryImpl implements ThongKeRepository {
     public List<SanPhamMuaNhieu> lietKe() {
         try (Connection ketNoi = moKetNoi()) {
             PreparedStatement ps = ketNoi.prepareStatement("""
-               SELECT 
+               SELECT
             		sum(d.so_luong) AS so_luong_mua, s.ten_san_pham
             	FROM san_pham_dat d
             	JOIN san_pham s ON d.ma_san_pham = s.ma_san_pham

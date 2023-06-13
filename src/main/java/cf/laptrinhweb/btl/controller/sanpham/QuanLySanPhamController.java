@@ -23,7 +23,12 @@ public class QuanLySanPhamController extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         yeuCauQuyen(req, List.of(QuyenNguoiDung.QUAN_LY));
 
-        req.setAttribute("danhSachSanPham", sanPhamService.timTatCa(DieuKienSanPham.builder().build()));
+        DieuKienSanPham dieuKien = DieuKienSanPham.builder().build();
+        String tuKhoa = req.getParameter("tuKhoa");
+        if (tuKhoa != null && !tuKhoa.isBlank()) {
+            dieuKien.setTuKhoa(tuKhoa);
+        }
+        req.setAttribute("danhSachSanPham", sanPhamService.timTatCa(dieuKien));
         req.getRequestDispatcher("/WEB-INF/quan_ly_san_pham.jsp").forward(req, resp);
     }
 }

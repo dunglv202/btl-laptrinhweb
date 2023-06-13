@@ -8,5 +8,6 @@ import lombok.Setter;
 @Setter
 @Builder
 public class DieuKienSanPham extends PhanTrang {
+    private String tuKhoa;
     private Boolean daAn;
 }

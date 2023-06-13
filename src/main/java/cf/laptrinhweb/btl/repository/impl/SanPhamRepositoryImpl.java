@@ -78,7 +78,7 @@ public class SanPhamRepositoryImpl implements SanPhamRepository {
     @Override
     public List<SanPham> timTatCa(DieuKienSanPham dieuKien) {
         try (Connection ketNoi = moKetNoi()) {
-            PreparedStatement ps = ketNoi.prepareStatement("""
+            String truyVan = """
                 SELECT *
                 FROM san_pham
                 LEFT JOIN the_loai tl
@@ -87,11 +87,19 @@ public class SanPhamRepositoryImpl implements SanPhamRepository {
                     ON san_pham.ma_thuong_hieu = th.ma_thuong_hieu
                 LEFT JOIN chat_lieu cl
                     ON san_pham.ma_chat_lieu = cl.ma_chat_lieu
-                WHERE ( ? IS NUll OR da_an = ?)
-            """);
-            // dung setObject thay Boolean de tranh loi khi null
+                WHERE
+                    (? IS NULL OR da_an = ?)
+                    AND (? IS NULL OR ten_san_pham LIKE ?)
+                ORDER BY ma_san_pham DESC
+                LIMIT ?, ?
+            """;
+            PreparedStatement ps = ketNoi.prepareStatement(truyVan);
             ps.setObject(1, dieuKien.getDaAn());
             ps.setObject(2, dieuKien.getDaAn());
+            ps.setObject(3, dieuKien.getTuKhoa());
+            ps.setObject(4, "%" + dieuKien.getTuKhoa() + "%");
+            ps.setInt(5, dieuKien.getTrang() * dieuKien.getKichThuoc());
+            ps.setInt(6, dieuKien.getKichThuoc());
             ResultSet resultSet = ps.executeQuery();
             List<SanPham> danhSachSanPham = new ArrayList<>();
             SanPhamMapper mapper = new SanPhamMapper();
@@ -108,10 +116,10 @@ public class SanPhamRepositoryImpl implements SanPhamRepository {
 		try (Connection ketNoi = moKetNoi()) {
 			PreparedStatement ps = ketNoi.prepareStatement("""
                 UPDATE san_pham
-                SET so_luong = ?
+                SET so_luong = so_luong - ?
                 WHERE ma_san_pham = ?
             """);
-			ps.setInt(1, this.timTheoMa(maSanPham).get().getSoLuong() - soLuongGiam);
+			ps.setInt(1, soLuongGiam);
 			ps.setLong(2, maSanPham);
 			ps.executeUpdate();
 		}
