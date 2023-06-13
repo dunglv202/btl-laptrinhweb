@@ -1,17 +1,21 @@
 package cf.laptrinhweb.btl.entity;
 
+import java.util.Date;
+
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
 @Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class DanhGia {
     private Long id;
-    // TODO: danh gia chi can cac truong: khachHangDanhGia, soDiemDanhGia(1-5) va noiDungDanhGia khong qua 256 ky tu chang han
-    private Boolean like;
-    private Boolean check;
-    private Integer vote;
-
-    // TODO: danh gia duoc gan voi MatHangDat (xem ben nhanh cua Hieu), khong phai gan voi san pham
-    private Long sanPham_id;
+    private NguoiDung khachHangDanhGia;
+    private String noi_dung_danh_gia;
+    private Integer soDiemDanhGia;
+    private Date ngay_danh_gia;
+    private SanPhamDat san_pham_dat;
 }

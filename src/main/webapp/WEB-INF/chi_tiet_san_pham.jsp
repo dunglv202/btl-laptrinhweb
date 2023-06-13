@@ -8,8 +8,11 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
+    
     <link rel="stylesheet" href="<%=request.getContextPath()%>/static/css/chung.css">
     <link rel="stylesheet" href="<%=request.getContextPath()%>/static/css/chi_tiet_san_pham.css">
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/static/css/binh_luan.css" />
+     
   </head>
   <body>
     <jsp:include page="components/header.jsp"/>
@@ -82,34 +85,36 @@
                 </div>
               </div>
             </div>
-            <div class="phan">
-              <h2 class="tieu-de">Đánh giá</h2>
-              <div class="noi-dung">
-                <div>
-                  <ul class="toi-gian cac-danh-gia">
-                    <jsp:include page="components/danh_gia.jsp">
-                      <jsp:param name="tenNguoiDanhGia" value="Lưu Văn Dũng"/>
-                      <jsp:param name="thoiGian" value="2023/05/06"/>
-                      <jsp:param name="noiDung" value="Không có gì cả nhé"/>
-                      <jsp:param name="diemSoDanhGia" value="5"/>
-                    </jsp:include>
-                    <jsp:include page="components/danh_gia.jsp">
-                      <jsp:param name="tenNguoiDanhGia" value="Lưu Văn Dũng"/>
-                      <jsp:param name="thoiGian" value="2023/05/06"/>
-                      <jsp:param name="noiDung" value="Lorem ipsum dolor sit amet consectetur, adipisicing elit. Adipisci omnis velit itaque minus quas debitis. Soluta exercitationem iusto illo sint ratione quam excepturi laborum odio doloribus. Eligendi magnam sequi velit!"/>
-                      <jsp:param name="diemSoDanhGia" value="3"/>
-                    </jsp:include>
-                    <jsp:include page="components/danh_gia.jsp">
-                      <jsp:param name="tenNguoiDanhGia" value="Lưu Văn Dũng"/>
-                      <jsp:param name="thoiGian" value="2023/05/06"/>
-                      <jsp:param name="diemSoDanhGia" value="4"/>
-                    </jsp:include>
-                  </ul>
-                </div>
-              </div>
+            <div class = "hanh-dong">
+            	<a href = "<%=request.getContextPath()%>/xem-tat-ca-danh-gia?maSanPham=${sanPham.maSanPham}">Xem tất cả đánh giá</a>
             </div>
           </div>
         </div>
+      </div>
+
+      <div id="phan-binh-luan">
+          <h2>Bình luận</h2>
+          <form method="POST" action="<%=request.getContextPath()%>/them-binh-luan">
+              <input type="hidden" name = "maSanPham" value = "${sanPham.maSanPham}"/>
+              <textarea name="noi_dung_binh_luan" placeholder="Nội dung bình luận"></textarea>
+              <button class="nut kieu-1 nut-gui-bl" type="submit">Gửi</button>
+          </form>
+          <ul class="danh-sach-binh-luan">
+              <c:forEach var="binhLuanGoc" items="${danhSachBinhLuan.keySet()}">
+                  <li class="khung-binh-luan">
+                      <c:set var="binhLuan" scope="request" value="${binhLuanGoc}" />
+                      <jsp:include page="binh_luan.jsp" />
+                      <ul class="danh-sach-binh-luan phan-hoi">
+                          <c:forEach var="binhLuanPhanHoi" items="${danhSachBinhLuan.get(binhLuanGoc)}">
+                              <li>
+                                  <c:set var="binhLuan" scope="request" value="${binhLuanPhanHoi}" />
+                                  <jsp:include page="binh_luan.jsp" />
+                              </li>
+                          </c:forEach>
+                      </ul>
+                  </li>
+              </c:forEach>
+          </ul>
       </div>
 
       <div id="san-pham-lien-quan">
@@ -119,6 +124,11 @@
     </main>
     <jsp:include page="components/chan_trang.jsp"/>
 
+    <script>
+        window.maSanPham = <%=request.getParameter("maSanPham")%>;
+        window.contextPath = "<%=request.getContextPath()%>";
+    </script>
     <script src="<%=request.getContextPath()%>/static/js/chi_tiet_san_pham.js"></script>
+    <script src="<%=request.getContextPath()%>/static/js/binh_luan.js"></script>
   </body>
 </html>

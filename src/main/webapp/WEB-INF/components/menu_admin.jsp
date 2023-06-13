@@ -28,7 +28,7 @@
         </a>
       </div>
     </li>
-    <li class="muc">
+    <li class="muc ${"don-hang".equals(param.get("mucHienTai")) ? "hien-tai" : ""}">
       <div class="hien-thi">
         <a href="<%=request.getContextPath()%>/quan-ly/don-hang" class="lien-ket ${param.get("mucHienTai").equals("don-hang") ? "hien-tai" : ""}">
           <div class="anh">

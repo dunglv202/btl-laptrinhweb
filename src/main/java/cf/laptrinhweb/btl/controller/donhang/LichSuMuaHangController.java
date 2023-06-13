@@ -1,4 +1,4 @@
-package cf.laptrinhweb.btl.controller;
+package cf.laptrinhweb.btl.controller.donhang;
 
 import static cf.laptrinhweb.btl.helper.HoTroXacThuc.yeuCauQuyen;
 import java.util.ArrayList;
@@ -25,11 +25,9 @@ import cf.laptrinhweb.btl.service.impl.SanPhamServiceImpl;
  */
 @WebServlet("/lich-su-mua-hang")
 public class LichSuMuaHangController extends HttpServlet {
-	private static final long serialVersionUID = 1L;
 	private final DatHangService datHangService = new DatHangServiceImpl();
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		yeuCauQuyen(request, List.of(QuyenNguoiDung.KHACH_HANG));
 
         NguoiDung nguoiDung = HoTroXacThuc.nguoiDungHienTai(request);
@@ -37,10 +35,4 @@ public class LichSuMuaHangController extends HttpServlet {
 		request.setAttribute("danhSachDonHang", listDH);
 		request.getRequestDispatcher("WEB-INF/lich_su_don_hang.jsp").forward(request, response);
 	}
-	
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
-	}
-
 }

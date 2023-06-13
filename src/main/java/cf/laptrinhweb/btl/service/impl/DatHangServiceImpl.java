@@ -40,30 +40,23 @@ public class DatHangServiceImpl implements DatHangService{
         for(SanPhamTrongGio sp : listGio) {
         	gioHangRepository.xoaGioHang(sp.getMaMucGioHang(), nguoidung.getMaNguoiDung());
         }
-        
-        
+
 		datHangRepository.themDatHang(dathang);
 		sanPhamDatRepository.themSanPhamDat(dathang);
-		
 	}
 
 	@Override
 	public List<DatHang> layTatCaCuaNguoiDung(NguoiDung nguoidung) {
-		// TODO Auto-generated method stub
-		List<DatHang> listDH = datHangRepository.layTatCaCuaNguoiDung(nguoidung);
-		for(DatHang i : listDH) {
-			i.setDanhSachSanPham(sanPhamDatRepository.layTatCaTheoMaDat(i.getMaDatHang(), nguoidung));
-			i.capNhatTongTien();
-		}
-		return listDH;
+		return datHangRepository.layTatCaCuaNguoiDung(nguoidung);
 	}
 
 	@Override
-	public void thayDoiTrangThaiDon(Long maDatHang, int trang_thai_moi) {
-		//datHangRepository.thayDoiTrangThai(maDatHang, trang_thai_moi);
-		
+	public DatHang layDatHang(Long ma_dat_hang) {
+		// TODO Auto-generated method stub
+		return datHangRepository.layDatHang(ma_dat_hang);
 	}
 
-
-
+	public void thayDoiTrangThaiDon(Long maDatHang, int trang_thai_moi) {
+		//datHangRepository.thayDoiTrangThai(maDatHang, trang_thai_moi);
+	}
 }

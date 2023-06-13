@@ -3,6 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page import="java.util.List" %>
 <%@page import="cf.laptrinhweb.btl.entity.SanPhamTrongGio" %>
+
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -121,7 +122,7 @@
 	          </li>
 	        </ul>
         </c:forEach>
-		<% 
+		    <%
             List<SanPhamTrongGio> ls = (List<SanPhamTrongGio>)request.getAttribute("danhSachSanPham");
         	int tong = 0;
         	for(SanPhamTrongGio i : ls) {
@@ -142,7 +143,7 @@
         <button type="submit" class="nut kieu-1">Đặt hàng</button>
       </div>
     </form>
-	<jsp:include page="components/chan_trang.jsp"/>
+	  <jsp:include page="components/chan_trang.jsp"/>
     <jsp:include page="components/thong_bao.jsp"/>
     <script type="module" src="<%=request.getContextPath()%>/static/js/form.js"></script>
     <script type="module" src="<%=request.getContextPath()%>/static/js/dat_hang.js"></script>

@@ -93,14 +93,43 @@ public class DatHangRepositoryImpl implements DatHangRepository{
 	}
 
 	@Override
-	public DatHang layDonTheoMaDatHang(Long maDatHang, NguoiDung nguoidung) {
-		try (Connection ketNoi = moKetNoi()) {
+	public DatHang layDatHang(Long ma_dat_hang) {
+        try (Connection ketNoi = moKetNoi()) {
+            PreparedStatement ps = ketNoi.prepareStatement("""
+                SELECT *
+                FROM dat_hang
+                WHERE ma_dat_hang = ?
+            """);
+            ps.setLong(1, ma_dat_hang);
+            ResultSet resultSet = ps.executeQuery();
+            DatHang dh = new DatHang();
+            if(resultSet.next()) {
+            	dh.setDiaChiGiao(resultSet.getString("dia_chi_giao"));
+            	dh.setMaDatHang(resultSet.getLong("ma_dat_hang"));
+            	dh.setHinhThucThanhToan(resultSet.getInt("hinh_thuc_thanh_toan") == 1 ? HinhThucThanhToan.THANH_TOAN_KHI_NHAN : HinhThucThanhToan.THE_NGAN_HANG);
+            	dh.setGhiChu(resultSet.getString("ghi_chu"));
+            	dh.setPhuongThucVanChuyen(resultSet.getInt("phuong_thuc_van_chuyen"));
+            	dh.setSdtNhan(resultSet.getString("sdt_nhan"));
+            	dh.setNguoiDung(new NguoiDungRepositoryImpl().timNguoiDung(resultSet.getLong("ma_nguoi_dat")));
+            	dh.setTenNguoiNhan(resultSet.getString("ten_nguoi_nhan"));
+            	dh.setTinhTrang(TrangThaiDon.cuaGiaTri(resultSet.getInt("trang_thai")));
+            	dh.setNgayTaoDon(resultSet.getTimestamp("ngay_dat_hang").toLocalDateTime());
+            	dh.setTongTien(resultSet.getDouble("tong_tien"));
+            	dh.setDanhSachSanPham(new SanPhamDatRepositoryImpl().layTatCaTheoMaDat(dh.getMaDatHang(), dh.getNguoiDung()));
+            }
+            return dh;
+        } catch (Exception e) {
+            throw new RuntimeException("Khong the truy van dat hang", e);
+        }
+    }
+
+    public DatHang layDonTheoMaDatHang(Long maDatHang, NguoiDung nguoidung) {
+        try (Connection ketNoi = moKetNoi()) {
             PreparedStatement ps = ketNoi.prepareStatement("""
                 SELECT *
                 FROM dat_hang
                 WHERE ma_dat_hang = ?
                 AND ma_nguoi_dat = ?
-            	ORDER BY ngay_dat_hang DESC
             """);
             ps.setLong(1, maDatHang);
             ps.setLong(2, nguoidung.getMaNguoiDung());
@@ -124,8 +153,6 @@ public class DatHangRepositoryImpl implements DatHangRepository{
             throw new RuntimeException("Khong the truy van dat hang", e);
         }
 	}
-	
-	
 
     @Override
     public List<DatHang> locTheoDieuKien(DieuKienDonHang dieuKien) {

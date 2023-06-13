@@ -104,13 +104,41 @@ public class SanPhamRepositoryImpl implements SanPhamRepository {
     }
 
 	@Override
+	public SanPham timSanPham(Long ma_san_pham) {
+        SanPham sp = new SanPham();
+        try (Connection ketNoi = moKetNoi()) {
+            PreparedStatement ps = ketNoi.prepareStatement("""
+                select * from san_pham
+                WHERE ma_san_pham = ?
+            """);
+            ps.setLong(1, ma_san_pham);
+            ResultSet rs = ps.executeQuery();
+            if(rs.next()) {
+            	sp.setMaSanPham(rs.getLong("ma_san_pham"));
+            	sp.setAnhXemTruoc(rs.getString("anh_xem_truoc"));
+            	sp.setTenSanPham(rs.getString("ten_san_pham"));
+            	sp.setMoTa(rs.getString("mo_ta"));
+            	sp.setGia(rs.getDouble("gia"));
+            	sp.setSoLuong(rs.getInt("so_luong"));
+            	sp.setKichThuoc(rs.getString("kich_thuoc"));
+            	sp.setTrongLuong(rs.getDouble("trong_luong"));
+            	sp.setTheLoai(new TheLoaiRepositoryImpl().timTheLoai(rs.getLong("ma_the_loai")));
+            	sp.setChatLieu(new ChatLieuRepositoryImpl().timChatLieu(rs.getLong("ma_chat_lieu")));
+            	sp.setThuongHieu(new ThuongHieuRepositoryImpl().timThuongHieu(rs.getLong("ma_thuong_hieu")));
+            	sp.setDaAn(rs.getBoolean("da_an"));
+            }
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+		return sp;
+    }
 	public void giamSoLuong(Long maSanPham, int soLuongGiam) {
 		try (Connection ketNoi = moKetNoi()) {
 			PreparedStatement ps = ketNoi.prepareStatement("""
-	                UPDATE san_pham
-	                SET so_luong = ?
-	                WHERE ma_san_pham = ?
-	            """);
+                UPDATE san_pham
+                SET so_luong = ?
+                WHERE ma_san_pham = ?
+            """);
 			ps.setInt(1, this.timTheoMa(maSanPham).get().getSoLuong() - soLuongGiam);
 			ps.setLong(2, maSanPham);
 			ps.executeUpdate();
@@ -118,6 +146,5 @@ public class SanPhamRepositoryImpl implements SanPhamRepository {
 		catch(Exception e) {
 			throw new RuntimeException("Khong the giam so luong san pham", e);
 		}
-		
 	}
 }

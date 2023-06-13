@@ -17,10 +17,9 @@
     <link rel="stylesheet" href="<%=request.getContextPath()%>/static/css/chi_tiet_don_hang.css">
   </head>
   <body>
-  	
-       <jsp:include page="components/menu_admin.jsp">
-        	<jsp:param name="mucHienTai" value="don-hang"/>
-       </jsp:include>
+   <jsp:include page="components/menu_admin.jsp">
+      <jsp:param name="mucHienTai" value="don-hang"/>
+   </jsp:include>
 
     <main>
       <h1 id="tieu-de-trang">Chi tiết đơn hàng <span class="ma-don-hang">${datHang.maDatHang}</span></h1>

@@ -28,4 +28,25 @@ public class TheLoaiRepositoryImpl implements TheLoaiRepository {
             throw new RuntimeException("Khong the lay danh sach the loai", e);
         }
     }
+
+	@Override
+	public TheLoai timTheLoai(Long ma_the_loai) {
+		// TODO Auto-generated method stub
+		TheLoai a = new TheLoai();
+		try (Connection ketNoi = moKetNoi()) {
+            PreparedStatement ps = ketNoi.prepareStatement("""
+                select * from the_loai
+                WHERE ma_the_loai = ?
+            """);
+            ps.setLong(1, ma_the_loai);
+            ResultSet rs = ps.executeQuery();
+            if(rs.next()) {
+            	a.setMaTheLoai(rs.getLong("ma_the_loai"));
+            	a.setTenTheLoai(rs.getString("ten_the_loai"));
+            }
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+		return a;
+	}
 }

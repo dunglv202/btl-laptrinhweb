@@ -21,6 +21,7 @@
     <lombok.version>1.18.26</lombok.version>
     <commonio.version>2.12.0</commonio.version>
     <commonFileUpload.version>1.5</commonFileUpload.version>
+    <jackson.version>2.15.2</jackson.version>
   </properties>
 
   <dependencies>
@@ -58,6 +59,23 @@
       <groupId>org.mindrot</groupId>
       <artifactId>jbcrypt</artifactId>
       <version>0.4</version>
+    </dependency>
+    <dependency>
+      <groupId>com.fasterxml.jackson.core</groupId>
+      <artifactId>jackson-databind</artifactId>
+      <version>${jackson.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>com.fasterxml.jackson.datatype</groupId>
+      <artifactId>jackson-datatype-jsr310</artifactId>
+      <version>${jackson.version}</version>
+    </dependency>
+
+    <!--  Connection Pooling  -->
+    <dependency>
+      <groupId>com.zaxxer</groupId>
+      <artifactId>HikariCP</artifactId>
+      <version>5.0.1</version>
     </dependency>
   </dependencies>
 

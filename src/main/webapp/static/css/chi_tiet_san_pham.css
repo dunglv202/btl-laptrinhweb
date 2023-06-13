@@ -1,3 +1,4 @@
+
 #chi-tiet-san-pham {
   display: grid;
   grid-template-columns: minmax(auto, 48%) 1fr;
@@ -13,6 +14,11 @@
   object-fit: cover;
   width: 100%;
   height: 100%;
+}
+#chi-tiet-san-pham .xem-danh-gia {
+	width : 100%;
+	height : 20%;
+	
 }
 #chi-tiet-san-pham .danh-sach-anh ul {
   display: flex;
@@ -140,7 +146,7 @@
   margin: 0;
   font-size: 1.2rem;
   cursor: pointer;
-  display: inline-block;
+display: inline-block;
 }
 #chi-tiet-san-pham .chi-tiet .phan.dang-mo .tieu-de {
   color: var(--xanh-la);
@@ -174,6 +180,10 @@
 .danh-gia .danh-gia-sao .sao {
   width: 20px;
   height: 20px;
+}
+
+#phan-binh-luan {
+  padding: 3rem var(--le-trang);
 }
 
 @media screen and (max-width: 900px) {
@@ -240,3 +250,4 @@
     font-size: 1.3rem;
   }
 }
+

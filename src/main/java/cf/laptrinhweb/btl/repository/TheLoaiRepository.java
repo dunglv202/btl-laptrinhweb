@@ -6,4 +6,5 @@ import java.util.List;
 
 public interface TheLoaiRepository extends JdbcRepository {
     List<TheLoai> layTatCa();
+    TheLoai timTheLoai(Long ma_the_loai);
 }

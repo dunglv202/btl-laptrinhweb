@@ -7,4 +7,5 @@ import java.util.List;
 
 public interface ThuongHieuRepository extends JdbcRepository {
     List<ThuongHieu> layTatCa();
+    ThuongHieu timThuongHieu(Long ma_thuong_hieu);
 }

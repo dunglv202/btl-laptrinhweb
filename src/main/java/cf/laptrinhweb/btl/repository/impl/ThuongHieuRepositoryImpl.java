@@ -30,4 +30,25 @@ public class ThuongHieuRepositoryImpl implements ThuongHieuRepository {
             throw new RuntimeException("Khong the lay danh sach the loai", e);
         }
     }
+
+	@Override
+	public ThuongHieu timThuongHieu(Long ma_thuong_hieu) {
+		// TODO Auto-generated method stub
+		ThuongHieu a = new ThuongHieu();
+		try (Connection ketNoi = moKetNoi()) {
+            PreparedStatement ps = ketNoi.prepareStatement("""
+                select * from nguoi_dung
+                WHERE ma_nguoi_dung = ?
+            """);
+            ps.setLong(1, ma_thuong_hieu);
+            ResultSet rs = ps.executeQuery();
+            if(rs.next()) {
+            	a.setMaThuongHieu(rs.getLong("ma_thuong_hieu"));
+            	a.setTenThuongHieu(rs.getString("ten_thuong_hieu"));
+            }
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+		return a;
+	}
 }
