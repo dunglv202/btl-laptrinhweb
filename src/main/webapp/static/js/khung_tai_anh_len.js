@@ -22,17 +22,19 @@ cacPhanTaiFile.forEach((phanTaiFile) => {
     });
 
     fileInput.addEventListener("change", function (e) {
-    phanKetQua.innerHTML = "";
-    for (let file of fileInput.files) {
-        let theChuaAnh = document.createElement("div");
-        theChuaAnh.classList.add("anh");
-        let theAnh = document.createElement("img");
-        theAnh.src = URL.createObjectURL(file);
-        theChuaAnh.append(theAnh);
-        theAnh.onload = function () {
-            URL.revokeObjectURL(theAnh.src);
-        };
-        phanKetQua.appendChild(theChuaAnh);
-    }
+        Array.from(phanKetQua.querySelectorAll(".moi-tai-len")).forEach(anhMoi => anhMoi.remove());
+        for (let file of fileInput.files) {
+            let theChuaAnh = document.createElement("div");
+            theChuaAnh.classList.add("anh", "moi-tai-len");
+            let theAnh = document.createElement("img");
+            // tao anh gia voi duong dan de hien thi
+            theAnh.src = URL.createObjectURL(file);
+            theChuaAnh.append(theAnh);
+            theAnh.onload = function () {
+                // da co duong dan cho anh => revoke de giai phong bo nho ram
+                URL.revokeObjectURL(theAnh.src);
+            };
+            phanKetQua.appendChild(theChuaAnh);
+        }
     });
 });

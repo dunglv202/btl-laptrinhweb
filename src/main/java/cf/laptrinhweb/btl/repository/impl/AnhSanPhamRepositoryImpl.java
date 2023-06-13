@@ -22,6 +22,7 @@ public class AnhSanPhamRepositoryImpl implements AnhSanPhamRepository {
             for (String duongDanAnh : cacDuongDan) {
                 ps.setLong(1, sanPham.getMaSanPham());
                 ps.setString(2, duongDanAnh);
+                // them mot bo tham so moi cho VALUES
                 ps.addBatch();
             }
             ps.executeBatch();
