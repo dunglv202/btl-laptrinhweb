@@ -3,6 +3,8 @@
 <%@page import="java.util.List" %>
 <%@page import="cf.laptrinhweb.btl.entity.DatHang" %>
 <%@ page import="java.time.format.DateTimeFormatter" %>
+<%@ page import="cf.laptrinhweb.btl.constant.TrangThaiDon" %>
+<%@ page import="java.util.Arrays" %>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -58,7 +60,21 @@
         <div class="truong">
           <label>Trạng thái đơn hàng</label>
           <span>${datHang.tinhTrang}</span>
-      	</div>
+        </div>
+        
+        <div class = "truong">
+        
+        	<form action = "<%=request.getContextPath()%>/don-hang/cap-nhat" method = "POST">
+        		<input type = "hidden" name = "maDatHang" value = "${datHang.maDatHang}">
+	          <c:forEach var="trangThaiDon" items="<%=TrangThaiDon.values()%>">
+				<label>${trangThaiDon.tieuDe}</label>
+				<input type = "radio" name = "trangThai" value = "${trangThaiDon.giaTri }">
+	          </c:forEach>
+	          	<button type= "submit" class = "nut kieu-1">Cập nhật trạng thái</button>
+      	 </form>
+        </div> 
+          
+      	
       
       	<div class="truong">
           <label>Ngày đặt đơn</label>

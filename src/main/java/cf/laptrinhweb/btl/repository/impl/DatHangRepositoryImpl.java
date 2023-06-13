@@ -217,4 +217,22 @@ public class DatHangRepositoryImpl implements DatHangRepository{
             throw new RuntimeException("Khong the truy van dat hang", e);
         }
     }
+
+	@Override
+	public void CapNhatTrangThaiDon(Long maDatHang, TrangThaiDon trangThaiMoi) {
+		try (Connection ketNoi = moKetNoi()){
+			PreparedStatement ps = ketNoi.prepareStatement("""
+	                UPDATE dat_hang
+	                SET trang_thai = ?
+	                WHERE ma_dat_hang = ?
+	            """);
+			ps.setInt(1, trangThaiMoi.getGiaTri());
+			ps.setLong(2, maDatHang);
+			ps.executeUpdate();
+			
+		}catch(Exception e) {
+			throw new RuntimeException("Khong the cap nhat trang thai don",e);
+		}
+		
+	}
 }

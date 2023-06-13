@@ -83,7 +83,8 @@ public class XacThucServiceImpl implements XacThucService {
             nguoiDungRepository.tangCoGangDangNhap(nguoiDung);
             if (nguoiDung.getCoGangDangNhap() >= 4) {
                 doiTrangThaiTaiKhoan(nguoiDung.getMaNguoiDung(), true);
-                throw new TaiKhoanBiKhoaException(nguoiDung.getMaNguoiDung());
+                throw new TaiKhoanBiKhoaException(nguoiDung.getMaNguoiDung()
+                		);
             }
             throw new SaiThongTinDangNhapException(nguoiDung.getMaNguoiDung());
         }

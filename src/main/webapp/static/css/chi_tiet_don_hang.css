@@ -101,6 +101,8 @@ main {
   font-weight: bold;
 }
 
+
+
 @media screen and (max-width: 720px) {
   #thong-tin-don-hang,
   #danh-sach-hang-dat > .hang-dat {
@@ -113,3 +115,5 @@ main {
     padding-inline: 1.5rem;
   }
 }
+
+
