@@ -32,7 +32,6 @@ public class ThemDanhGiaController extends HttpServlet {
 		danhGia.setNgay_danh_gia(new Date(System.currentTimeMillis()));
 		
 		danhGia.setSoDiemDanhGia(Integer.parseInt(request.getParameter("danhGia")));
-		System.out.println("diem la:" + danhGia.getSoDiemDanhGia());
 
 		Long ma_san_pham_dat = Long.parseLong(request.getParameter("ma_san_pham_dat"));
 		

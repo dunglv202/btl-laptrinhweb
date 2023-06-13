@@ -22,11 +22,13 @@
                 </div>
                 <div class="thong-tin">
                     <h1 class="ten-san-pham">
-                        Lorem ipsum dolor sit amet, consectetur adipisicing.
+                        <p> ${sanPham.tenSanPham}</p>
                     </h1>
-                    <p class="mo-ta">
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eveniet, fugiat harum nulla pariatur quia quod sed voluptates? Aliquid cupiditate, dolor fuga magni, natus pariatur perspiciatis praesentium quis repudiandae, totam vel?
-                    </p>
+                    
+                    <p class="mo-ta"> ${sanPham.moTa}</p>
+                    <p class="mo-ta"> ${sanPham.trongLuong}</p>
+                    <p class="mo-ta"> ${sanPham.soLuong}</p>
+                    
                 </div>
             </div>
             <h2 style="margin-top: 40px">Đánh giá của người dùng</h2>

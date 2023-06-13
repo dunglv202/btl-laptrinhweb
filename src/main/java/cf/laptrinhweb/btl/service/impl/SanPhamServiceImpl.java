@@ -1,5 +1,6 @@
 package cf.laptrinhweb.btl.service.impl;
 
+import cf.laptrinhweb.btl.entity.DanhGia;
 import cf.laptrinhweb.btl.entity.SanPham;
 import cf.laptrinhweb.btl.entity.TheLoai;
 import cf.laptrinhweb.btl.exception.sanpham.SanPhamKhongTonTai;
@@ -47,5 +48,11 @@ public class SanPhamServiceImpl implements SanPhamService {
 	public void giamSoLuong(Long maSanPham, int soLuongGiam) {
 		sanPhamRepository.giamSoLuong(maSanPham, soLuongGiam);
 		
+	}
+
+	@Override
+	public void capNhatDanhGia(DanhGia dg, Long ma_san_pham) {
+		// TODO Auto-generated method stub
+		sanPhamRepository.capNhatDanhGia(dg, ma_san_pham);
 	}
 }

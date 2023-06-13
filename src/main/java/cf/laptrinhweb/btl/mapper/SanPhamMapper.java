@@ -20,6 +20,8 @@ public class SanPhamMapper {
             .maSanPham(resultSet.getLong("ma_san_pham"))
             .tenSanPham(resultSet.getString("ten_san_pham"))
             .anhXemTruoc(resultSet.getString("anh_xem_truoc"))
+            .diemTrungBinh(resultSet.getDouble("diem_trung_binh"))
+            .soDanhGia(resultSet.getInt("so_danh_gia"))
             .moTa(resultSet.getString("mo_ta"))
             .gia(resultSet.getDouble("gia"))
             .soLuong(resultSet.getInt("so_luong"))

@@ -14,9 +14,13 @@ import javax.servlet.http.HttpServletResponse;
 import cf.laptrinhweb.btl.constant.QuyenNguoiDung;
 import cf.laptrinhweb.btl.entity.DanhGia;
 import cf.laptrinhweb.btl.entity.NguoiDung;
+import cf.laptrinhweb.btl.entity.SanPham;
 import cf.laptrinhweb.btl.helper.HoTroXacThuc;
+import cf.laptrinhweb.btl.repository.impl.SanPhamRepositoryImpl;
 import cf.laptrinhweb.btl.service.DanhGiaService;
 import cf.laptrinhweb.btl.service.impl.DanhGiaServiceImpl;
+import cf.laptrinhweb.btl.service.impl.SanPhamDatServiceImpl;
+import cf.laptrinhweb.btl.service.impl.SanPhamServiceImpl;
 
 /**
  * Servlet implementation class XemTatCaDanhGia
@@ -29,6 +33,8 @@ public class XemTatCaDanhGiaController extends HttpServlet {
 		NguoiDung nguoiDung = HoTroXacThuc.nguoiDungHienTai(request);
         yeuCauQuyen(request, List.of(QuyenNguoiDung.KHACH_HANG));
         List<DanhGia> ldg = danhGiaService.layTatCaDanhGia(Long.parseLong(request.getParameter("maSanPham")));
+        SanPham sp = new SanPhamRepositoryImpl().timSanPham(Long.parseLong(request.getParameter("maSanPham")));
+        request.setAttribute("sanPham", sp);
         request.setAttribute("tat_ca_danh_gia", ldg);
         request.getRequestDispatcher("WEB-INF/danhgia.jsp").forward(request, response);
 	}

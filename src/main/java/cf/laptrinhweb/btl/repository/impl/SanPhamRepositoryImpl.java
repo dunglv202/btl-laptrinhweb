@@ -1,5 +1,6 @@
 package cf.laptrinhweb.btl.repository.impl;
 
+import cf.laptrinhweb.btl.entity.DanhGia;
 import cf.laptrinhweb.btl.entity.SanPham;
 import cf.laptrinhweb.btl.mapper.SanPhamMapper;
 import cf.laptrinhweb.btl.model.DieuKienSanPham;
@@ -120,11 +121,8 @@ public class SanPhamRepositoryImpl implements SanPhamRepository {
             	sp.setMoTa(rs.getString("mo_ta"));
             	sp.setGia(rs.getDouble("gia"));
             	sp.setSoLuong(rs.getInt("so_luong"));
-            	sp.setKichThuoc(rs.getString("kich_thuoc"));
-            	sp.setTrongLuong(rs.getDouble("trong_luong"));
-            	sp.setTheLoai(new TheLoaiRepositoryImpl().timTheLoai(rs.getLong("ma_the_loai")));
-            	sp.setChatLieu(new ChatLieuRepositoryImpl().timChatLieu(rs.getLong("ma_chat_lieu")));
-            	sp.setThuongHieu(new ThuongHieuRepositoryImpl().timThuongHieu(rs.getLong("ma_thuong_hieu")));
+            	sp.setSoDanhGia(rs.getInt("so_danh_gia"));
+            	sp.setDiemTrungBinh(rs.getDouble("diem_trung_binh"));
             	sp.setDaAn(rs.getBoolean("da_an"));
             }
         } catch (Exception e) {
@@ -147,4 +145,27 @@ public class SanPhamRepositoryImpl implements SanPhamRepository {
 			throw new RuntimeException("Khong the giam so luong san pham", e);
 		}
 	}
+
+	@Override
+	public void capNhatDanhGia(DanhGia dg, Long maSanPham) {
+		SanPham sp = this.timSanPham(maSanPham);
+		int so_danh_gia = sp.getSoDanhGia()+1;
+		double diem_danh_gia = (sp.getDiemTrungBinh()*sp.getSoDanhGia()+dg.getSoDiemDanhGia())/so_danh_gia;
+		
+		try (Connection ketNoi = moKetNoi()) {
+            PreparedStatement ps = ketNoi.prepareStatement("""
+                update san_pham
+                set so_danh_gia = ?, diem_trung_binh = ?
+                where ma_san_pham = ?
+            """);
+            ps.setInt(1, so_danh_gia);
+            ps.setDouble(2,diem_danh_gia);
+            ps.setLong(3,maSanPham);
+            ps.executeUpdate();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+		
+	}
+	
 }

@@ -11,6 +11,7 @@ import java.util.List;
 
 import cf.laptrinhweb.btl.entity.DanhGia;
 import cf.laptrinhweb.btl.entity.NguoiDung;
+import cf.laptrinhweb.btl.entity.SanPham;
 import cf.laptrinhweb.btl.entity.SanPhamDat;
 import cf.laptrinhweb.btl.repository.DanhGiaRepository;
 import cf.laptrinhweb.btl.service.impl.DatHangServiceImpl;
@@ -41,13 +42,14 @@ public class DanhGiaRepositoryImpl implements DanhGiaRepository{
             ps.setString(4, danhGia.getNoi_dung_danh_gia());
          
             ps.setTimestamp(5, Timestamp.from(danhGia.getNgay_danh_gia().toInstant()));
-            System.out.println(Timestamp.from(danhGia.getNgay_danh_gia().toInstant()).toString());
-            System.out.println(6);
             ps.executeUpdate();
          
             ResultSet rs = ps.getGeneratedKeys();
             rs.next();
             danhGia.setId(rs.getLong(1));
+            Long ma_san_pham = new SanPhamDatRepositoryImpl().timMaSanPham(ma_san_pham_dat);
+            SanPham sp = new SanPhamRepositoryImpl().timTheoMa(ma_san_pham).get();
+            new SanPhamServiceImpl().capNhatDanhGia(danhGia, sp.getMaSanPham());
        
         } catch (Exception e) {
             throw new RuntimeException("Khong the them danh gia", e);
@@ -131,8 +133,9 @@ public class DanhGiaRepositoryImpl implements DanhGiaRepository{
             	SanPhamDat spd = new SanPhamDat();
             	Long ma_san_pham_dat = new SanPhamDatServiceImpl().timMaSanPham(rs.getLong("ma_san_pham_dat"));
             	spd.setId(ma_san_pham_dat);
-            	spd.setSanPham(new SanPhamServiceImpl().timTheoMa(rs.getLong("ma_san-pham")));
+            	spd.setSanPham(new SanPhamServiceImpl().timTheoMa(rs.getLong("ma_san_pham")));
             	a.setSan_pham_dat(spd);
+            	new SanPhamRepositoryImpl().capNhatDanhGia(a, rs.getLong("ma_san_pham"));
             	ldg.add(a);
             }
         } catch (Exception e) {

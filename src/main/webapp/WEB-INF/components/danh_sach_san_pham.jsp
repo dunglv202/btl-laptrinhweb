@@ -13,7 +13,7 @@
       </div>
       <div class="chi-tiet">
         <jsp:include page="danh_gia_sao.jsp">
-          <jsp:param name="saoDanhGia" value="<%= Math.random() * 4 + 1 %>"/>
+          <jsp:param name="saoDanhGia" value="${sanPham.diemTrungBinh}"/>
         </jsp:include>
         <a class="ten-danh-muc" href="<%=request.getContextPath()%>/the-loai?maTheLoai=${sanPham.theLoai.maTheLoai}">${sanPham.theLoai.tenTheLoai}</a>
         <a class="ten-san-pham" href="<%=request.getContextPath()%>/san-pham?maSanPham=${sanPham.maSanPham}">${sanPham.tenSanPham}</a>
