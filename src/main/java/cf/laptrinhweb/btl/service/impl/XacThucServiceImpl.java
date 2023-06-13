@@ -103,7 +103,8 @@ public class XacThucServiceImpl implements XacThucService {
         }
 
         // kiem tra mat khau cu chinh xac hay khong
-        NguoiDung nguoiDung = HoTroXacThuc.nguoiDungHienTai(req);
+        Long maNguoiDung = HoTroXacThuc.nguoiDungHienTai(req).getMaNguoiDung();
+        NguoiDung nguoiDung = timNguoiDung(DieuKienNguoiDung.builder().maNguoiDung(maNguoiDung).build()).get(0);
         if (!BCrypt.checkpw(matKhauCu, nguoiDung.getMatKhau())) {
             throw new MatKhauKhongDungException();
         }

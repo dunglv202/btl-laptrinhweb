@@ -37,6 +37,9 @@
         </div>
 
         <jsp:include page="components/chan_trang.jsp"/>
+        <jsp:include page="components/thong_bao.jsp">
+            <jsp:param name="tuDongDong" value="4000"/>
+        </jsp:include>
 
         <script type="module" src="<%=request.getContextPath()%>/static/js/form.js"></script>
         <script type="module" src="<%=request.getContextPath()%>/static/js/doi_mat_khau.js"></script>
