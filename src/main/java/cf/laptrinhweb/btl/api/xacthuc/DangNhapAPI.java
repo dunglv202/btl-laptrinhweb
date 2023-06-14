@@ -1,4 +1,4 @@
-package cf.laptrinhweb.btl.api;
+package cf.laptrinhweb.btl.api.xacthuc;
 
 import cf.laptrinhweb.btl.dto.request.DangNhapDTO;
 import cf.laptrinhweb.btl.dto.response.PhanHoiDangNhap;

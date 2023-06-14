@@ -49,7 +49,7 @@
                                 ${dinhDangNgayThang.format(donhang.ngayTaoDon)}
                         </td>
                         <td class="tien-te can-phai">${donhang.tongTien}</td>
-                        <td>
+                        <td class="can-giua">
                             <a class="lien-ket" style="color: #333" href="<%=request.getContextPath()%>/don-hang/chi-tiet?maDatHang=${donhang.maDatHang}">
                                 Chi tiết
                             </a>

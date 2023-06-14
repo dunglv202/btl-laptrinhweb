@@ -150,8 +150,8 @@ public class DanhGiaRepositoryImpl implements DanhGiaRepository{
 		try (Connection ketNoi = moKetNoi()) {
             PreparedStatement ps = ketNoi.prepareStatement("""
                 update san_pham
-                set so_danh_gia = so_danh_gia + 1,
-            		     diem_trung_binh = (diem_trung_binh * so_danh_gia + ?) / so_danh_gia
+                set diem_trung_binh = (diem_trung_binh * so_danh_gia + ?) / (so_danh_gia + 1),
+                    so_danh_gia = so_danh_gia + 1
                 where ma_san_pham = ?
             """);
             ps.setDouble(1,dg.getSoDiemDanhGia());

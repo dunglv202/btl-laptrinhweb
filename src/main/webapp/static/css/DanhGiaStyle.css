@@ -3,7 +3,7 @@ main {
 }
 .thong-tin-san-pham {
     display: grid;
-    grid-template-columns: auto auto;
+    grid-template-columns: auto 1fr;
     align-items: center;
     gap: 2rem;
 }

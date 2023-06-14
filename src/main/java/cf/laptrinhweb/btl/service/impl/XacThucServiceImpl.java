@@ -35,12 +35,11 @@ public class XacThucServiceImpl implements XacThucService {
     private final PhanQuyenRepository phanQuyenRepository = new PhanQuyenRepositoryImpl();
 
     @Override
-    public void dangKy(Map<String, String[]> thongTinDangKy) {
-        NguoiDung nguoiDung = taoNguoiDung(thongTinDangKy);
-        kiemTraThongTin(nguoiDung);
-        nguoiDung.setMatKhau(BCrypt.hashpw(nguoiDung.getMatKhau(), BCrypt.gensalt()));
-        nguoiDungRepository.taoMoiNguoiDung(nguoiDung);
-        themQuyenChoNguoiDung(nguoiDung, Set.of(KHACH_HANG));
+    public void dangKy(NguoiDung thongTinDangKy) {
+        kiemTraThongTin(thongTinDangKy);
+        thongTinDangKy.setMatKhau(BCrypt.hashpw(thongTinDangKy.getMatKhau(), BCrypt.gensalt()));
+        nguoiDungRepository.taoMoiNguoiDung(thongTinDangKy);
+        themQuyenChoNguoiDung(thongTinDangKy, Set.of(KHACH_HANG));
     }
 
     private void kiemTraThongTin(NguoiDung nguoiDung) {
@@ -65,16 +64,6 @@ public class XacThucServiceImpl implements XacThucService {
             thongTinTrungLap.add(LoaiThongTinDangNhap.SO_DIEN_THOAI);
         if (!thongTinTrungLap.isEmpty())
             throw new ThongTinDangNhapDaTonTaiException(thongTinTrungLap);
-    }
-
-    private NguoiDung taoNguoiDung(Map<String, String[]> thongTinDangKy) {
-        return NguoiDung.builder()
-            .tenDangNhap(thongTinDangKy.get("tenDangNhap")[0])
-            .matKhau(thongTinDangKy.get("matKhau")[0])
-            .email(thongTinDangKy.get("email")[0])
-            .soDienThoai(thongTinDangKy.get("soDienThoai")[0])
-            .tenHienThi(thongTinDangKy.get("ten")[0])
-            .build();
     }
 
     @Override
@@ -125,16 +114,18 @@ public class XacThucServiceImpl implements XacThucService {
         } else {
             dsNguoiDung = nguoiDungRepository.timTatCa(dieuKien);
         }
-        List<PhanQuyen> danhSachPhanQuyen = phanQuyenRepository.layTheoDanhSachNguoiDung(dsNguoiDung);
-        dsNguoiDung.forEach(nguoiDung -> {
-            nguoiDung.getDsQuyen().addAll(
-                danhSachPhanQuyen
-                    .stream()
-                    .filter(phanQuyen -> phanQuyen.getMaNguoiDung().equals(nguoiDung.getMaNguoiDung()))
-                    .map(PhanQuyen::getQuyen)
-                    .toList()
-            );
-        });
+        if (!dsNguoiDung.isEmpty()) {
+            List<PhanQuyen> danhSachPhanQuyen = phanQuyenRepository.layTheoDanhSachNguoiDung(dsNguoiDung);
+            dsNguoiDung.forEach(nguoiDung -> {
+                nguoiDung.getDsQuyen().addAll(
+                    danhSachPhanQuyen
+                        .stream()
+                        .filter(phanQuyen -> phanQuyen.getMaNguoiDung().equals(nguoiDung.getMaNguoiDung()))
+                        .map(PhanQuyen::getQuyen)
+                        .toList()
+                );
+            });
+        }
         return dsNguoiDung;
     }
 

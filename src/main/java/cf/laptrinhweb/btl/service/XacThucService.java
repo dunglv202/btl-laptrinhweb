@@ -6,11 +6,10 @@ import cf.laptrinhweb.btl.model.DieuKienNguoiDung;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 
 public interface XacThucService {
-    void dangKy(Map<String, String[]> thongTinDangKy);
+    void dangKy(NguoiDung thongTinDangKy);
     NguoiDung dangNhap(String tenDangNhap, String matKhau);
     void doiMatKhau(HttpServletRequest req);
     List<NguoiDung> timNguoiDung(DieuKienNguoiDung dieuKien);

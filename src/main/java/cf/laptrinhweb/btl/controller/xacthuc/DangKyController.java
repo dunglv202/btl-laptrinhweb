@@ -1,5 +1,6 @@
 package cf.laptrinhweb.btl.controller.xacthuc;
 
+import cf.laptrinhweb.btl.entity.NguoiDung;
 import cf.laptrinhweb.btl.exception.xacthuc.ThongTinDangNhapDaTonTaiException;
 import cf.laptrinhweb.btl.service.XacThucService;
 import cf.laptrinhweb.btl.service.impl.XacThucServiceImpl;
@@ -10,6 +11,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Map;
 
 @WebServlet("/dang-ky")
 public class DangKyController extends HttpServlet {
@@ -23,7 +25,7 @@ public class DangKyController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
-            xacThucService.dangKy(req.getParameterMap());
+            xacThucService.dangKy(taoNguoiDung(req.getParameterMap()));
             resp.sendRedirect(req.getContextPath() + "/dang-nhap");
         } catch (ThongTinDangNhapDaTonTaiException e) {
             e.getThongTinTrungLap().forEach(loaiThongTin -> {
@@ -38,5 +40,15 @@ public class DangKyController extends HttpServlet {
             });
             req.getRequestDispatcher("/WEB-INF/dang_ky.jsp").forward(req, resp);
         }
+    }
+
+    private NguoiDung taoNguoiDung(Map<String, String[]> thongTinDangKy) {
+        return NguoiDung.builder()
+            .tenDangNhap(thongTinDangKy.get("tenDangNhap")[0])
+            .matKhau(thongTinDangKy.get("matKhau")[0])
+            .email(thongTinDangKy.get("email")[0])
+            .soDienThoai(thongTinDangKy.get("soDienThoai")[0])
+            .tenHienThi(thongTinDangKy.get("ten")[0])
+            .build();
     }
 }

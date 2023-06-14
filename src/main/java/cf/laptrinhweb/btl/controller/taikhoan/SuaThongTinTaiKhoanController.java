@@ -13,12 +13,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+import static cf.laptrinhweb.btl.helper.HoTroXacThuc.yeuCauDangNhap;
+
 @WebServlet("/tai-khoan/sua-thong-tin")
 public class SuaThongTinTaiKhoanController extends HttpServlet {
     private final XacThucService xacThucService = new XacThucServiceImpl();
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        yeuCauDangNhap(req);
+
         NguoiDung nguoiDung = layThongTinMoi(req);
         try {
             xacThucService.doiThongTinTaiKhoan(nguoiDung);

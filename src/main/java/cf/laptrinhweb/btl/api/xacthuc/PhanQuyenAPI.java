@@ -1,7 +1,8 @@
-package cf.laptrinhweb.btl.api;
+package cf.laptrinhweb.btl.api.xacthuc;
 
 import cf.laptrinhweb.btl.constant.QuyenNguoiDung;
-import cf.laptrinhweb.btl.dto.response.NguoiDungDTO;
+import cf.laptrinhweb.btl.dto.request.PhanQuyenDTO;
+import cf.laptrinhweb.btl.entity.NguoiDung;
 import cf.laptrinhweb.btl.helper.HoTroJson;
 import cf.laptrinhweb.btl.model.DieuKienNguoiDung;
 import cf.laptrinhweb.btl.service.XacThucService;
@@ -18,18 +19,21 @@ import java.util.List;
 import static cf.laptrinhweb.btl.helper.HoTroRequest.traVeThanhCong;
 import static cf.laptrinhweb.btl.helper.HoTroXacThuc.yeuCauQuyen;
 
-@WebServlet("/api/nguoi-dung")
-public class QuanLyNguoiDungAPI extends HttpServlet {
+@WebServlet("/api/nguoi-dung/phan-quyen")
+public class PhanQuyenAPI extends HttpServlet {
     private final XacThucService xacThucService = new XacThucServiceImpl();
+
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         yeuCauQuyen(req, List.of(QuyenNguoiDung.ADMIN));
-        
-        DieuKienNguoiDung dieuKienNguoiDung = DieuKienNguoiDung.trichXuat(req);
-        List<NguoiDungDTO> dsNguoiDung = xacThucService.timNguoiDung(dieuKienNguoiDung)
-            .stream()
-            .map(NguoiDungDTO::new)
-            .toList();
-        traVeThanhCong(resp, dsNguoiDung);
+
+        PhanQuyenDTO phanQuyenDTO = HoTroJson.layThongTin(req, PhanQuyenDTO.class);
+        NguoiDung nguoiDung = xacThucService.timNguoiDung(
+            DieuKienNguoiDung.builder()
+                .maNguoiDung(phanQuyenDTO.getMaNguoiDung())
+                .build()
+        ).get(0);
+        xacThucService.phanQuyen(nguoiDung, phanQuyenDTO.getDanhSachQuyen());
+        traVeThanhCong(resp, null);
     }
 }
