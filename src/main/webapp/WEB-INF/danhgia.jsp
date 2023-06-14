@@ -24,11 +24,7 @@
                     <h1 class="ten-san-pham">
                         <p> ${sanPham.tenSanPham}</p>
                     </h1>
-                    
                     <p class="mo-ta"> ${sanPham.moTa}</p>
-                    <p class="mo-ta"> ${sanPham.trongLuong}</p>
-                    <p class="mo-ta"> ${sanPham.soLuong}</p>
-                    
                 </div>
             </div>
             <h2 style="margin-top: 40px">Đánh giá của người dùng</h2>

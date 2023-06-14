@@ -8,7 +8,8 @@ import java.util.Arrays;
 public enum LoaiHanhDong {
     DANG_NHAP (1L),
     THAY_DOI_MAT_KHAU (2L),
-    DANG_XUAT (3L);
+    DANG_XUAT (3L),
+    DOI_THONG_TIN_TAI_KHOAN (4L);
 
     private final Long giaTriNguyen;
 

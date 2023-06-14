@@ -11,4 +11,5 @@ public interface LichSuHanhDongService {
     void themLichSu(HttpServletRequest request, Long maNguoiDung, LoaiHanhDong loaiHanhDong, boolean thanhCong);
     void themLichSu(HttpServletRequest request, LoaiHanhDong loaiHanhDong, boolean thanhCong);
     Trang<LichSuHanhDong> xemLichSuHanhDong(Long maNguoiDung, DieuKienLichSu dieuKien);
+    void themLichSu(HttpServletRequest request, LoaiHanhDong loaiHanhDong, String chiTiet, boolean thanhCong);
 }

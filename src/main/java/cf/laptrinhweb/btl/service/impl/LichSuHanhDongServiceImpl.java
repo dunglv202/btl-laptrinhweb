@@ -42,6 +42,20 @@ public class LichSuHanhDongServiceImpl implements LichSuHanhDongService {
         return trang;
     }
 
+    @Override
+    public void themLichSu(HttpServletRequest request, LoaiHanhDong loaiHanhDong, String chiTiet, boolean thanhCong) {
+        String diaChiIP = layDiaChiIP(request);
+        NguoiDung nguoiDung = HoTroXacThuc.nguoiDungHienTai(request);
+        LichSuHanhDong lichSuHanhDong = LichSuHanhDong.builder()
+            .nguoiDung(nguoiDung)
+            .loaiHanhDong(loaiHanhDong)
+            .chiTiet(chiTiet)
+            .diaChiIP(diaChiIP)
+            .thanhCong(thanhCong)
+            .build();
+        lichSuHanhDongRepository.themLichSu(lichSuHanhDong);
+    }
+
     private String layDiaChiIP(HttpServletRequest request) {
         String diaChiIP = request.getHeader("X-FORWARDED-FOR");
         if (diaChiIP == null || "".equals(diaChiIP)) {

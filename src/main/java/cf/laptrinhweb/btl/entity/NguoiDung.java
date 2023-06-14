@@ -28,4 +28,14 @@ public class NguoiDung {
     public boolean coQuyen(QuyenNguoiDung quyen) {
         return this.dsQuyen.stream().anyMatch(q -> q.getTenQuyen().equals(quyen.name()));
     }
+
+    @Override
+    public String toString() {
+        return "[ " +
+            "tenHienThi => '" + tenHienThi + '\'' +
+            ", tenDangNhap => '" + tenDangNhap + '\'' +
+            ", email => '" + email + '\'' +
+            ", soDienThoai => '" + soDienThoai + '\'' +
+            '}';
+    }
 }

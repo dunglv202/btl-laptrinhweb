@@ -21,6 +21,9 @@
         .that-bai {
             color: var(--loi);
         }
+        .chi-tiet {
+            max-width: 30%;
+        }
     </style>
 </head>
 <body>
@@ -63,7 +66,7 @@
                     </td>
                     <td>${hanhDong.loaiHanhDong}</td>
                     <td>${hanhDong.diaChiIP}</td>
-                    <td>${hanhDong.chiTiet}</td>
+                    <td class="chi-tiet">${hanhDong.chiTiet}</td>
                     <td>
                         <c:choose>
                             <c:when test="${hanhDong.thanhCong}">
