@@ -108,7 +108,6 @@ public class BinhLuanRepositoryImpl implements BinhLuanRepository{
             Set<Long> newSet = new TreeSet<>(lbl1.keySet());
             for(Long k : newSet) {
         		lbl.put(this.layBinhLuan(k), lbl1.get(k));
-        		System.out.println(" " + k);
         	}
         } catch (Exception e) {
             throw new RuntimeException("Khong the them tra loi", e);
@@ -138,7 +137,6 @@ public class BinhLuanRepositoryImpl implements BinhLuanRepository{
             	bl.setSan_pham(new SanPhamRepositoryImpl().timTheoMa(rs.getLong("ma_san_pham")).get());
             	bl.setNgay_binh_luan(Date.from(rs.getTimestamp("ngay_binh_luan").toInstant()));
             	bl.setMa_binh_luan_goc(rs.getLong("ma_binh_luan_goc"));
-            	System.out.print(bl.getMa_binh_luan_goc());
             	lbl.add(bl);
             }
         } catch (Exception e) {

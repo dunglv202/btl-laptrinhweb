@@ -62,7 +62,9 @@ public class DangNhapController extends HttpServlet {
         if (nguoiDung.coQuyen(QuyenNguoiDung.ADMIN)) {
             diaChiDieuHuong = "/quan-ly/nguoi-dung";
         } else if (nguoiDung.coQuyen(QuyenNguoiDung.QUAN_LY)) {
-            diaChiDieuHuong = "/quan-ly/san-pham/tao-moi";
+            diaChiDieuHuong = "/quan-ly/dashboard";
+        } else if (nguoiDung.coQuyen(QuyenNguoiDung.NHAN_VIEN)) {
+            diaChiDieuHuong = "/quan-ly/don-hang";
         }
         return request.getContextPath() + diaChiDieuHuong;
     }
