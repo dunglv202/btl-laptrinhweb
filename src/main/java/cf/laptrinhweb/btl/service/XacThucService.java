@@ -16,4 +16,5 @@ public interface XacThucService {
     List<NguoiDung> timNguoiDung(DieuKienNguoiDung dieuKien);
     void doiTrangThaiTaiKhoan(Long maNguoiDung, boolean khoa);
     void phanQuyen(NguoiDung nguoiDung, Set<QuyenNguoiDung> quyenDuocChon);
+    void doiThongTinTaiKhoan(NguoiDung nguoiDung);
 }

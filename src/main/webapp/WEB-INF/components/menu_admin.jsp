@@ -51,13 +51,13 @@
       </div>
       <ul class="menu-con">
         <li>
-          <a href="<%=request.getContextPath()%>/quan-ly/san-pham" class="lien-ket gach-chan mo-rong sang-phai">
-            <span>Quản lý sản phẩm</span>
+          <a href="<%=request.getContextPath()%>/quan-ly/san-pham/tao-moi" class="lien-ket gach-chan mo-rong sang-phai">
+            <span>Tạo mới sản phẩm</span>
           </a>
         </li>
         <li>
-          <a href="#" class="lien-ket gach-chan mo-rong sang-phai">
-            <span>Quản lý phân loại</span>
+          <a href="<%=request.getContextPath()%>/quan-ly/san-pham" class="lien-ket gach-chan mo-rong sang-phai">
+            <span>Quản lý sản phẩm</span>
           </a>
         </li>
       </ul>

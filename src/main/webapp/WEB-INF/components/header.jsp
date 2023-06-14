@@ -65,12 +65,6 @@
             </ul>
           </div>
         </li>
-        <li class="muc co-menu-con">
-          <a class="lien-ket gach-chan mo-rong">
-            <span>Blog</span>
-          </a>
-          <div class="menu-con">Menu con nho</div>
-        </li>
       </ul>
     </nav>
     <div class="menu-chuc-nang">
@@ -83,6 +77,11 @@
         <div class="menu-con">
           <ul>
             <c:if test="${daDangNhap}">
+              <li>
+                <a class="lien-ket gach-chan mo-rong sang-phai" href="<%=request.getContextPath()%>/tai-khoan">
+                  <span>Thông tin tài khoản</span>
+                </a>
+              </li>
               <li>
                 <a class="lien-ket gach-chan mo-rong sang-phai" href="<%=request.getContextPath()%>/doi-mat-khau">
                   <span>Đổi mật khẩu</span>

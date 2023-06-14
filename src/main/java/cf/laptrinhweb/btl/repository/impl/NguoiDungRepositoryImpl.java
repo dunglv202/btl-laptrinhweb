@@ -1,8 +1,6 @@
 package cf.laptrinhweb.btl.repository.impl;
 
-import cf.laptrinhweb.btl.constant.QuyenNguoiDung;
 import cf.laptrinhweb.btl.entity.NguoiDung;
-import cf.laptrinhweb.btl.entity.SanPhamDat;
 import cf.laptrinhweb.btl.mapper.NguoiDungMapper;
 import cf.laptrinhweb.btl.model.DieuKienNguoiDung;
 import cf.laptrinhweb.btl.repository.NguoiDungRepository;
@@ -12,7 +10,6 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.StringJoiner;
 import java.util.stream.Collectors;
 
 public class NguoiDungRepositoryImpl implements NguoiDungRepository {
@@ -38,14 +35,15 @@ public class NguoiDungRepositoryImpl implements NguoiDungRepository {
     }
 
     @Override
-    public boolean tonTaiVoiTenDangNhap(String tenDangNhap) {
+    public boolean tenDangNhapNguoiKhacDaDung(String tenDangNhap, Long maNguoiMuonKiemTra) {
         try (Connection ketNoi = moKetNoi()) {
             PreparedStatement ps = ketNoi.prepareStatement("""
                 SELECT  TRUE
                 FROM    nguoi_dung
-                WHERE   ten_dang_nhap = ?
+                WHERE   ten_dang_nhap = ? AND ma_nguoi_dung <> ?
             """);
             ps.setString(1, tenDangNhap);
+            ps.setObject(2, maNguoiMuonKiemTra);
             return ps.executeQuery().next();
         } catch (Exception e) {
             throw new RuntimeException(e);
@@ -53,14 +51,15 @@ public class NguoiDungRepositoryImpl implements NguoiDungRepository {
     }
 
     @Override
-    public boolean tonTaiVoiEmail(String email) {
+    public boolean emailNguoiKhacDaDung(String email, Long maNguoiMuonKiemTra) {
         try (Connection ketNoi = moKetNoi()) {
             PreparedStatement ps = ketNoi.prepareStatement("""
                 SELECT  TRUE
                 FROM    nguoi_dung
-                WHERE   email = ?
+                WHERE   email = ? AND ma_nguoi_dung <> ?
             """);
             ps.setString(1, email);
+            ps.setObject(2, maNguoiMuonKiemTra);
             return ps.executeQuery().next();
         } catch (Exception e) {
             throw new RuntimeException(e);
@@ -68,14 +67,15 @@ public class NguoiDungRepositoryImpl implements NguoiDungRepository {
     }
 
     @Override
-    public boolean tonTaiVoiSoDienThoai(String soDienThoai) {
+    public boolean soDienThoaiNguoiKhacDaDung(String soDienThoai, Long maNguoiMuonKiemTra) {
         try (Connection ketNoi = moKetNoi()) {
             PreparedStatement ps = ketNoi.prepareStatement("""
                 SELECT  TRUE
                 FROM    nguoi_dung
-                WHERE   so_dien_thoai = ?
+                WHERE   so_dien_thoai = ? AND ma_nguoi_dung <> ?
             """);
             ps.setString(1, soDienThoai);
+            ps.setObject(2, maNguoiMuonKiemTra);
             return ps.executeQuery().next();
         } catch (Exception e) {
             throw new RuntimeException(e);
@@ -96,7 +96,7 @@ public class NguoiDungRepositoryImpl implements NguoiDungRepository {
                 VALUES (?, ?, ?, ?, ?, ?)
             """, Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, nguoiDung.getTenHienThi());
-            ps.setString(2, nguoiDung.getTenDangNhap());
+            ps.setObject(2, nguoiDung.getTenDangNhap());
             ps.setString(3, nguoiDung.getEmail());
             ps.setString(4, nguoiDung.getSoDienThoai());
             ps.setString(5, nguoiDung.getMatKhau());
@@ -255,6 +255,28 @@ public class NguoiDungRepositoryImpl implements NguoiDungRepository {
             ps.executeUpdate();
         } catch (Exception e) {
             throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public void capNhatThongTin(NguoiDung nguoiDung) {
+        try (Connection ketNoi = moKetNoi()) {
+            PreparedStatement ps = ketNoi.prepareStatement("""
+                UPDATE nguoi_dung
+                SET ten_hien_thi = ?,
+                    ten_dang_nhap = ?,
+                    email = ?,
+                    so_dien_thoai = ?
+                WHERE ma_nguoi_dung = ?
+            """);
+            ps.setString(1, nguoiDung.getTenHienThi());
+            ps.setObject(2, nguoiDung.getTenDangNhap());
+            ps.setString(3, nguoiDung.getEmail());
+            ps.setString(4, nguoiDung.getSoDienThoai());
+            ps.setLong(5, nguoiDung.getMaNguoiDung());
+            ps.executeUpdate();
+        } catch (Exception e) {
+            throw new RuntimeException("Khong the cap nhat thong tin nguoi dung", e);
         }
     }
 }

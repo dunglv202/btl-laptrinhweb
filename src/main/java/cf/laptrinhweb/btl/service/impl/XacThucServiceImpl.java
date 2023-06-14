@@ -44,19 +44,24 @@ public class XacThucServiceImpl implements XacThucService {
     }
 
     private void kiemTraThongTin(NguoiDung nguoiDung) {
+        Long maNguoiDung = nguoiDung.getMaNguoiDung();
+        String tenDangNhap = nguoiDung.getTenDangNhap();
+        String email = nguoiDung.getEmail();
+        String soDienThoai = nguoiDung.getSoDienThoai();
         if (nguoiDung.getTenHienThi().isBlank()
-            || !nguoiDung.getTenDangNhap().matches(TEN_DANG_NHAP.pattern())
+            || tenDangNhap != null && !tenDangNhap.matches(TEN_DANG_NHAP.pattern())
             || !nguoiDung.getMatKhau().matches(MAT_KHAU.pattern())
-            || !nguoiDung.getEmail().matches(EMAIL.pattern())
-            || !nguoiDung.getSoDienThoai().matches(SO_DIEN_THOAI.pattern())) {
+            || !email.matches(EMAIL.pattern())
+            || !soDienThoai.matches(SO_DIEN_THOAI.pattern())) {
             throw new ThongTinKhongHopLeException();
         }
         Set<LoaiThongTinDangNhap> thongTinTrungLap = new HashSet<>();
-        if (nguoiDungRepository.tonTaiVoiTenDangNhap(nguoiDung.getTenDangNhap()))
+        if (tenDangNhap != null
+            && nguoiDungRepository.tenDangNhapNguoiKhacDaDung(tenDangNhap, maNguoiDung))
             thongTinTrungLap.add(LoaiThongTinDangNhap.TEN_DANG_NHAP);
-        if (nguoiDungRepository.tonTaiVoiEmail(nguoiDung.getEmail()))
+        if (nguoiDungRepository.emailNguoiKhacDaDung(email, maNguoiDung))
             thongTinTrungLap.add(LoaiThongTinDangNhap.EMAIL);
-        if (nguoiDungRepository.tonTaiVoiSoDienThoai(nguoiDung.getSoDienThoai()))
+        if (nguoiDungRepository.soDienThoaiNguoiKhacDaDung(soDienThoai, maNguoiDung))
             thongTinTrungLap.add(LoaiThongTinDangNhap.SO_DIEN_THOAI);
         if (!thongTinTrungLap.isEmpty())
             throw new ThongTinDangNhapDaTonTaiException(thongTinTrungLap);
@@ -160,6 +165,12 @@ public class XacThucServiceImpl implements XacThucService {
             }
         }
         huyQuyenNguoiDung(nguoiDung, quyenDeHuy);
+    }
+
+    @Override
+    public void doiThongTinTaiKhoan(NguoiDung nguoiDung) {
+        kiemTraThongTin(nguoiDung);
+        nguoiDungRepository.capNhatThongTin(nguoiDung);
     }
 
     private void themQuyenChoNguoiDung(NguoiDung nguoiDung, Set<QuyenNguoiDung> quyenDuocPhan) {

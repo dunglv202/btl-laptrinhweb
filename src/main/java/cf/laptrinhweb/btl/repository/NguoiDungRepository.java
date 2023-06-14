@@ -8,9 +8,9 @@ import java.util.Optional;
 
 public interface NguoiDungRepository extends JdbcRepository {
     Optional<NguoiDung> timBangThongTinDangNhap(String thongTinDangNhap);
-    boolean tonTaiVoiTenDangNhap(String tenDangNhap);
-    boolean tonTaiVoiEmail(String email);
-    boolean tonTaiVoiSoDienThoai(String soDienThoai);
+    boolean tenDangNhapNguoiKhacDaDung(String tenDangNhap, Long maNguoiMuonKiemTra);
+    boolean emailNguoiKhacDaDung(String email, Long maNguoiMuonKiemTra);
+    boolean soDienThoaiNguoiKhacDaDung(String soDienThoai, Long maNguoiMuonKiemTra);
     void taoMoiNguoiDung(NguoiDung nguoiDung);
     void doiMatKhau(NguoiDung nguoiDung, String matKhauMoi);
     List<NguoiDung> timTatCa(DieuKienNguoiDung dieuKien);
@@ -18,4 +18,5 @@ public interface NguoiDungRepository extends JdbcRepository {
     NguoiDung timNguoiDung(Long ma_nguoi_dung);
     void tangCoGangDangNhap(NguoiDung nguoiDung);
     void resetCoGangDangNhap(Long maNguoiDung);
+    void capNhatThongTin(NguoiDung nguoiDung);
 }
