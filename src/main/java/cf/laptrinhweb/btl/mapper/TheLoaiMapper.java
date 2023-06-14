@@ -10,6 +10,7 @@ public class TheLoaiMapper {
         return TheLoai.builder()
             .maTheLoai(resultSet.getLong("ma_the_loai"))
             .tenTheLoai(resultSet.getString("ten_the_loai"))
+            .anhDaiDien(resultSet.getString("anh_dai_dien"))
             .build();
     }
 }

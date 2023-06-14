@@ -12,4 +12,5 @@ import lombok.NoArgsConstructor;
 public class TheLoai {
     private Long maTheLoai;
     private String tenTheLoai;
+    private String anhDaiDien;
 }

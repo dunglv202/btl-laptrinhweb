@@ -12,6 +12,7 @@
 <body>
     <jsp:include page="components/header.jsp"/>
     <main>
+        <c:set var="danhSachSlide" value="${danhSachTinTuc}" scope="request"/>
         <jsp:include page="components/slide.jsp"/>
         <jsp:include page="components/danh_sach_the_loai.jsp"/>
         <section>

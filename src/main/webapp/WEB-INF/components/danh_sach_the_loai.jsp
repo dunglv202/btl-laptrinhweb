@@ -8,7 +8,7 @@
     <c:forEach var="theLoai" items="${danhSachTheLoai}">
       <li class="the-loai">
         <div class="anh-the-loai">
-          <img src="https://cdn.shopify.com/s/files/1/0062/5642/7093/files/demo03_02_800x.jpg" />
+          <img src="${theLoai.anhDaiDien}" />
         </div>
         <div class="ten-the-loai">
           <a href="<%=request.getContextPath()%>/the-loai/${theLoai.maTheLoai}" class="lien-ket ten">
