@@ -1,5 +1,6 @@
 package cf.laptrinhweb.btl.repository.impl;
 
+import cf.laptrinhweb.btl.entity.DanhGia;
 import cf.laptrinhweb.btl.entity.SanPham;
 import cf.laptrinhweb.btl.mapper.SanPhamMapper;
 import cf.laptrinhweb.btl.model.DieuKienSanPham;
@@ -112,21 +113,22 @@ public class SanPhamRepositoryImpl implements SanPhamRepository {
         }
     }
 
-	public void giamSoLuong(Long maSanPham, int soLuongGiam) {
-		try (Connection ketNoi = moKetNoi()) {
-			PreparedStatement ps = ketNoi.prepareStatement("""
-                UPDATE san_pham
-                SET so_luong = so_luong - ?
-                WHERE ma_san_pham = ?
-            """);
-			ps.setInt(1, soLuongGiam);
-			ps.setLong(2, maSanPham);
-			ps.executeUpdate();
-		}
-		catch(Exception e) {
-			throw new RuntimeException("Khong the giam so luong san pham", e);
-		}
-	}
+    public void giamSoLuong(Long maSanPham, int soLuongGiam) {
+      try (Connection ketNoi = moKetNoi()) {
+        PreparedStatement ps = ketNoi.prepareStatement("""
+                  UPDATE san_pham
+                  SET so_luong = so_luong - ?
+                  WHERE ma_san_pham = ?
+              """);
+        ps.setInt(1, soLuongGiam);
+        ps.setLong(2, maSanPham);
+        ps.executeUpdate();
+      }
+      catch(Exception e) {
+        throw new RuntimeException("Khong the giam so luong san pham", e);
+      }
+    }
+
 
     @Override
     public void capNhat(ThongTinSanPham thongTinSanPham) {

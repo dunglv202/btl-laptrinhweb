@@ -12,7 +12,6 @@ import javax.servlet.http.HttpServletResponse;
 import cf.laptrinhweb.btl.constant.QuyenNguoiDung;
 import cf.laptrinhweb.btl.entity.NguoiDung;
 import cf.laptrinhweb.btl.helper.HoTroXacThuc;
-import cf.laptrinhweb.btl.repository.impl.NguoiDungRepositoryImpl;
 import cf.laptrinhweb.btl.service.DanhGiaService;
 import cf.laptrinhweb.btl.service.impl.DanhGiaServiceImpl;
 import cf.laptrinhweb.btl.entity.*;
@@ -32,21 +31,12 @@ public class ThemDanhGiaController extends HttpServlet {
 		danhGia.setNgay_danh_gia(new Date(System.currentTimeMillis()));
 		
 		danhGia.setSoDiemDanhGia(Integer.parseInt(request.getParameter("danhGia")));
-		System.out.println("diem la:" + danhGia.getSoDiemDanhGia());
 
 		Long ma_san_pham_dat = Long.parseLong(request.getParameter("ma_san_pham_dat"));
 		
 		danhGiaService.themDanhGia(danhGia,ma_san_pham_dat);
 
 		response.sendRedirect(request.getContextPath()+"/xem-tat-ca-danh-gia?maSanPham=" + request.getParameter("ma_san_pham"));
-	}
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
 	}
 
 }

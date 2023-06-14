@@ -1,5 +1,6 @@
 package cf.laptrinhweb.btl.repository;
 
+import cf.laptrinhweb.btl.entity.DanhGia;
 import cf.laptrinhweb.btl.entity.SanPham;
 import cf.laptrinhweb.btl.model.DieuKienSanPham;
 import cf.laptrinhweb.btl.model.ThongTinSanPham;

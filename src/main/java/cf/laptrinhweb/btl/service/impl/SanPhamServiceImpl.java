@@ -1,7 +1,6 @@
 package cf.laptrinhweb.btl.service.impl;
 
 import cf.laptrinhweb.btl.entity.SanPham;
-import cf.laptrinhweb.btl.entity.TheLoai;
 import cf.laptrinhweb.btl.exception.sanpham.SanPhamKhongTonTai;
 import cf.laptrinhweb.btl.helper.HoTroLuuTru;
 import cf.laptrinhweb.btl.model.DieuKienSanPham;
@@ -13,7 +12,6 @@ import cf.laptrinhweb.btl.repository.impl.SanPhamRepositoryImpl;
 import cf.laptrinhweb.btl.service.SanPhamService;
 
 import javax.servlet.http.Part;
-import java.util.ArrayList;
 import java.util.List;
 
 public class SanPhamServiceImpl implements SanPhamService {
