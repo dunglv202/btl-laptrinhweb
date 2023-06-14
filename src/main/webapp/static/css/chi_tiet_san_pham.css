@@ -58,7 +58,7 @@
   opacity: 1;
 }
 #chi-tiet-san-pham .anh-hien-thi {
-  /*height: 550px;*/
+  flex-grow: 1;
   overflow: hidden;
 }
 #chi-tiet-san-pham .ten-san-pham {

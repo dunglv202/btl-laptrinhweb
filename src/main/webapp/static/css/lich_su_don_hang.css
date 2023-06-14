@@ -1,24 +1,10 @@
-.bang-admin .hanh-dong .chon-hanh-dong {
-    display: block;
-    padding: 0.5rem;
-    cursor: pointer;
-    user-select: none;
+main {
+    padding: 0 var(--le-trang);
 }
-.bang .hanh-dong {
-    display: unset;
+#tieu-de-trang {
+    margin: 0 0 2rem;
 }
-.bang-admin .hanh-dong .danh-sach {
-    display: flex;
-    flex-direction: column;
-    overflow: hidden;
-    align-items: center;
-    gap: 0.5rem;
-    transition: 0.2s;
-}
-@media screen and (max-width: 720px) {
-    .tuong-tac-bang {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 1rem;
-    }
+table .danh-sach-san-pham li {
+    font-weight: bold;
+    font-size: 1rem;
 }

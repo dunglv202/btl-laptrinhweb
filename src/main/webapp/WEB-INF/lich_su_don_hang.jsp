@@ -4,8 +4,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
-<%HoTroRequest.khongCachePage(response);%>
-
 <html>
     <head>
         <meta charset="UTF-8" />
@@ -17,91 +15,51 @@
         <link rel="stylesheet" href="<%=request.getContextPath()%>/static/css/lich_su_don_hang.css">
     </head>
     <body>
-    	<jsp:include page="components/header.jsp"/>
-    
-<%--         <jsp:include page="components/menu_admin.jsp"> --%>
-<%--             <jsp:param name="mucHienTai" value="nguoi-dung"/> --%>
-<%--         </jsp:include> --%>
+    	  <jsp:include page="components/header.jsp"/>
 
         <main>
             <h1 class="tieu-de-trang">
                 Lịch sử mua hàng
             </h1>
-<!--             <div class="bang-admin"> -->
-<!--                 <div class="tuong-tac-bang"> -->
-<!--                     <form class="tieu-chuan loc-du-lieu"> -->
-<!--                         <div class="bo-loc"> -->
-<!--                             <div class="truong"> -->
-<!--                                 <div class="tim-kiem"> -->
-<%--                                     <input class="o-tim-kiem" name="tuKhoa" value="${param.get("tuKhoa")}" placeholder="Từ khoá" /> --%>
-<!--                                     <button class="nut kieu-1">Tìm kiếm</button> -->
-<!--                                 </div> -->
-<!--                             </div> -->
-<!--                         </div> -->
-              <div class="phan-trang">
-                  Trang
-                  <input type="number" name="trang" value="${param.get("trang") != null ? param.get("trang") : 1}" min="0" />
-                  của
-                  <span class="tong-so-trang">10</span>
-              </div>
-<!--                     </form> -->
-<!--                 </div> -->
-                <table class="bang">
-                    <thead>
+            <table class="bang">
+                <thead>
                     <tr>
-                        <th>Mã đơn hàng</th>
                         <th>Sản phẩm</th>
-                        <th>Tổng tiền</th>
+                        <th>Trạng thái</th>
                         <th>Ngày tạo đơn</th>
-                        <th>Chi tiết</th>
+                        <th>Tổng tiền</th>
+                        <th>Hành động</th>
                     </tr>
-                    </thead>
-                    <tbody>
-                    <c:forEach var="donhang" items="${danhSachDonHang}">
-                        <tr>
-                            <td>${donhang.maDatHang}</td>
-                            <td>
-                                <ul class="toi-gian">
-                                    <c:forEach var="sanpham" items="${donhang.danhSachSanPham}">
-                                        <li>${sanpham.sanPham.tenSanPham} x ${sanpham.soLuong}</li>
-                                    </c:forEach>
-                                </ul>
-                            </td>
-                            <td>${donhang.tongTien}</td>
-                            <td>
-                                <c:set var="dinhDangNgayThang" value='<%=DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm")%>' scope="page"/>
+                </thead>
+                <tbody>
+                <c:forEach var="donhang" items="${danhSachDonHang}">
+                    <tr>
+                        <td class="danh-sach-san-pham">
+                            <ul class="toi-gian">
+                                <c:forEach var="sanpham" items="${donhang.danhSachSanPham}">
+                                    <li>${sanpham.sanPham.tenSanPham} x ${sanpham.soLuong}</li>
+                                </c:forEach>
+                            </ul>
+                        </td>
+                        <td class="can-giua">
+                            ${donhang.tinhTrang}
+                        </td>
+                        <td class="can-giua">
+                            <c:set var="dinhDangNgayThang" value='<%=DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm")%>' scope="page"/>
                                 ${dinhDangNgayThang.format(donhang.ngayTaoDon)}
-                            </td>
-                            <td class="hanh-dong">
-                                <div class="danh-sach" style="height: 0 ;margin : 0">
-                                    <form method="GET" action="<%=request.getContextPath()%>/don-hang/chi-tiet">
-                                        <input type="hidden" name="maDatHang" value="${donhang.maDatHang}" />
-                                        <input type="hidden" name="nguoiDung" value="${nguoiDung.maNguoiDung}" />
-                                        <input type = "submit" value = "Chi Tiết"/>
-                                    </form>
-                                </div>
-                            </td>
-                        </tr>
-                    </c:forEach>
-                    </tbody>
-                </table>
-            </div>
+                        </td>
+                        <td class="tien-te can-phai">${donhang.tongTien}</td>
+                        <td>
+                            <a class="lien-ket" style="color: #333" href="<%=request.getContextPath()%>/don-hang/chi-tiet?maDatHang=${donhang.maDatHang}">
+                                Chi tiết
+                            </a>
+                        </td>
+                    </tr>
+                </c:forEach>
+                </tbody>
+            </table>
         </main>
-        
-        <jsp:include page="components/chan_trang.jsp"/>
 
-        <script>
-            let nutChonHanhDong = document.querySelectorAll(".bang-admin .hanh-dong .chon-hanh-dong");
-            Array.from(nutChonHanhDong).forEach(nut => {
-                nut.addEventListener("click", function() {
-                    nut.classList.toggle("da-click");
-                    if (nut.classList.contains("da-click")) {
-                        nut.nextElementSibling.style.height = nut.nextElementSibling.scrollHeight + "px";
-                    } else {
-                        nut.nextElementSibling.style.height = "0px";
-                    }
-                });
-            })
-        </script>
+        <jsp:include page="components/chan_trang.jsp"/>
     </body>
 </html>

@@ -86,7 +86,9 @@
               </div>
             </div>
             <div class = "hanh-dong">
-            	<a href = "<%=request.getContextPath()%>/xem-tat-ca-danh-gia?maSanPham=${sanPham.maSanPham}">Xem tất cả đánh giá</a>
+            	<a class="lien-ket gach-chan thu-hep" style="color: #48cab2" href = "<%=request.getContextPath()%>/xem-tat-ca-danh-gia?maSanPham=${sanPham.maSanPham}">
+                <span>Xem tất cả đánh giá</span>
+              </a>
             </div>
           </div>
         </div>

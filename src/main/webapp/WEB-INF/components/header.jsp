@@ -38,7 +38,9 @@
       <button class="nut chuc-nang"></button>
     </div>
     <div class="logo">
-      <img src="<%=request.getContextPath()%>/static/images/logo.svg" height="40"/>
+      <a href="<%=request.getContextPath()%>/">
+        <img src="<%=request.getContextPath()%>/static/images/logo.svg" height="40"/>
+      </a>
     </div>
     <nav id="thanh-dieu-huong" class="co-the-dong">
       <ul>
