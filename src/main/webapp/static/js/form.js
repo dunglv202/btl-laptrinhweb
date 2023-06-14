@@ -60,12 +60,14 @@ export function kiemTraForm(form) {
     if (!khungChuaLoi) {
       khungChuaLoi = document.createElement("ul");
       khungChuaLoi.classList.add("thong-bao-loi");
+      khungChuaLoi.style.display = "none";
       truong.appendChild(khungChuaLoi);
     }
     khungChuaLoi.innerHTML = "";
     let dsDieuKien = truong.getAttribute("data-dieu-kien")?.split(/\s+/g);
     dsDieuKien?.forEach((dieuKien) => {
       if (!kiemTra[dieuKien].hopLe(layGiaTriTruong(truong))) {
+        khungChuaLoi.style.display = "block";
         themThongBaoLoi(truong, kiemTra[dieuKien].thongBaoLoi);
         formHopLe = false;
       } else {

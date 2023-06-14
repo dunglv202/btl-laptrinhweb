@@ -27,13 +27,23 @@ public class SanPhamServiceImpl implements SanPhamService {
     }
 
     @Override
-    public void taoSanPham(ThongTinSanPham thongTinSanPham, List<Part> dsAnh) {
+    public void luuSanPham(ThongTinSanPham thongTinSanPham, List<Part> dsAnh) {
         // TODO: kiem tra thong tin truoc khi luu gom thong tin san pham & dinh dang file anh
         // luu san pham va anh
         List<String> dsDuongDan = dsAnh.stream().map(HoTroLuuTru::luuFile).toList();
-        if (!dsAnh.isEmpty()) thongTinSanPham.setAnhXemTruoc(dsDuongDan.get(0));
-        SanPham sanPham = sanPhamRepository.taoMoi(thongTinSanPham);
-        anhSanPhamRepository.themTatCaAnh(sanPham, dsDuongDan);
+        if (thongTinSanPham.getMaSanPham() != null) {
+            sanPhamRepository.capNhat(thongTinSanPham);
+            anhSanPhamRepository.themTatCaAnh(
+                SanPham.builder()
+                    .maSanPham(thongTinSanPham.getMaSanPham())
+                    .build(),
+                dsDuongDan
+            );
+        } else {
+            if (!dsAnh.isEmpty()) thongTinSanPham.setAnhXemTruoc(dsDuongDan.get(0));
+            SanPham sanPham = sanPhamRepository.taoMoi(thongTinSanPham);
+            anhSanPhamRepository.themTatCaAnh(sanPham, dsDuongDan);
+        }
     }
 
     @Override

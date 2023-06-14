@@ -10,7 +10,7 @@ import java.util.List;
 
 public interface SanPhamService {
     List<SanPham> timTatCa(DieuKienSanPham dieuKien);
-    void taoSanPham(ThongTinSanPham thongTinSanPham, List<Part> dsAnh);
+    void luuSanPham(ThongTinSanPham thongTinSanPham, List<Part> dsAnh);
     SanPham timTheoMa(Long maSanPham);
     void giamSoLuong(Long maSanPham, int soLuongGiam);
     void capNhatDanhGia(DanhGia dg, Long ma_san_pham);

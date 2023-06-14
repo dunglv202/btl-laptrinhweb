@@ -79,7 +79,7 @@ public class SanPhamRepositoryImpl implements SanPhamRepository {
     @Override
     public List<SanPham> timTatCa(DieuKienSanPham dieuKien) {
         try (Connection ketNoi = moKetNoi()) {
-            PreparedStatement ps = ketNoi.prepareStatement("""
+            String truyVan = """
                 SELECT *
                 FROM san_pham
                 LEFT JOIN the_loai tl
@@ -88,10 +88,19 @@ public class SanPhamRepositoryImpl implements SanPhamRepository {
                     ON san_pham.ma_thuong_hieu = th.ma_thuong_hieu
                 LEFT JOIN chat_lieu cl
                     ON san_pham.ma_chat_lieu = cl.ma_chat_lieu
-                WHERE ( ? IS NUll OR da_an = ?)
-            """);
-            ps.setBoolean(1, dieuKien.getDaAn());
-            ps.setBoolean(2, dieuKien.getDaAn());
+                WHERE
+                    (? IS NULL OR da_an = ?)
+                    AND (? IS NULL OR ten_san_pham LIKE ?)
+                ORDER BY ma_san_pham DESC
+                LIMIT ?, ?
+            """;
+            PreparedStatement ps = ketNoi.prepareStatement(truyVan);
+            ps.setObject(1, dieuKien.getDaAn());
+            ps.setObject(2, dieuKien.getDaAn());
+            ps.setObject(3, dieuKien.getTuKhoa());
+            ps.setObject(4, "%" + dieuKien.getTuKhoa() + "%");
+            ps.setInt(5, dieuKien.getTrang() * dieuKien.getKichThuoc());
+            ps.setInt(6, dieuKien.getKichThuoc());
             ResultSet resultSet = ps.executeQuery();
             List<SanPham> danhSachSanPham = new ArrayList<>();
             SanPhamMapper mapper = new SanPhamMapper();
@@ -104,47 +113,81 @@ public class SanPhamRepositoryImpl implements SanPhamRepository {
         }
     }
 
-	@Override
-	public SanPham timSanPham(Long ma_san_pham) {
-        SanPham sp = new SanPham();
+    @Override
+    public SanPham timSanPham(Long ma_san_pham) {
+          SanPham sp = new SanPham();
+          try (Connection ketNoi = moKetNoi()) {
+              PreparedStatement ps = ketNoi.prepareStatement("""
+                  select * from san_pham
+                  WHERE ma_san_pham = ?
+              """);
+              ps.setLong(1, ma_san_pham);
+              ResultSet rs = ps.executeQuery();
+              if(rs.next()) {
+                sp.setMaSanPham(rs.getLong("ma_san_pham"));
+                sp.setAnhXemTruoc(rs.getString("anh_xem_truoc"));
+                sp.setTenSanPham(rs.getString("ten_san_pham"));
+                sp.setMoTa(rs.getString("mo_ta"));
+                sp.setGia(rs.getDouble("gia"));
+                sp.setSoLuong(rs.getInt("so_luong"));
+                sp.setSoDanhGia(rs.getInt("so_danh_gia"));
+                sp.setDiemTrungBinh(rs.getDouble("diem_trung_binh"));
+                sp.setDaAn(rs.getBoolean("da_an"));
+              }
+          } catch (Exception e) {
+              throw new RuntimeException(e);
+          }
+      return sp;
+      }
+
+    public void giamSoLuong(Long maSanPham, int soLuongGiam) {
+      try (Connection ketNoi = moKetNoi()) {
+        PreparedStatement ps = ketNoi.prepareStatement("""
+                  UPDATE san_pham
+                  SET so_luong = so_luong - ?
+                  WHERE ma_san_pham = ?
+              """);
+        ps.setInt(1, soLuongGiam);
+        ps.setLong(2, maSanPham);
+        ps.executeUpdate();
+      }
+      catch(Exception e) {
+        throw new RuntimeException("Khong the giam so luong san pham", e);
+      }
+    }
+
+
+    @Override
+    public void capNhat(ThongTinSanPham thongTinSanPham) {
         try (Connection ketNoi = moKetNoi()) {
             PreparedStatement ps = ketNoi.prepareStatement("""
-                select * from san_pham
-                WHERE ma_san_pham = ?
-            """);
-            ps.setLong(1, ma_san_pham);
-            ResultSet rs = ps.executeQuery();
-            if(rs.next()) {
-            	sp.setMaSanPham(rs.getLong("ma_san_pham"));
-            	sp.setAnhXemTruoc(rs.getString("anh_xem_truoc"));
-            	sp.setTenSanPham(rs.getString("ten_san_pham"));
-            	sp.setMoTa(rs.getString("mo_ta"));
-            	sp.setGia(rs.getDouble("gia"));
-            	sp.setSoLuong(rs.getInt("so_luong"));
-            	sp.setSoDanhGia(rs.getInt("so_danh_gia"));
-            	sp.setDiemTrungBinh(rs.getDouble("diem_trung_binh"));
-            	sp.setDaAn(rs.getBoolean("da_an"));
-            }
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-		return sp;
-    }
-	public void giamSoLuong(Long maSanPham, int soLuongGiam) {
-		try (Connection ketNoi = moKetNoi()) {
-			PreparedStatement ps = ketNoi.prepareStatement("""
                 UPDATE san_pham
-                SET so_luong = ?
+                SET ten_san_pham = ?,
+                    mo_ta = ?,
+                    gia = ?,
+                    so_luong = ?,
+                    kich_thuoc = ?,
+                    trong_luong = ?,
+                    ma_the_loai = ?,
+                    ma_chat_lieu = ?,
+                    ma_thuong_hieu = ?,
+                    da_an = ?
                 WHERE ma_san_pham = ?
             """);
-			ps.setInt(1, this.timTheoMa(maSanPham).get().getSoLuong() - soLuongGiam);
-			ps.setLong(2, maSanPham);
-			ps.executeUpdate();
-		}
-		catch(Exception e) {
-			throw new RuntimeException("Khong the giam so luong san pham", e);
-		}
-	}
-
-	
+            ps.setString(1, thongTinSanPham.getTen());
+            ps.setString(2, thongTinSanPham.getMoTa());
+            ps.setDouble(3, thongTinSanPham.getGia());
+            ps.setInt(4, thongTinSanPham.getSoLuong());
+            ps.setString(5, thongTinSanPham.getKichThuoc());
+            ps.setObject(6, thongTinSanPham.getTrongLuong()); // dung setObject de tranh truong hop loi khi trong luong null
+            ps.setLong(7, thongTinSanPham.getMaTheLoai());
+            ps.setLong(8, thongTinSanPham.getMaChatLieu());
+            ps.setLong(9, thongTinSanPham.getMaThuongHieu());
+            ps.setBoolean(10, thongTinSanPham.isDaAn());
+            ps.setLong(11, thongTinSanPham.getMaSanPham());
+            ps.execute();
+        } catch (Exception e) {
+            throw new RuntimeException("Khong the cap nhat thong tin san pham", e);
+        }
+    }
 }

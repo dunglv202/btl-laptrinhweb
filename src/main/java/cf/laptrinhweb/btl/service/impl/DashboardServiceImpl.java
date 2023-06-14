@@ -1,7 +1,14 @@
 package cf.laptrinhweb.btl.service.impl;
 
+import cf.laptrinhweb.btl.entity.TheLoai;
 import cf.laptrinhweb.btl.model.BanGhiDuLieu;
+import cf.laptrinhweb.btl.model.KhachHangMuaNhieu;
+import cf.laptrinhweb.btl.model.SanPhamMuaNhieu;
+import cf.laptrinhweb.btl.model.TheLoaiMuaNhieu;
+import cf.laptrinhweb.btl.model.ThuongHieuMuaNhieu;
+import cf.laptrinhweb.btl.repository.TheLoaiRepository;
 import cf.laptrinhweb.btl.repository.ThongKeRepository;
+import cf.laptrinhweb.btl.repository.impl.TheLoaiRepositoryImpl;
 import cf.laptrinhweb.btl.repository.impl.ThongKeRepositoryImpl;
 import cf.laptrinhweb.btl.service.DashboardService;
 
@@ -34,7 +41,27 @@ public class DashboardServiceImpl implements DashboardService {
     public double tinhTiLeHuyDon(LocalDate ngayBatDau, LocalDate ngayKetThuc) {
         return thongKeRepository.tinhTiLeHuyDon(ngayBatDau, ngayKetThuc);
     }
+    
+  
 
+    @Override
+    public List<SanPhamMuaNhieu> lietKe() {
+        return thongKeRepository.lietKe();
+    }
+    
+    @Override
+    public List<KhachHangMuaNhieu> lietKe2() {
+        return thongKeRepository.lietKe2();
+    }
+    
+    @Override
+    public List<TheLoaiMuaNhieu> lietKe3() {
+    	return thongKeRepository.lietKe3(); 
+    }
+    @Override
+    public List<ThuongHieuMuaNhieu> lietKe4() {
+    	return thongKeRepository.lietKe4(); 
+    }
     private List<BanGhiDuLieu> layDuLieuDoanhThu(LocalDate ngayBatDau, LocalDate ngayKetThuc) {
         Map<LocalDate, Double> duLieuThongKeDuoc = thongKeRepository.thongKeDoanhThu(ngayBatDau, ngayKetThuc);
         List<BanGhiDuLieu> dsDuLieuDayDu = new ArrayList<>();

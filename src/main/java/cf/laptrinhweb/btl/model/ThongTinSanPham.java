@@ -8,6 +8,7 @@ import lombok.Setter;
 @Setter
 @Builder
 public class ThongTinSanPham {
+    private Long maSanPham;
     private String ten;
     private String moTa;
     private String anhXemTruoc;

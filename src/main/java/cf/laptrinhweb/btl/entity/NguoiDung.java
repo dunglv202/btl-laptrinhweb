@@ -1,16 +1,11 @@
 package cf.laptrinhweb.btl.entity;
 
-import java.time.LocalDateTime;
+import cf.laptrinhweb.btl.constant.QuyenNguoiDung;
+import lombok.*;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
-import cf.laptrinhweb.btl.constant.QuyenNguoiDung;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 @Getter
 @Setter
