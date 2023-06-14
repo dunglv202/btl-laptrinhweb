@@ -4,6 +4,7 @@ import cf.laptrinhweb.btl.constant.LoaiHanhDong;
 import cf.laptrinhweb.btl.entity.NguoiDung;
 import cf.laptrinhweb.btl.exception.xacthuc.MatKhauKhongDungException;
 import cf.laptrinhweb.btl.helper.HoTroXacThuc;
+import cf.laptrinhweb.btl.model.ThongBao;
 import cf.laptrinhweb.btl.service.LichSuHanhDongService;
 import cf.laptrinhweb.btl.service.XacThucService;
 import cf.laptrinhweb.btl.service.impl.LichSuHanhDongServiceImpl;
@@ -41,7 +42,10 @@ public class DoiMatKhauController extends HttpServlet {
             resp.sendRedirect(req.getContextPath() + "/dang-nhap");
         } catch (MatKhauKhongDungException e) {
             lichSuHanhDongService.themLichSu(req, LoaiHanhDong.THAY_DOI_MAT_KHAU, false);
-            req.setAttribute("thongBao", e.getMessage());
+            req.setAttribute("thongBao", ThongBao.builder()
+                .tieuDe("Mật khẩu cũ không chính xác")
+                .noiDung("Vui lòng nhập lại thông tin")
+                .build());
             req.getRequestDispatcher("/WEB-INF/doi_mat_khau.jsp").forward(req, resp);
         }
     }

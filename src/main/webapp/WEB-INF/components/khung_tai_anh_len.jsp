@@ -12,7 +12,13 @@
         <p>Kéo thả ảnh vào đây, hoặc <label class="chon-file" for="${param.get("tenTruongAnh")}">Chọn từ máy</label></p>
         <p class="mo-ta">Định dạng hỗ trợ: JPEG, JPG, PNG, WEBP</p>
     </div>
-    <div class="ket-qua"></div>
+    <div class="ket-qua">
+        <c:forEach var="anh" items="${danhSachAnh}">
+            <div class="anh">
+                <img src="${anh.duongDan}">
+            </div>
+        </c:forEach>
+    </div>
 </div>
 
 <script src="<%=request.getContextPath()%>/static/js/khung_tai_anh_len.js"></script>

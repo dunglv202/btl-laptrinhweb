@@ -51,7 +51,7 @@
       </div>
       <ul class="menu-con">
         <li>
-          <a href="<%=request.getContextPath()%>/quan-ly/san-pham/tao-moi" class="lien-ket gach-chan mo-rong sang-phai">
+          <a href="<%=request.getContextPath()%>/quan-ly/san-pham" class="lien-ket gach-chan mo-rong sang-phai">
             <span>Quản lý sản phẩm</span>
           </a>
         </li>

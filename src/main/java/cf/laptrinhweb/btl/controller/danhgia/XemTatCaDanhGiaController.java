@@ -30,21 +30,12 @@ public class XemTatCaDanhGiaController extends HttpServlet {
 	public final DanhGiaService danhGiaService = new DanhGiaServiceImpl(); 
  
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		NguoiDung nguoiDung = HoTroXacThuc.nguoiDungHienTai(request);
-        yeuCauQuyen(request, List.of(QuyenNguoiDung.KHACH_HANG));
         List<DanhGia> ldg = danhGiaService.layTatCaDanhGia(Long.parseLong(request.getParameter("maSanPham")));
-        SanPham sp = new SanPhamRepositoryImpl().timSanPham(Long.parseLong(request.getParameter("maSanPham")));
+        SanPham sp = new SanPhamRepositoryImpl().timTheoMa(Long.parseLong(request.getParameter("maSanPham")))
+			.orElseThrow(RuntimeException::new);
         request.setAttribute("sanPham", sp);
         request.setAttribute("tat_ca_danh_gia", ldg);
         request.getRequestDispatcher("WEB-INF/danhgia.jsp").forward(request, response);
-	}
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		
 	}
 
 }

@@ -12,7 +12,6 @@ import javax.servlet.http.HttpServletResponse;
 import cf.laptrinhweb.btl.constant.QuyenNguoiDung;
 import cf.laptrinhweb.btl.entity.NguoiDung;
 import cf.laptrinhweb.btl.helper.HoTroXacThuc;
-import cf.laptrinhweb.btl.repository.impl.NguoiDungRepositoryImpl;
 import cf.laptrinhweb.btl.service.DanhGiaService;
 import cf.laptrinhweb.btl.service.impl.DanhGiaServiceImpl;
 import cf.laptrinhweb.btl.entity.*;
@@ -38,14 +37,6 @@ public class ThemDanhGiaController extends HttpServlet {
 		danhGiaService.themDanhGia(danhGia,ma_san_pham_dat);
 
 		response.sendRedirect(request.getContextPath()+"/xem-tat-ca-danh-gia?maSanPham=" + request.getParameter("ma_san_pham"));
-	}
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
 	}
 
 }

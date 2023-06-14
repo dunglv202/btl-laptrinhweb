@@ -1,8 +1,6 @@
 package cf.laptrinhweb.btl.service.impl;
 
-import cf.laptrinhweb.btl.entity.DanhGia;
 import cf.laptrinhweb.btl.entity.SanPham;
-import cf.laptrinhweb.btl.entity.TheLoai;
 import cf.laptrinhweb.btl.exception.sanpham.SanPhamKhongTonTai;
 import cf.laptrinhweb.btl.helper.HoTroLuuTru;
 import cf.laptrinhweb.btl.model.DieuKienSanPham;
@@ -14,7 +12,6 @@ import cf.laptrinhweb.btl.repository.impl.SanPhamRepositoryImpl;
 import cf.laptrinhweb.btl.service.SanPhamService;
 
 import javax.servlet.http.Part;
-import java.util.ArrayList;
 import java.util.List;
 
 public class SanPhamServiceImpl implements SanPhamService {
@@ -27,13 +24,23 @@ public class SanPhamServiceImpl implements SanPhamService {
     }
 
     @Override
-    public void taoSanPham(ThongTinSanPham thongTinSanPham, List<Part> dsAnh) {
+    public void luuSanPham(ThongTinSanPham thongTinSanPham, List<Part> dsAnh) {
         // TODO: kiem tra thong tin truoc khi luu gom thong tin san pham & dinh dang file anh
         // luu san pham va anh
         List<String> dsDuongDan = dsAnh.stream().map(HoTroLuuTru::luuFile).toList();
-        if (!dsAnh.isEmpty()) thongTinSanPham.setAnhXemTruoc(dsDuongDan.get(0));
-        SanPham sanPham = sanPhamRepository.taoMoi(thongTinSanPham);
-        anhSanPhamRepository.themTatCaAnh(sanPham, dsDuongDan);
+        if (thongTinSanPham.getMaSanPham() != null) {
+            sanPhamRepository.capNhat(thongTinSanPham);
+            anhSanPhamRepository.themTatCaAnh(
+                SanPham.builder()
+                    .maSanPham(thongTinSanPham.getMaSanPham())
+                    .build(),
+                dsDuongDan
+            );
+        } else {
+            if (!dsAnh.isEmpty()) thongTinSanPham.setAnhXemTruoc(dsDuongDan.get(0));
+            SanPham sanPham = sanPhamRepository.taoMoi(thongTinSanPham);
+            anhSanPhamRepository.themTatCaAnh(sanPham, dsDuongDan);
+        }
     }
 
     @Override
@@ -48,11 +55,5 @@ public class SanPhamServiceImpl implements SanPhamService {
 	public void giamSoLuong(Long maSanPham, int soLuongGiam) {
 		sanPhamRepository.giamSoLuong(maSanPham, soLuongGiam);
 		
-	}
-
-	@Override
-	public void capNhatDanhGia(DanhGia dg, Long ma_san_pham) {
-		// TODO Auto-generated method stub
-		sanPhamRepository.capNhatDanhGia(dg, ma_san_pham);
 	}
 }

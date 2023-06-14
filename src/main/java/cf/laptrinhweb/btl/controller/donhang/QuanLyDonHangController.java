@@ -35,7 +35,7 @@ public class QuanLyDonHangController extends HttpServlet {
         req.setAttribute("dsDonHang", dsDonHang);
         req.getRequestDispatcher("/WEB-INF/quan_ly_don_hang.jsp").forward(req, resp);
     }
-
+    
     private DieuKienDonHang trichXuatDieuKien(HttpServletRequest request) {
         DieuKienDonHang dieuKienDonHang = new DieuKienDonHang();
         if (request.getParameter("trangThai") != null) {

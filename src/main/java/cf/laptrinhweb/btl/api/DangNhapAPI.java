@@ -1,10 +1,12 @@
 package cf.laptrinhweb.btl.api;
 
 import cf.laptrinhweb.btl.dto.request.DangNhapDTO;
-import cf.laptrinhweb.btl.dto.response.PhanHoi;
+import cf.laptrinhweb.btl.dto.response.PhanHoiDangNhap;
+import cf.laptrinhweb.btl.entity.NguoiDung;
 import cf.laptrinhweb.btl.exception.xacthuc.SaiThongTinDangNhapException;
 import cf.laptrinhweb.btl.exception.xacthuc.TaiKhoanBiKhoaException;
 import cf.laptrinhweb.btl.helper.HoTroJson;
+import cf.laptrinhweb.btl.helper.HoTroToken;
 import cf.laptrinhweb.btl.service.XacThucService;
 import cf.laptrinhweb.btl.service.impl.XacThucServiceImpl;
 
@@ -28,8 +30,16 @@ public class DangNhapAPI extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
             DangNhapDTO dangNhapDTO = HoTroJson.layThongTin(req, DangNhapDTO.class);
-            xacThucService.dangNhap(dangNhapDTO.getTenDangNhap(), dangNhapDTO.getMatKhau());
-            traVeThanhCong(resp, null);
+            NguoiDung nguoiDung = xacThucService.dangNhap(
+                dangNhapDTO.getTenDangNhap(),
+                dangNhapDTO.getMatKhau()
+            );
+            traVeThanhCong(
+                resp,
+                PhanHoiDangNhap.builder()
+                    .accessToken(HoTroToken.taoAccessToken(nguoiDung))
+                    .build()
+            );
         } catch (SaiThongTinDangNhapException e) {
             traVeLoi(resp, SC_BAD_REQUEST, "Thong tin dang nhap khong chinh xac");
         } catch (TaiKhoanBiKhoaException e) {
