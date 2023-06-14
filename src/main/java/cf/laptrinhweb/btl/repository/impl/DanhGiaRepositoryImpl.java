@@ -113,35 +113,35 @@ public class DanhGiaRepositoryImpl implements DanhGiaRepository{
 		// TODO Auto-generated method stub
 		List<DanhGia> ldg = new ArrayList<>();
 		// TODO Auto-generated method stub
-		try (Connection ketNoi = moKetNoi()) {
-            PreparedStatement ps = ketNoi.prepareStatement("""
-                select ma_danh_gia,ma_nguoi_danh_gia,noi_dung_danh_gia,diem_danh_gia,ngay_danh_gia,
-            			ma_san_pham,ma_san_pham_dat
-                from danh_gia,san_pham_dat,san_pham
-                where danh_gia.ma_san_pham_dat = san_pham_dat.ma_san_pham_dat	
-                and san_pham_dat.ma_san_pham = san_pham.ma_san_pham
-                and danh_gia.ma_nguoi_danh_gia = ?
-                """);
-            ps.setLong(1, nguoidung.getMaNguoiDung());
-            ResultSet rs = ps.executeQuery();
-            while(rs.next()) {
-            	DanhGia a = new DanhGia();
-            	a.setId(rs.getLong("ma_danh_gia"));
-            	a.setKhachHangDanhGia(nguoidung);
-            	a.setNoi_dung_danh_gia(rs.getString("noi_dung_danh_gia"));
-            	a.setSoDiemDanhGia(rs.getInt("diem_danh_gia"));
-            	a.setNgay_danh_gia(Date.from(rs.getTimestamp("ngay_danh_gia").toInstant()));
-            	SanPhamDat spd = new SanPhamDat();
-            	Long ma_san_pham_dat = new SanPhamDatServiceImpl().timMaSanPham(rs.getLong("ma_san_pham_dat"));
-            	spd.setId(ma_san_pham_dat);
-            	spd.setSanPham(new SanPhamServiceImpl().timTheoMa(rs.getLong("ma_san_pham")));
-            	a.setSan_pham_dat(spd);
-            	new SanPhamRepositoryImpl().capNhatDanhGia(a, rs.getLong("ma_san_pham"));
-            	ldg.add(a);
-            }
-        } catch (Exception e) {
-            throw new RuntimeException("Khong the xem danh gia", e);
-        }
+//		try (Connection ketNoi = moKetNoi()) {
+//            PreparedStatement ps = ketNoi.prepareStatement("""
+//                select ma_danh_gia,ma_nguoi_danh_gia,noi_dung_danh_gia,diem_danh_gia,ngay_danh_gia,
+//            			ma_san_pham,ma_san_pham_dat
+//                from danh_gia,san_pham_dat,san_pham
+//                where danh_gia.ma_san_pham_dat = san_pham_dat.ma_san_pham_dat	
+//                and san_pham_dat.ma_san_pham = san_pham.ma_san_pham
+//                and danh_gia.ma_nguoi_danh_gia = ?
+//                """);
+//            ps.setLong(1, nguoidung.getMaNguoiDung());
+//            ResultSet rs = ps.executeQuery();
+//            while(rs.next()) {
+//            	DanhGia a = new DanhGia();
+//            	a.setId(rs.getLong("ma_danh_gia"));
+//            	a.setKhachHangDanhGia(nguoidung);
+//            	a.setNoi_dung_danh_gia(rs.getString("noi_dung_danh_gia"));
+//            	a.setSoDiemDanhGia(rs.getInt("diem_danh_gia"));
+//            	a.setNgay_danh_gia(Date.from(rs.getTimestamp("ngay_danh_gia").toInstant()));
+//            	SanPhamDat spd = new SanPhamDat();
+//            	Long ma_san_pham_dat = new SanPhamDatServiceImpl().timMaSanPham(rs.getLong("ma_san_pham_dat"));
+//            	spd.setId(ma_san_pham_dat);
+//            	spd.setSanPham(new SanPhamServiceImpl().timTheoMa(rs.getLong("ma_san_pham")));
+//            	a.setSan_pham_dat(spd);
+//            	new SanPhamRepositoryImpl().capNhatDanhGia(a, rs.getLong("ma_san_pham"));
+//            	ldg.add(a);
+//            }
+//        } catch (Exception e) {
+//            throw new RuntimeException("Khong the xem danh gia", e);
+//        }
 		return ldg;
 	}
 
