@@ -15,6 +15,9 @@
         <h1>Đã có tài khoản</h1>
         <h2>Đăng nhập</h2>
         <form id="form-dang-nhap" class="tieu-chuan" method="POST">
+            <div class="note">
+                Tài khoản admin thử nghiệm: dunglv - dunglv
+            </div>
             <div class="truong bat-buoc">
                 <label>Tên đăng nhập</label>
                 <input
