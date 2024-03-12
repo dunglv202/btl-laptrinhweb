@@ -171,7 +171,7 @@ public class ThongKeRepositoryImpl implements ThongKeRepository {
     	  try (Connection ketNoi = moKetNoi()) {
               PreparedStatement ps = ketNoi.prepareStatement("""
               SELECT tl.ten_the_loai, SUM(spd.so_luong) AS tong_so_luong
-              		FROM btl_ltw.the_loai tl
+              		FROM the_loai tl
               		INNER JOIN san_pham sp ON tl.ma_the_loai = sp.ma_the_loai
               		INNER JOIN san_pham_dat spd ON sp.ma_san_pham = spd.ma_san_pham
               		GROUP BY tl.ten_the_loai
