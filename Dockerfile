@@ -1,9 +1,9 @@
-# Install Tomcat & openjdk 8 (openjdk has java and javac)
+FROM maven:3.9.3-eclipse-temurin-17-alpine AS build
+COPY . /build/
+WORKDIR /build
+RUN --mount=type=cache,target=/root/.m2 mvn clean package
+
 FROM tomcat:8.5.99-jdk17-corretto
-
-# Copy source files to tomcat folder structure
-COPY ./target/btl.war /usr/local/tomcat/webapps/ROOT.war
-
-# Serve Tomcat
+COPY --from=build /build/target/btl.war /usr/local/tomcat/webapps/ROOT.war
 EXPOSE 8080
 CMD ["catalina.sh", "run"]

@@ -26,3 +26,4 @@ README.md
 docker-compose.yml
 .env
 initial_data.sql
+target

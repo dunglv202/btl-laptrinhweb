@@ -16,7 +16,8 @@ public class KhoKetNoiCSDL {
 
     static {
         config.setDriverClassName(CSDL.DRIVER_CLASS);
-        config.setJdbcUrl(CSDL.DIA_CHI);
+        String jdbcUrl = String.format("jdbc:mysql://%s:%s/%s?createDatabaseIfNotExist=true", CSDL.DIA_CHI, CSDL.CONG, CSDL.CSDL);
+        config.setJdbcUrl(jdbcUrl);
         config.setUsername(CSDL.TEN_DANG_NHAP);
         config.setPassword(CSDL.MAT_KHAU);
         config.setMinimumIdle(SO_KET_NOI_TOI_THIEU);
