@@ -12,9 +12,10 @@
 }
 .thong-bao .anh {
     width: 60px;
+    padding: 0 10px;
 }
 .thong-bao .noi-dung {
-    padding: 0.5rem 1rem;
+    padding: 1rem 1rem 1rem 0.5rem;
     max-width: 220px;
 }
 .thong-bao .tieu-de,

@@ -8,7 +8,7 @@
 
   <div id="thong-bao-trang"
        class="hop-thoai thong-bao loi"
-       data-tu-dong="${param.get("tuDongThongBao")}">
+       data-tu-dong="${thongBao.thoiGianTonTai == null ? param.get("tuDongThongBao") : thongBao.thoiGianTonTai.toMillis()}">
     <div class="anh">
       <img src="${thongBao.anh}" />
     </div>

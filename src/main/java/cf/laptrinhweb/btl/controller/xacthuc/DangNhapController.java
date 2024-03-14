@@ -6,6 +6,7 @@ import cf.laptrinhweb.btl.constant.QuyenNguoiDung;
 import cf.laptrinhweb.btl.exception.xacthuc.SaiThongTinDangNhapException;
 import cf.laptrinhweb.btl.entity.NguoiDung;
 import cf.laptrinhweb.btl.exception.xacthuc.TaiKhoanBiKhoaException;
+import cf.laptrinhweb.btl.model.ThongBao;
 import cf.laptrinhweb.btl.model.thongbao.ThongBaoSaiThongTinDangNhap;
 import cf.laptrinhweb.btl.model.thongbao.ThongBaoTkBiKhoa;
 import cf.laptrinhweb.btl.model.xacthuc.NguoiDungUngDung;
@@ -20,6 +21,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.time.Duration;
 import java.util.Set;
 
 @WebServlet("/dang-nhap")
@@ -29,14 +31,23 @@ public class DangNhapController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        req.setAttribute(
+            "thongBao",
+            ThongBao.builder()
+                .anh("https://cdn-icons-png.flaticon.com/512/6897/6897039.png")
+                .tieuDe("Tài khoản trải nghiệm")
+                .noiDung("Đăng nhập admin với tên đăng nhập: <strong>dunglv</strong> - mật khẩu: <strong>dunglv</strong>")
+                .thoiGianTonTai(Duration.ofMinutes(3))
+                .build()
+        );
         req.getRequestDispatcher("WEB-INF/dang_nhap.jsp").forward(req, resp);
     }
 
     @Override
     @SuppressWarnings("unchecked")
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String tenDangNhap = req.getParameter("tenDangNhap");
-        String matKhau = req.getParameter("matKhau");
+        String tenDangNhap = req.getParameter("tenDangNhap").trim();
+        String matKhau = req.getParameter("matKhau").trim();
         try {
             NguoiDung nguoiDung = xacThucService.dangNhap(tenDangNhap, matKhau);
             req.getSession().setAttribute(KhoaSession.NGUOI_DUNG, new NguoiDungUngDung(nguoiDung));
