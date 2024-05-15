@@ -41,12 +41,12 @@ CREATE TABLE san_pham (
   ma_san_pham INT PRIMARY KEY AUTO_INCREMENT,
   ten_san_pham VARCHAR(128),
   anh_xem_truoc VARCHAR(256) DEFAULT '/public/anh-trong.jpg',
-  diem_trung_binh DECIMAL,
+  diem_trung_binh DECIMAL(2),
   so_danh_gia INT,
   mo_ta TEXT,
-  gia DECIMAL,
+  gia DECIMAL(2),
   so_luong INT,
-  trong_luong DECIMAL,
+  trong_luong DECIMAL(2),
   kich_thuoc VARCHAR(16),
   ma_chat_lieu INT NOT NULL REFERENCES chat_lieu (ma_chat_lieu),
   ma_thuong_hieu INT NOT NULL REFERENCES thuong_hieu (ma_thuong_hieu),
@@ -54,7 +54,7 @@ CREATE TABLE san_pham (
   da_an BOOLEAN
 );
 
-CREATE TABLE IF NOT EXISTS anh_san_pham (
+CREATE TABLE anh_san_pham (
   ma_anh INT PRIMARY KEY AUTO_INCREMENT,
   ma_san_pham INT NOT NULL REFERENCES san_pham (ma_san_pham),
   duong_dan VARCHAR(256)
@@ -76,14 +76,14 @@ CREATE TABLE dat_hang (
   ten_nguoi_nhan VARCHAR(64),
   trang_thai INT,
   ngay_dat_hang TIMESTAMP,
-  tong_tien DECIMAL,
+  tong_tien DECIMAL(2),
   ma_nguoi_dat INT NOT NULL REFERENCES nguoi_dung (ma_nguoi_dung)
 );
 
 CREATE TABLE san_pham_dat (
   ma_san_pham_dat INT PRIMARY KEY AUTO_INCREMENT,
   ma_san_pham INT NOT NULL REFERENCES san_pham (ma_san_pham),
-  don_gia DECIMAL,
+  don_gia DECIMAL(2),
   so_luong INT
 );
 
