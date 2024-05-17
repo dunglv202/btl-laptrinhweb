@@ -23,13 +23,13 @@ public class SanPhamDatRepositoryImpl implements SanPhamDatRepository{
 		try (Connection ketNoi = moKetNoi()) {
 			for (SanPhamDat sanpham : datHang.getDanhSachSanPham()) {
 	            PreparedStatement ps = ketNoi.prepareStatement("""
-	                INSERT INTO san_pham_dat (
-	                    ma_san_pham,
-	                    don_gia,
-	                    so_luong,
-	                    ma_dat_hang
-	                ) VALUES (?, ?, ?, ?)
-	            """,Statement.RETURN_GENERATED_KEYS);
+					INSERT INTO san_pham_dat (
+						ma_san_pham,
+						don_gia,
+						so_luong,
+						ma_dat_hang
+					) VALUES (?, ?, ?, ?)
+				""", Statement.RETURN_GENERATED_KEYS);
 	            ps.setDouble(2, sanpham.getGia());
 	            ps.setLong(1, sanpham.getSanPham().getMaSanPham());
 	            ps.setInt(3, sanpham.getSoLuong());

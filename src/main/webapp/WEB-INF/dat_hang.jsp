@@ -46,7 +46,7 @@
               <label class="lua-chon">
                 <input type="radio" name="phuongThucVanChuyen" value="VN_POST" checked />
                 <div class="noi-dung-lua-chon">
-                  <img src="http://www.vnpost.vn/Portals/0/anh%20tin%20tuc/Logo%20VietNam%20Post.jpg" />
+                  <img src="https://upload.wikimedia.org/wikipedia/vi/2/2f/Vietnam_Post_logo.png" />
                 </div>
               </label>
               <label class="lua-chon">
