@@ -1,19 +1,11 @@
 package cf.laptrinhweb.btl.service.impl;
 
-import cf.laptrinhweb.btl.entity.TheLoai;
-import cf.laptrinhweb.btl.model.BanGhiDuLieu;
-import cf.laptrinhweb.btl.model.KhachHangMuaNhieu;
-import cf.laptrinhweb.btl.model.SanPhamMuaNhieu;
-import cf.laptrinhweb.btl.model.TheLoaiMuaNhieu;
-import cf.laptrinhweb.btl.model.ThuongHieuMuaNhieu;
-import cf.laptrinhweb.btl.repository.TheLoaiRepository;
+import cf.laptrinhweb.btl.model.*;
 import cf.laptrinhweb.btl.repository.ThongKeRepository;
-import cf.laptrinhweb.btl.repository.impl.TheLoaiRepositoryImpl;
 import cf.laptrinhweb.btl.repository.impl.ThongKeRepositoryImpl;
 import cf.laptrinhweb.btl.service.DashboardService;
 
 import java.time.LocalDate;
-import java.time.Period;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -24,44 +16,44 @@ public class DashboardServiceImpl implements DashboardService {
     private final ThongKeRepository thongKeRepository = new ThongKeRepositoryImpl();
 
     @Override
-    public Map<String, Object> layThongKeDoanhThu(LocalDate ngayBatDau, LocalDate ngayKetThuc) {
-        List<BanGhiDuLieu> doanhThuTungNgay = layDuLieuDoanhThu(ngayBatDau, ngayKetThuc);
+    public Map<String, Object> layThongKeDoanhThu(GiaiDoan giaiDoan) {
+        List<BanGhiDuLieu> doanhThuTungNgay = layDuLieuDoanhThu(giaiDoan.ngayBatDau(), giaiDoan.ngayKetThuc());
         Map<String, Object> thongKe = new HashMap<>();
         double tongDoanhThu = 0;
         for (BanGhiDuLieu banGhi : doanhThuTungNgay) {
             tongDoanhThu += (Double) banGhi.getGiaTri();
         }
         thongKe.put("tongDoanhThu", tongDoanhThu);
-        thongKe.put("trungBinhDon", thongKeRepository.layGiaTriDonTrungBinh(ngayBatDau, ngayKetThuc));
+        thongKe.put("trungBinhDon", thongKeRepository.layGiaTriDonTrungBinh(giaiDoan.ngayBatDau(), giaiDoan.ngayKetThuc()));
         thongKe.put("doanhThuTungNgay", doanhThuTungNgay);
         return thongKe;
     }
 
     @Override
-    public double tinhTiLeHuyDon(LocalDate ngayBatDau, LocalDate ngayKetThuc) {
-        return thongKeRepository.tinhTiLeHuyDon(ngayBatDau, ngayKetThuc);
+    public double tinhTiLeHuyDon(GiaiDoan giaiDoan) {
+        return thongKeRepository.tinhTiLeHuyDon(giaiDoan.ngayBatDau(), giaiDoan.ngayKetThuc());
     }
-    
-  
 
     @Override
-    public List<SanPhamMuaNhieu> lietKe() {
-        return thongKeRepository.lietKe();
+    public List<SanPhamMuaNhieu> layTopSanPhamBanChay(GiaiDoan giaiDoan) {
+        return thongKeRepository.layTopSanPhamBanChay(giaiDoan.ngayBatDau(), giaiDoan.ngayKetThuc());
     }
     
     @Override
-    public List<KhachHangMuaNhieu> lietKe2() {
-        return thongKeRepository.lietKe2();
+    public List<KhachHangMuaNhieu> layTopKhachMuaNhieu(GiaiDoan giaiDoan) {
+        return thongKeRepository.layTopKhachMuaNhieu(giaiDoan.ngayBatDau(), giaiDoan.ngayKetThuc());
     }
     
     @Override
-    public List<TheLoaiMuaNhieu> lietKe3() {
-    	return thongKeRepository.lietKe3(); 
+    public List<TheLoaiMuaNhieu> layTheLoaiBanChay(GiaiDoan giaiDoan) {
+    	return thongKeRepository.layTheLoaiBanChay(giaiDoan.ngayBatDau(), giaiDoan.ngayKetThuc());
     }
+
     @Override
-    public List<ThuongHieuMuaNhieu> lietKe4() {
-    	return thongKeRepository.lietKe4(); 
+    public List<ThuongHieuMuaNhieu> layThuongHieuBanChay(GiaiDoan giaiDoan) {
+    	return thongKeRepository.layThuongHieuBanChay(giaiDoan.ngayBatDau(), giaiDoan.ngayKetThuc());
     }
+
     private List<BanGhiDuLieu> layDuLieuDoanhThu(LocalDate ngayBatDau, LocalDate ngayKetThuc) {
         Map<LocalDate, Double> duLieuThongKeDuoc = thongKeRepository.thongKeDoanhThu(ngayBatDau, ngayKetThuc);
         List<BanGhiDuLieu> dsDuLieuDayDu = new ArrayList<>();

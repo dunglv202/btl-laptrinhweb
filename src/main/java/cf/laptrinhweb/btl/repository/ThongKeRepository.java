@@ -13,8 +13,8 @@ public interface ThongKeRepository extends JdbcRepository {
     Map<LocalDate, Double> thongKeDoanhThu(LocalDate ngayBatDau, LocalDate ngayKetThuc);
     double layGiaTriDonTrungBinh(LocalDate ngayBatDau, LocalDate ngayKetThuc);
     double tinhTiLeHuyDon(LocalDate ngayBatDau, LocalDate ngayKetThuc);
-    List<SanPhamMuaNhieu> lietKe();
-    List<KhachHangMuaNhieu> lietKe2();
-    List<TheLoaiMuaNhieu> lietKe3();
-    List<ThuongHieuMuaNhieu> lietKe4();
+    List<SanPhamMuaNhieu> layTopSanPhamBanChay(LocalDate ngayBatDau, LocalDate ngayKetThuc);
+    List<KhachHangMuaNhieu> layTopKhachMuaNhieu(LocalDate ngayBatDau, LocalDate ngayKetThuc);
+    List<TheLoaiMuaNhieu> layTheLoaiBanChay(LocalDate ngayBatDau, LocalDate ngayKetThuc);
+    List<ThuongHieuMuaNhieu> layThuongHieuBanChay(LocalDate ngayBatDau, LocalDate ngayKetThuc);
 }

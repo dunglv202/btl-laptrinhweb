@@ -112,17 +112,22 @@ public class ThongKeRepositoryImpl implements ThongKeRepository {
     }
     
     @Override
-    public List<SanPhamMuaNhieu> lietKe() {
+    public List<SanPhamMuaNhieu> layTopSanPhamBanChay(LocalDate ngayBatDau, LocalDate ngayKetThuc) {
         try (Connection ketNoi = moKetNoi()) {
             PreparedStatement ps = ketNoi.prepareStatement("""
                SELECT
             		sum(d.so_luong) AS so_luong_mua, s.ten_san_pham
             	FROM san_pham_dat d
             	JOIN san_pham s ON d.ma_san_pham = s.ma_san_pham
+	            JOIN dat_hang dh ON d.ma_dat_hang = dh.ma_dat_hang
+                WHERE DATE(ngay_dat_hang) >= ? AND DATE(ngay_dat_hang) <= ?
             	GROUP BY d.ma_san_pham, s.ten_san_pham
             	ORDER BY so_luong_mua DESC
             	LIMIT 3
             """);
+            ps.setDate(1, Date.valueOf(ngayBatDau));
+            ps.setDate(2, Date.valueOf(ngayKetThuc));
+
             ResultSet resultSet = ps.executeQuery();
             List<SanPhamMuaNhieu> dsSP = new ArrayList<>();
             int dem = 1;
@@ -139,15 +144,19 @@ public class ThongKeRepositoryImpl implements ThongKeRepository {
         }
     }
     @Override
-    public List<KhachHangMuaNhieu> lietKe2(){
+    public List<KhachHangMuaNhieu> layTopKhachMuaNhieu(LocalDate ngayBatDau, LocalDate ngayKetThuc){
     	  try (Connection ketNoi = moKetNoi()) {
               PreparedStatement ps = ketNoi.prepareStatement("""
-                SELECT n.ten_dang_nhap,n.ten_hien_thi,sum(d.tong_tien) as tt FROM dat_hang d 
-              		JOIN nguoi_dung n ON d.ma_nguoi_dat = n.ma_nguoi_dung
-              		GROUP BY  d.ma_nguoi_dat
-              		ORDER BY tt DESC
-              		LIMIT 3;
+                  SELECT n.ten_dang_nhap,n.ten_hien_thi,sum(d.tong_tien) as tt FROM dat_hang d 
+                  JOIN nguoi_dung n ON d.ma_nguoi_dat = n.ma_nguoi_dung
+                  WHERE DATE(ngay_dat_hang) >= ? AND DATE(ngay_dat_hang) <= ?
+                  GROUP BY  d.ma_nguoi_dat
+                  ORDER BY tt DESC
+                  LIMIT 3;
               """);
+              ps.setDate(1, Date.valueOf(ngayBatDau));
+              ps.setDate(2, Date.valueOf(ngayKetThuc));
+
               ResultSet resultSet = ps.executeQuery();
               List<KhachHangMuaNhieu> dsKH = new ArrayList<>();
               int dem = 1;
@@ -167,17 +176,22 @@ public class ThongKeRepositoryImpl implements ThongKeRepository {
     }
     
     @Override
-    public List<TheLoaiMuaNhieu> lietKe3(){
+    public List<TheLoaiMuaNhieu> layTheLoaiBanChay(LocalDate ngayBatDau, LocalDate ngayKetThuc){
     	  try (Connection ketNoi = moKetNoi()) {
               PreparedStatement ps = ketNoi.prepareStatement("""
-              SELECT tl.ten_the_loai, SUM(spd.so_luong) AS tong_so_luong
-              		FROM the_loai tl
-              		INNER JOIN san_pham sp ON tl.ma_the_loai = sp.ma_the_loai
-              		INNER JOIN san_pham_dat spd ON sp.ma_san_pham = spd.ma_san_pham
-              		GROUP BY tl.ten_the_loai
-              		ORDER BY tong_so_luong DESC
-              		LIMIT 3;
+                  SELECT tl.ten_the_loai, SUM(spd.so_luong) AS tong_so_luong
+                  FROM the_loai tl
+                  INNER JOIN san_pham sp ON tl.ma_the_loai = sp.ma_the_loai
+                  INNER JOIN san_pham_dat spd ON sp.ma_san_pham = spd.ma_san_pham
+                  INNER JOIN dat_hang dh ON spd.ma_dat_hang = dh.ma_dat_hang
+                  WHERE DATE(dh.ngay_dat_hang) >= ? AND DATE(dh.ngay_dat_hang) <= ?
+                  GROUP BY tl.ten_the_loai
+                  ORDER BY tong_so_luong DESC
+                  LIMIT 3;
               """);
+              ps.setDate(1, Date.valueOf(ngayBatDau));
+              ps.setDate(2, Date.valueOf(ngayKetThuc));
+
               ResultSet resultSet = ps.executeQuery();
               List<TheLoaiMuaNhieu> dsTL = new ArrayList<>();
               int dem = 1;
@@ -196,17 +210,22 @@ public class ThongKeRepositoryImpl implements ThongKeRepository {
     }
     
     @Override
-    public List<ThuongHieuMuaNhieu> lietKe4(){
+    public List<ThuongHieuMuaNhieu> layThuongHieuBanChay(LocalDate ngayBatDau, LocalDate ngayKetThuc){
     	  try (Connection ketNoi = moKetNoi()) {
               PreparedStatement ps = ketNoi.prepareStatement("""
               		SELECT th.ten_thuong_hieu, SUM(spd.so_luong) AS tong_so_luong
               		FROM thuong_hieu th
               		INNER JOIN san_pham sp ON th.ma_thuong_hieu = sp.ma_thuong_hieu
               		INNER JOIN san_pham_dat spd ON sp.ma_san_pham = spd.ma_san_pham
+		            INNER JOIN dat_hang dh ON spd.ma_dat_hang = dh.ma_dat_hang
+		            WHERE DATE(dh.ngay_dat_hang) >= ? AND DATE(dh.ngay_dat_hang) <= ?
               		GROUP BY th.ten_thuong_hieu
               		ORDER BY tong_so_luong DESC
               		LIMIT 3;
               """);
+              ps.setDate(1, Date.valueOf(ngayBatDau));
+              ps.setDate(2, Date.valueOf(ngayKetThuc));
+
               ResultSet resultSet = ps.executeQuery();
               List<ThuongHieuMuaNhieu> dsTH = new ArrayList<>();
               int dem = 1;
