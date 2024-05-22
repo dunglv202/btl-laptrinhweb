@@ -1,6 +1,8 @@
+<%@ page import="java.util.Calendar" %>
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 <html>
   <head>
@@ -19,7 +21,39 @@
       <jsp:param name="mucHienTai" value="dashboard"/>
     </jsp:include>
     <main>
-      <h1 style="text-align: center">Thống kê trong 30 ngày gần nhất</h1>
+      <%
+        int namHienTai = Calendar.getInstance().get(Calendar.YEAR);
+      %>
+      <form method="get">
+        <label for="nam">Chọn năm:</label>
+        <select name="nam" id="nam">
+          <c:forEach var="nam" begin="<%=namHienTai - 5%>" end="<%=namHienTai%>">
+            <c:choose>
+              <c:when test="${nam == param.nam}">
+                <option value="${nam}" selected>${nam}</option>
+              </c:when>
+              <c:otherwise>
+                <option value="${nam}">${nam}</option>
+              </c:otherwise>
+            </c:choose>
+          </c:forEach>
+        </select>
+        <label for="thang">Chọn tháng:</label>
+        <select name="thang" id="thang">
+          <c:forEach var="thang" begin="1" end="12">
+            <c:choose>
+              <c:when test="${thang == param.thang}">
+                <option value="${thang}" selected>${thang}</option>
+              </c:when>
+              <c:otherwise>
+                <option value="${thang}">${thang}</option>
+              </c:otherwise>
+            </c:choose>
+          </c:forEach>
+        </select>
+        <button type="submit" class="nut kieu-1">Thống kê</button>
+      </form>
+      <h1 style="text-align: center">Thống kê tháng ${param.thang} năm ${param.nam}</h1>
       <div id="thong-ke-30-ngay-gan-nhat">
         <% request.setAttribute("danhSachDuLieu", request.getAttribute("doanhThuTungNgay")); %>
         <jsp:include page="components/bieu_do.jsp">
