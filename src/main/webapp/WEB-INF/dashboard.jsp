@@ -23,13 +23,18 @@
     <main>
       <%
         int namHienTai = Calendar.getInstance().get(Calendar.YEAR);
+        int thangHienTai = Calendar.getInstance().get(Calendar.MONTH) + 1;
       %>
+      <c:set var="thangHienTai" value="<%=thangHienTai%>"/>
+      <c:set var="namHienTai" value="<%=namHienTai%>"/>
+      <c:set var="namChon" value="${param.nam == null ? namHienTai : param.nam}"/>
+      <c:set var="thangChon" value="${param.thang == null ? thangHienTai : param.thang}"/>
       <form method="get">
         <label for="nam">Chọn năm:</label>
         <select name="nam" id="nam">
           <c:forEach var="nam" begin="<%=namHienTai - 5%>" end="<%=namHienTai%>">
             <c:choose>
-              <c:when test="${nam == param.nam}">
+              <c:when test="${nam == namChon}">
                 <option value="${nam}" selected>${nam}</option>
               </c:when>
               <c:otherwise>
@@ -42,7 +47,7 @@
         <select name="thang" id="thang">
           <c:forEach var="thang" begin="1" end="12">
             <c:choose>
-              <c:when test="${thang == param.thang}">
+              <c:when test="${thang == thangChon}">
                 <option value="${thang}" selected>${thang}</option>
               </c:when>
               <c:otherwise>
@@ -52,7 +57,7 @@
           </c:forEach>
         </select>
         <button type="submit" class="nut kieu-1">Thống kê</button>
-        <a href="${pageContext.request.contextPath}/quan-ly/dashboard/xuat-bao-cao" class="nut kieu-1">Xuất báo cáo</a>
+        <a style="display: inline-block" href="${pageContext.request.contextPath}/quan-ly/dashboard/xuat-bao-cao?thang=${thangChon}&nam=${namChon}" class="nut kieu-1">Xuất báo cáo</a>
       </form>
       <h1 style="text-align: center">Thống kê tháng ${param.thang} năm ${param.nam}</h1>
       <div id="thong-ke-30-ngay-gan-nhat">

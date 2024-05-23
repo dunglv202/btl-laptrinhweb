@@ -17,6 +17,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.List;
@@ -51,7 +52,9 @@ public class XuatBaoCaoController extends HttpServlet {
 //        req.setAttribute("thuongHieuBanChay", dashboardService.layThuongHieuBanChay(giaiDoan));
 
         try (Workbook fileBaoCao = taoFileBaoCao(giaiDoan)) {
-            fileBaoCao.write(resp.getOutputStream());
+            ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+            fileBaoCao.write(byteArrayOutputStream);
+            resp.getOutputStream().write(byteArrayOutputStream.toByteArray());
             resp.setContentType("application/octet-stream");
             resp.setHeader("Content-Disposition", "attachment; filename=bao_cao.xlsx");
         }
@@ -73,6 +76,12 @@ public class XuatBaoCaoController extends HttpServlet {
         hang = sheetTongQuan.createRow(2);
         hang.createCell(0).setCellValue("Tỉ lệ huỷ đơn");
         hang.createCell(1).setCellValue(dashboardService.tinhTiLeHuyDon(giaiDoan));
+
+        Sheet sheetSanPhamBanChay = fileBaoCao.createSheet("Sản phẩm bán chạy");
+        hang = sheetSanPhamBanChay.createRow(0);
+        hang.createCell(0).setCellValue("STT");
+        hang.createCell(1).setCellValue("Tên sản phẩm");
+        hang.createCell(2).setCellValue("Số lượng đã bán");
 
         return fileBaoCao;
     }
