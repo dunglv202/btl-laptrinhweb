@@ -1,9 +1,7 @@
 package cf.laptrinhweb.btl.controller.dashboard;
 
 import cf.laptrinhweb.btl.constant.QuyenNguoiDung;
-import cf.laptrinhweb.btl.model.BanGhiDuLieu;
-import cf.laptrinhweb.btl.model.DanhSachDuLieu;
-import cf.laptrinhweb.btl.model.GiaiDoan;
+import cf.laptrinhweb.btl.model.*;
 import cf.laptrinhweb.btl.service.DashboardService;
 import cf.laptrinhweb.btl.service.impl.DashboardServiceImpl;
 import org.apache.poi.ss.usermodel.Cell;
@@ -82,6 +80,54 @@ public class XuatBaoCaoController extends HttpServlet {
         hang.createCell(0).setCellValue("STT");
         hang.createCell(1).setCellValue("Tên sản phẩm");
         hang.createCell(2).setCellValue("Số lượng đã bán");
+        List<SanPhamMuaNhieu> spBanChay = dashboardService.layTopSanPhamBanChay(giaiDoan);
+        for (int i=0; i<spBanChay.size(); i++) {
+            hang = sheetSanPhamBanChay.createRow(i+1);
+            hang.createCell(0).setCellValue(spBanChay.get(i).getStt());
+            hang.createCell(1).setCellValue(spBanChay.get(i).getTenSanPham());
+            hang.createCell(2).setCellValue(spBanChay.get(i).getSoLuong());
+        }
+
+        Sheet sheetTheLoaiBanChay = fileBaoCao.createSheet("Thể loại bán chạy");
+        hang = sheetTheLoaiBanChay.createRow(0);
+        hang.createCell(0).setCellValue("STT");
+        hang.createCell(1).setCellValue("Tên thể loại");
+        hang.createCell(2).setCellValue("Số lượng đã bán");
+        List<TheLoaiMuaNhieu> theLoaiBanChay = dashboardService.layTheLoaiBanChay(giaiDoan);
+        for (int i=0; i<theLoaiBanChay.size(); i++) {
+            hang = sheetTheLoaiBanChay.createRow(i+1);
+            hang.createCell(0).setCellValue(theLoaiBanChay.get(i).getStt());
+            hang.createCell(1).setCellValue(theLoaiBanChay.get(i).getTenTheLoai());
+            hang.createCell(2).setCellValue(theLoaiBanChay.get(i).getSoLuong());
+        }
+
+        Sheet sheetThuongHieuBanChay = fileBaoCao.createSheet("Thương hiệu bán chạy");
+        hang = sheetThuongHieuBanChay.createRow(0);
+        hang.createCell(0).setCellValue("STT");
+        hang.createCell(1).setCellValue("Tên thương hiệu");
+        hang.createCell(2).setCellValue("Số lượng đã bán");
+        List<ThuongHieuMuaNhieu> thuongHieuBanChay = dashboardService.layThuongHieuBanChay(giaiDoan);
+        for (int i=0; i<thuongHieuBanChay.size(); i++) {
+            hang = sheetThuongHieuBanChay.createRow(i+1);
+            hang.createCell(0).setCellValue(thuongHieuBanChay.get(i).getStt());
+            hang.createCell(1).setCellValue(thuongHieuBanChay.get(i).getTenThuongHieu());
+            hang.createCell(2).setCellValue(thuongHieuBanChay.get(i).getSoLuong());
+        }
+
+        Sheet sheetKhachHangMuaNhieu = fileBaoCao.createSheet("Khách hàng mua nhiều");
+        hang = sheetKhachHangMuaNhieu.createRow(0);
+        hang.createCell(0).setCellValue("STT");
+        hang.createCell(1).setCellValue("Tên đăng nhập");
+        hang.createCell(2).setCellValue("Tên hiển thị");
+        hang.createCell(3).setCellValue("Lượng mua");
+        List<KhachHangMuaNhieu> khachMuaNhieu = dashboardService.layTopKhachMuaNhieu(giaiDoan);
+        for (int i=0; i<khachMuaNhieu.size(); i++) {
+            hang = sheetKhachHangMuaNhieu.createRow(i+1);
+            hang.createCell(0).setCellValue(khachMuaNhieu.get(i).getStt());
+            hang.createCell(1).setCellValue(khachMuaNhieu.get(i).getTenDangNhap());
+            hang.createCell(2).setCellValue(khachMuaNhieu.get(i).getTenHienThi());
+            hang.createCell(3).setCellValue(khachMuaNhieu.get(i).getTongTien());
+        }
 
         return fileBaoCao;
     }
