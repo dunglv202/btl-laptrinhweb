@@ -97,6 +97,13 @@
       <version>${jjwt.version}</version>
       <scope>runtime</scope>
     </dependency>
+
+    <!--  WORKING WITH EXCEL, OFFICE DOCUMENTS  -->
+    <dependency>
+      <groupId>org.apache.poi</groupId>
+      <artifactId>poi-ooxml</artifactId>
+      <version>5.2.5</version>
+    </dependency>
   </dependencies>
 
   <build>

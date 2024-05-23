@@ -52,6 +52,7 @@
           </c:forEach>
         </select>
         <button type="submit" class="nut kieu-1">Thống kê</button>
+        <a href="${pageContext.request.contextPath}/quan-ly/dashboard/xuat-bao-cao" class="nut kieu-1">Xuất báo cáo</a>
       </form>
       <h1 style="text-align: center">Thống kê tháng ${param.thang} năm ${param.nam}</h1>
       <div id="thong-ke-30-ngay-gan-nhat">
@@ -193,8 +194,6 @@
             </table>
           </div>
         </div>
-        </div>
-        
       </div>
     </main>
   </body>

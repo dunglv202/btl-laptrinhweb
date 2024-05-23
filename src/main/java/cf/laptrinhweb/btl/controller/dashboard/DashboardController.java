@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
 
@@ -27,8 +28,12 @@ public class DashboardController extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         yeuCauQuyen(req, List.of(QuyenNguoiDung.QUAN_LY));
 
-        int nam = Integer.parseInt(req.getParameter("nam"));
-        int thang = Integer.parseInt(req.getParameter("thang"));
+        int nam = req.getParameter("nam") != null
+                ? Integer.parseInt(req.getParameter("nam"))
+                : LocalDate.now().getYear();
+        int thang = req.getParameter("thang") != null
+                ? Integer.parseInt(req.getParameter("thang"))
+                : LocalDate.now().getMonthValue();
         GiaiDoan giaiDoan = new GiaiDoan(nam, thang);
 
         Map<String, Object> thongKeDoanhThu = dashboardService.layThongKeDoanhThu(giaiDoan);
