@@ -60,34 +60,47 @@
         <a style="display: inline-block" href="${pageContext.request.contextPath}/quan-ly/dashboard/xuat-bao-cao?thang=${thangChon}&nam=${namChon}" class="nut kieu-1">Xuất báo cáo</a>
       </form>
       <h1 style="text-align: center">Thống kê tháng ${param.thang} năm ${param.nam}</h1>
-      <div id="thong-ke-30-ngay-gan-nhat">
+      <div id="cac-bieu-do">
         <% request.setAttribute("danhSachDuLieu", request.getAttribute("doanhThuTungNgay")); %>
-        <jsp:include page="components/bieu_do.jsp">
-          <jsp:param name="loaiBieuDo" value="bar"/>
-          <jsp:param name="idBieuDo" value="bieu-do-doanh-thu-30-ngay"/>
-        </jsp:include>
+        <div class="bieu-do-doanh-thu-30-ngay">
+          <jsp:include page="components/bieu_do.jsp">
+            <jsp:param name="loaiBieuDo" value="bar"/>
+            <jsp:param name="idBieuDo" value="bieu-do-doanh-thu-30-ngay"/>
+          </jsp:include>
+        </div>
+        <% request.setAttribute("danhSachDuLieu", request.getAttribute("soDonTungNgay")); %>
+        <div class="bieu-do-so-don">
+          <jsp:include page="components/bieu_do.jsp">
+            <jsp:param name="loaiBieuDo" value="line"/>
+            <jsp:param name="idBieuDo" value="bieu-do-so-don"/>
+          </jsp:include>
+        </div>
         <% request.setAttribute("danhSachDuLieu", request.getAttribute("tiLeHuyDon")); %>
-        <jsp:include page="components/bieu_do.jsp">
-          <jsp:param name="loaiBieuDo" value="doughnut"/>
-          <jsp:param name="idBieuDo" value="bieu-do-ti-le-don"/>
-        </jsp:include>
-        <div class="thong-ke">
-          <div>
-            <h2 class="tieu-de">Tổng doanh thu</h2>
-            <div class="gia-tri tien-te">
-              <fmt:formatNumber value = "${tongDoanhThu}"
-                                type = "currency"/>
-            </div>
+        <div class="bieu-do-ti-le-don">
+          <jsp:include page="components/bieu_do.jsp">
+            <jsp:param name="loaiBieuDo" value="doughnut"/>
+            <jsp:param name="idBieuDo" value="bieu-do-ti-le-don"/>
+          </jsp:include>
+        </div>
+      </div>
+
+      <div class="thong-ke">
+        <div>
+          <h2 class="tieu-de">Tổng doanh thu</h2>
+          <div class="gia-tri tien-te">
+            <fmt:formatNumber value = "${tongDoanhThu}"
+                              type = "currency"/>
           </div>
-          <div>
-            <h2 class="tieu-de">Giá trị trung bình đơn hàng</h2>
-            <div class="gia-tri tien-te">
-              <fmt:formatNumber value = "${trungBinhDon}"
-                                type = "currency"/>
-            </div>
+        </div>
+        <div>
+          <h2 class="tieu-de">Giá trị trung bình đơn hàng</h2>
+          <div class="gia-tri tien-te">
+            <fmt:formatNumber value = "${trungBinhDon}"
+                              type = "currency"/>
           </div>
         </div>
       </div>
+
       <hr/>
 
       <%-- THONG KE SAN PHAM --%>

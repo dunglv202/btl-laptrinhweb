@@ -250,4 +250,34 @@ public class ThongKeRepositoryImpl implements ThongKeRepository {
               throw new RuntimeException("Thuong hieu moi", e);
           }
     }
+
+    @Override
+    public Map<LocalDate, Double> thongKeSoDon(LocalDate ngayBatDau, LocalDate ngayKetThuc) {
+        try (Connection ketNoi = moKetNoi()) {
+            PreparedStatement ps = ketNoi.prepareStatement("""
+                SELECT
+                	DATE(ngay_dat_hang) AS ngay_dat,
+                    COUNT(*) AS so_don
+                FROM dat_hang
+                WHERE
+                    trang_thai <> ?
+                	AND DATE(ngay_dat_hang) >= ?
+                    AND DATE(ngay_dat_hang) <= ?
+                GROUP BY ngay_dat;
+            """);
+            ps.setInt(1, TrangThaiDon.DA_HUY.getGiaTri());
+            ps.setDate(2, Date.valueOf(ngayBatDau));
+            ps.setDate(3, Date.valueOf(ngayKetThuc));
+            ResultSet resultSet = ps.executeQuery();
+            Map<LocalDate, Double> cacThongKe = new HashMap<>();
+            while (resultSet.next()) {
+                LocalDate ngayDuocThongKe = resultSet.getDate("ngay_dat").toLocalDate();
+                Double tongDoanhThu = resultSet.getDouble("so_don");
+                cacThongKe.put(ngayDuocThongKe, tongDoanhThu);
+            }
+            return cacThongKe;
+        } catch (Exception e) {
+            throw new RuntimeException("Khong the lay du lieu thong ke doanh thu", e);
+        }
+    }
 }

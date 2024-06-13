@@ -49,6 +49,10 @@ public class DashboardController extends HttpServlet {
             .tenDanhSach("Tỉ lệ đơn hủy/thành công")
             .danhSachDuLieu(dashboardService.thongKeTrangThaiDon(giaiDoan))
             .build());
+        req.setAttribute("soDonTungNgay", DanhSachDuLieu.builder()
+            .tenDanhSach("Số lượng đơn (không tính đơn hủy)")
+            .danhSachDuLieu(dashboardService.thongKeSoDonTungNgay(giaiDoan))
+            .build());
         req.setAttribute("topMuaNhieu",dashboardService.layTopKhachMuaNhieu(giaiDoan) );
         req.setAttribute("topBanChay", dashboardService.layTopSanPhamBanChay(giaiDoan));
         req.setAttribute("theLoaiBanChay", dashboardService.layTheLoaiBanChay(giaiDoan));

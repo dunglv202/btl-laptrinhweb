@@ -14,4 +14,5 @@ public interface ThongKeRepository extends JdbcRepository {
     List<KhachHangMuaNhieu> layTopKhachMuaNhieu(LocalDate ngayBatDau, LocalDate ngayKetThuc);
     List<TheLoaiMuaNhieu> layTheLoaiBanChay(LocalDate ngayBatDau, LocalDate ngayKetThuc);
     List<ThuongHieuMuaNhieu> layThuongHieuBanChay(LocalDate ngayBatDau, LocalDate ngayKetThuc);
+    Map<LocalDate, Double> thongKeSoDon(LocalDate ngayBatDau, LocalDate ngayKetThuc);
 }

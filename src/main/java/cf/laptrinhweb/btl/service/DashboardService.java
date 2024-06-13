@@ -12,4 +12,5 @@ public interface DashboardService {
     List<TheLoaiMuaNhieu> layTheLoaiBanChay(GiaiDoan giaiDoan);
     List<ThuongHieuMuaNhieu> layThuongHieuBanChay(GiaiDoan giaiDoan);
     Map<String, Object> layThongKeDoanhThu(GiaiDoan giaiDoan);
+    List<BanGhiDuLieu> thongKeSoDonTungNgay(GiaiDoan giaiDoan);
 }
