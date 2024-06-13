@@ -14,6 +14,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -43,7 +45,10 @@ public class DashboardController extends HttpServlet {
             .tenDanhSach("Biểu đồ doanh thu")
             .danhSachDuLieu((List<BanGhiDuLieu>) thongKeDoanhThu.get("doanhThuTungNgay"))
             .build());
-        req.setAttribute("tiLeHuyDon", dashboardService.tinhTiLeHuyDon(giaiDoan));
+        req.setAttribute("tiLeHuyDon", DanhSachDuLieu.builder()
+            .tenDanhSach("Tỉ lệ đơn hủy/thành công")
+            .danhSachDuLieu(dashboardService.thongKeTrangThaiDon(giaiDoan))
+            .build());
         req.setAttribute("topMuaNhieu",dashboardService.layTopKhachMuaNhieu(giaiDoan) );
         req.setAttribute("topBanChay", dashboardService.layTopSanPhamBanChay(giaiDoan));
         req.setAttribute("theLoaiBanChay", dashboardService.layTheLoaiBanChay(giaiDoan));

@@ -9,22 +9,20 @@
   </div>
 </div>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
 <script>
-  const ctx = document.getElementById("${param.get('idBieuDo')}").getContext("2d");
+  var ctx = document.getElementById("${param.get('idBieuDo')}").getContext("2d");
 
-  const thietLap = {
-    type: "bar",
+  var thietLap = {
+    type: "${param.get("loaiBieuDo")}",
     data: {
+      labels: [
+        <c:forEach var="banGhi" items="${danhSachDuLieu.danhSachDuLieu}">"${banGhi.nhan}",</c:forEach>
+      ],
       datasets: [
         {
           data: [
-            <c:forEach var="banGhi" items="${danhSachDuLieu.danhSachDuLieu}">
-            {
-              x: "${banGhi.nhan}",
-              y: ${banGhi.giaTri},
-            },
-            </c:forEach>
+            <c:forEach var="banGhi" items="${danhSachDuLieu.danhSachDuLieu}">${banGhi.giaTri},</c:forEach>
           ],
           backgroundColor: "#48cab232",
           borderColor: "#48cab2",
@@ -46,5 +44,5 @@
       },
     },
   };
-  const myChart = new Chart(ctx, thietLap);
+  var myChart = new Chart(ctx, thietLap);
 </script>

@@ -4,7 +4,6 @@ import cf.laptrinhweb.btl.constant.QuyenNguoiDung;
 import cf.laptrinhweb.btl.model.*;
 import cf.laptrinhweb.btl.service.DashboardService;
 import cf.laptrinhweb.btl.service.impl.DashboardServiceImpl;
-import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
@@ -20,7 +19,6 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 
 import static cf.laptrinhweb.btl.helper.HoTroXacThuc.yeuCauQuyen;
 
@@ -70,10 +68,6 @@ public class XuatBaoCaoController extends HttpServlet {
         hang = sheetTongQuan.createRow(1);
         hang.createCell(0).setCellValue("Giá trị trung bình đơn hàng");
         hang.createCell(1).setCellValue((Double) thongKeDoanhThu.get("trungBinhDon"));
-
-        hang = sheetTongQuan.createRow(2);
-        hang.createCell(0).setCellValue("Tỉ lệ huỷ đơn");
-        hang.createCell(1).setCellValue(dashboardService.tinhTiLeHuyDon(giaiDoan));
 
         Sheet sheetSanPhamBanChay = fileBaoCao.createSheet("Sản phẩm bán chạy");
         hang = sheetSanPhamBanChay.createRow(0);

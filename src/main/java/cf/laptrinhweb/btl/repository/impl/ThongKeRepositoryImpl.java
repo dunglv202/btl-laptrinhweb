@@ -1,11 +1,7 @@
 package cf.laptrinhweb.btl.repository.impl;
 
-import cf.laptrinhweb.btl.constant.TinhTrangDon;
 import cf.laptrinhweb.btl.constant.TrangThaiDon;
-import cf.laptrinhweb.btl.model.KhachHangMuaNhieu;
-import cf.laptrinhweb.btl.model.SanPhamMuaNhieu;
-import cf.laptrinhweb.btl.model.TheLoaiMuaNhieu;
-import cf.laptrinhweb.btl.model.ThuongHieuMuaNhieu;
+import cf.laptrinhweb.btl.model.*;
 import cf.laptrinhweb.btl.repository.ThongKeRepository;
 
 import java.sql.Connection;
@@ -73,27 +69,35 @@ public class ThongKeRepositoryImpl implements ThongKeRepository {
     }
 
     @Override
-    public double tinhTiLeHuyDon(LocalDate ngayBatDau, LocalDate ngayKetThuc) {
+    public TiLeDonHuy tinhTiLeHuyDon(LocalDate ngayBatDau, LocalDate ngayKetThuc) {
         try (Connection ketNoi = moKetNoi()) {
             PreparedStatement ps = ketNoi.prepareStatement("""
                 SELECT
-                	COUNT(*) AS tong_so_don_huy
+                	COUNT(*) AS tong_so
                 FROM dat_hang
                 WHERE
                     dat_hang.trang_thai = ?
                 	AND DATE(ngay_dat_hang) >= ?
                     AND DATE(ngay_dat_hang) <= ?
             """);
+
             ps.setInt(1, TrangThaiDon.DA_HUY.getGiaTri());
             ps.setDate(2, Date.valueOf(ngayBatDau));
             ps.setDate(3, Date.valueOf(ngayKetThuc));
             ResultSet resultSet = ps.executeQuery();
             resultSet.next();
-            int tongSoDon = resultSet.getInt("tong_so_don_huy");
+            int soDonHuy = resultSet.getInt("tong_so");
+
+            ps.setInt(1, TrangThaiDon.HOAN_TAT.getGiaTri());
+            ps.setDate(2, Date.valueOf(ngayBatDau));
+            ps.setDate(3, Date.valueOf(ngayKetThuc));
+            resultSet = ps.executeQuery();
+            resultSet.next();
+            int soDonThanhCong = resultSet.getInt("tong_so");
 
             ps = ketNoi.prepareStatement("""
                 SELECT
-                	COUNT(*) AS tong_so_don
+                	COUNT(*) AS tong_so
                 FROM dat_hang
                 WHERE
                 	DATE(ngay_dat_hang) >= ?
@@ -103,9 +107,13 @@ public class ThongKeRepositoryImpl implements ThongKeRepository {
             ps.setDate(2, Date.valueOf(ngayKetThuc));
             resultSet = ps.executeQuery();
             resultSet.next();
-            int soDonHuy = resultSet.getInt("tong_so_don");
+            int tongSoDon = resultSet.getInt("tong_so");
 
-            return (double) tongSoDon / soDonHuy;
+            return TiLeDonHuy.builder()
+                .soDonHuy(soDonHuy)
+                .soDonThanhCong(soDonThanhCong)
+                .conLai(tongSoDon - soDonHuy - soDonThanhCong)
+                .build();
         } catch (Exception e) {
             throw new RuntimeException("Khong the tinh toan ti le huy don", e);
         }

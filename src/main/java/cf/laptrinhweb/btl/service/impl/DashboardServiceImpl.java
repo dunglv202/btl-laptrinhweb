@@ -7,10 +7,7 @@ import cf.laptrinhweb.btl.service.DashboardService;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class DashboardServiceImpl implements DashboardService {
     private final ThongKeRepository thongKeRepository = new ThongKeRepositoryImpl();
@@ -30,8 +27,14 @@ public class DashboardServiceImpl implements DashboardService {
     }
 
     @Override
-    public double tinhTiLeHuyDon(GiaiDoan giaiDoan) {
-        return thongKeRepository.tinhTiLeHuyDon(giaiDoan.ngayBatDau(), giaiDoan.ngayKetThuc());
+    public List<BanGhiDuLieu> thongKeTrangThaiDon(GiaiDoan giaiDoan) {
+        TiLeDonHuy tiLeDonHuy = thongKeRepository.tinhTiLeHuyDon(giaiDoan.ngayBatDau(), giaiDoan.ngayKetThuc());
+
+        return Arrays.asList(
+            new BanGhiDuLieu("Đơn hủy", tiLeDonHuy.getSoDonHuy()),
+            new BanGhiDuLieu("Đơn thành công", tiLeDonHuy.getSoDonThanhCong()),
+            new BanGhiDuLieu("Khác", tiLeDonHuy.getConLai())
+        );
     }
 
     @Override

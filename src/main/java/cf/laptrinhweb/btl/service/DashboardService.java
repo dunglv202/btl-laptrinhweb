@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 public interface DashboardService {
-    double tinhTiLeHuyDon(GiaiDoan giaiDoan);
+    List<BanGhiDuLieu> thongKeTrangThaiDon(GiaiDoan giaiDoan);
     List<SanPhamMuaNhieu> layTopSanPhamBanChay(GiaiDoan giaiDoan);
     List<KhachHangMuaNhieu> layTopKhachMuaNhieu(GiaiDoan giaiDoan);
     List<TheLoaiMuaNhieu> layTheLoaiBanChay(GiaiDoan giaiDoan);

@@ -63,7 +63,13 @@
       <div id="thong-ke-30-ngay-gan-nhat">
         <% request.setAttribute("danhSachDuLieu", request.getAttribute("doanhThuTungNgay")); %>
         <jsp:include page="components/bieu_do.jsp">
+          <jsp:param name="loaiBieuDo" value="bar"/>
           <jsp:param name="idBieuDo" value="bieu-do-doanh-thu-30-ngay"/>
+        </jsp:include>
+        <% request.setAttribute("danhSachDuLieu", request.getAttribute("tiLeHuyDon")); %>
+        <jsp:include page="components/bieu_do.jsp">
+          <jsp:param name="loaiBieuDo" value="doughnut"/>
+          <jsp:param name="idBieuDo" value="bieu-do-ti-le-don"/>
         </jsp:include>
         <div class="thong-ke">
           <div>
@@ -78,14 +84,6 @@
             <div class="gia-tri tien-te">
               <fmt:formatNumber value = "${trungBinhDon}"
                                 type = "currency"/>
-            </div>
-          </div>
-          <div>
-            <h2 class="tieu-de">Tỉ lệ huỷ đơn</h2>
-            <div class="gia-tri">
-              <fmt:formatNumber type = "percent"
-                                maxIntegerDigits="3"
-                                value = "${tiLeHuyDon}" />
             </div>
           </div>
         </div>
